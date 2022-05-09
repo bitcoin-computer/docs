@@ -1,6 +1,6 @@
 # Docs
 
-This is a paragraph.
+This is a  updated paragraph.
 
 Both [internal](README.md) and [external](https://example.com) links work.
 
