@@ -2,135 +2,188 @@
 order: -30
 ---
 
-# Tutorial
+# Bitcoin Computer Library Tutorial
 
-This tutorial explains how smart objects can be created and updated on the Bitcoin blockchain, and how multiple users can synchronize to the same smart object.
+This tutorial explains how to build an encrypted blockchain-based chat.
 
 ## The Computer Object
 
-The first step is to create an object computer from the Bitcoin Computer npm package.
-import { Computer } from 'bitcoin-computer'
+The first step is to create an object ``computer`` from ``bitcoin-computer-lib``. The ``computer`` object is a wallet that can build and broadcast Bitcoin transactions that encode smart object creations and updates. You can pass in a [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) seed phrase to initialize the wallet (you can  generate a seed phrase [here](https://iancoleman.io/bip39/)).
 
 ```javascript
-const computer = new Computer({
-  seed, // defaults to a random BIP39 mnemonic
-  chain, // currently only 'LTC'
-  network, // 'mainnet', 'testnet', or 'regtest', defaults to 'testnet'
-  path // BIP32 path, defaults to "m/44'/0'/0'/0"
-})
+import { Computer } from 'bitcoin-computer-lib'
+
+const seed = 'replace this seed' // a BIP39 pass phrase
+const computer = new Computer({ seed })
 ```
 
----
+By default a ``computer`` object is configured to connect to Litecoin testnet through a publicly available [Bitcoin Computer Node](https://npmjs.com/package/bitcoin-computer-node). See Section Api for details on the configuration options.
 
-All keys are optional. You can generate a fresh BIP39 seed phrase using a seed phrase generator.
+## Smart Contracts
 
-## Creating a Smart Object
+Every Javascript (ES6) class is a smart contract. For example, a smart contract for a chat could be:
 
 ```javascript
-A smart contract is a Javascript class.
-class Counter {
-  constructor(n) {
-    this.n = n
+class Chat {
+  constructor(message) {
+    this.messages = [message]
   }
-  inc() {
-    this.n += 1
+
+  post(message) {
+    this.messages.push(message)
   }
 }
 ```
 
-The ``new()`` method of the computer object creates a smart object from a Javascript class and an array of arguments for the constructor. A Bitcoin transaction is broadcast to record the creation of the object.
+## Smart Objects
+
+A smart object is a Javascript object that is stored on the Bitcoin blockchain. The ``computer.new()`` method inputs a class and an array of arguments for the constructor of the class and returns a smart object from the class.
 
 ```javascript
-const counter = await computer.new(Counter, [2])
+> a = await computer.new(Chat, ['Hi'])
+Chat {
+  _id: '667c...2357/0',
+  _rev: '37e4...18e2/1',
+  _root: '0728...ddbe/6',
+  messages: ['Hi']
+}
 ```
 
-Every smart object has a property _id that is set to the output on the Bitcoin blockchain that records the creation of the smart object. This id remains fixed throughout the lifecycle of the object.
+When a smart object ``a`` is created a Bitcoin transaction is broadcast that records the creation of ``a``. One of the outputs of the transaction is the immutable representation of the smart object on the blockchain. This output is called the *location* of ``a``.
+
+### Object Identity
+
+Each smart object ``a`` has a unique *identity* ``a._id`` that remains fixed throughout the lifecycle of the object. This identity is the transaction id and the output number of the location of ``a``.
+
+### Object Revision
+
+Each smart object ``a`` has a *revision* ``a._rev`` that is changed every time the object is updated. Each version of a smart object has a unique identifier that can be used to recover every previous version of ``a``.
+### Object Root
+
+Each smart object ``a`` has a *root* ``a._root``. For a smart object ``a`` created with ``computer.new`` the root ``a._root`` of ``a`` is equal to ``a._id``. However smart objects can also be created inside a constructor or function call on another smart object ``b``. In this case the root of ``a`` is the root of ``b``.
 
 ## Updating a Smart Object
 
-A smart object can be updated by calling one of its functions. When a smart object is updated a transaction is broadcast that records the state change. It is therefore necessary to ``await`` on function calls.
-!!!
-When a smart object is updated a transaction is broadcast that records the state change. It is therefore necessary to awaiton function calls.
-!!!
+Smart objects can be updated through function calls (it is not possible to assign to a property of a smart object directly). When a function is called, a transaction is broadcast that spends the output representing the smart object before the function call and creates a new unspent output (utxo) representing the object after the function call. Note that is necessary to ``await`` on function calls as broadcasting a transaction is an asynchronous operation.
 
 ```javascript
-await counter.inc()
+await a.post('Hi!')
 ```
 
-A new output is created that stores the new revision of the smart object. The property counter._rev.is set to the output that stores the latest revision.
-
-## Reading a Smart Object
-
-The ``computer.sync()` method returns a smart object given a revision. This allows one user to create a smart object, send the revision of the smart object to another user, and the second user can synchronize to the same object. For example a user Alice could run the following code
-
-```javascript
-import { Computer } from 'bitcoin-computer-lib'
-
-const computerA = new Computer({ seed: 'seed phrase of Alice' })
-const counterA = await computerA.new(Counter, [2])
-
-console.log(counterA._rev)
-// logs 'ac445f8aa0e6503cf2e...03cf2e/0'
-```
-
-Next, Alice sends the revision ``ac445f8aa0e6503cf2e...03cf2e/0`` to her friend Bob. Bob can create an instance of the same smart object on his local machine.
-
-```javascript
-import { Computer } from 'bitcoin-computer-lib'
-
-const computerB = new Computer({ seed: 'seed phrase of Bob'})
-const revision = 'ac445f8aa0e6503cf2e...03cf2e:0'
-
-const counterB = await computerB.sync(revision)
-```
-
-At this point, both Alice and Bob both have a local instance of the same smart object. Additionally, there is an instance of the counter object that is stored in the blockchain. The instance on the blockchain is the global source of truth. If either user has permission to updates the object the other user can recompute the state of the object so that both remain in consensus. Consider, for example, that Alice calls the inc function on her local machine:
-
-```javascript
-await counterA.inc()
-```
-
-The object on Alice's computer updates the counter to 1. Next, the update is recorded on the blockchain in a transaction. Finally, Bob can sync to the latest revision of the object to compute its latest state. Bob can obtain the latest revision if he knows the owner of the smart object. This concept is explained in the next section.
-
----
+ It is important to note that a user can only call a function of a smart object ``a`` if that user can spend the output that stores the current state of ``a``. This is the basis of the security model of the Bitcoin Computer.
 
 ## Data Ownership
-Every smart object has a property ``_owners`` that can be set as a list of public key strings. A smart object can only be updated by a user whose public key is in the ``_owners`` array. Specifically, a smart object can only be updated if it was created by a computer instance (either by computer.new or computer.sync ) that contains a mnemonic that corresponds to a public key in the current ``_owners`` property.
-The ``_owners`` property can be set in a constructor call and updated in a function call. If no ``_owners`` property is specified, it defaults to a singleton array containing the public key of the current computer object.
-The following example shows how the ``_owners`` property can be assigned in construction and function calls.
 
-```javascript
-class OwnedCounter {
-  constructor(n, pKey) {
-    this.n = n
-    this._owners = [pKey]
-  }
-  inc(pKey) {
-    this.n += 1
-    this._owners = [pKey]
+Every smart object ``a`` contains an array ``a._owners`` of public key strings. This array can be used to restrict write access to the smart object: in order to call a function on ``a`` a user needs a private key matching one of the public keys in the ``a._owners`` array.
+
+It is possible to reassign the ``a._owners`` property to change the ownership of ``a``. If the property is not assigned in function calls it is unchanged and in constructor calls it defaults to the public key of the ``computer`` object that created ``a``.
+
+For example, in our chat, only the user that created the chat can post initially. However, we can add an invite function to the chat to allow other users to post.
+
+```js
+class Chat {
+  ... // from above
+
+  invite(pubKeyString) {
+    this._owners.push(pubKeyString)
   }
 }
 ```
 
-In the following example Alice can call the inc function but Bob cannot:
+## Encryption
 
+By default the state of all smart objects is publicly visible. However, every smart object ``a`` has a property ``a._readers`` that can be used to restrict read access to ``a``. If ``a._readers`` is set, the meta data of the current revision is encrypted so that only the specified readers can decrypt it. If the ``a._readers`` is not assigned, it remains unchanged in function calls and defaults to the public key of the computer object that created ``a``.
 
-```javascript
-await counterA.inc()
-// works
+For example, if we want to ensure that only people invited to the chat can read the messages, we can update our example code as follows:
 
-await counterB.inc()
-// throws an error
-> Communication Error
-> status  400 Bad Request
-> message 16: mandatory-script-verify-flag-failed
->   (Operation not valid with the current stack size). Code:-26
+```js
+class Chat {
+  // ... as above
+
+  invite(pubKey) {
+    this._owners.push(pubKey)
+    this._readers.push(pubKey)
+  }
+}
 ```
 
-## Money
+A user can (only) read the state of a smart object if they have read access to the current and all previous versions of the object. It is therefore not possible to revoke access from smart objects that has already been granted. It is however possible to remove a user's ability to read the state of a smart object from a point in time forwards.
 
-A smart object can store an amount of Bitcoin. The amount of Bitcoin, denominated in satoshi, is set through the _amount property. The Bitcoin is owned by the owners of the object, and each owner can send the Bitcoin to another user (like themselves).
-As an example consider the class Wallet below.
+Both encryption and decryption happens securely in user's browsers. We note that while all smart contract data is encrypted flows of money are not obfuscated in order to not hinder anti money laundering efforts.
+
+## Finding Smart Objects
+
+The process of reading the current stat of a smart objects ``a`` consists of two steps: finding the latest revision of ``a`` and synchronizing to the revision (synchronizing will  be described in the next Section).
+
+### Querying by Ownership
+
+The ``computer.queryRevs()`` method returns an array of all revisions that satisfy certain conditions as specified in the parameter. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
+
+```js
+const revs1 = await computer.queryRevs({ pubKey })
+const revs2 = await computer.queryRevs({ contractHash })
+const revs3 = await computer.queryRevs({ pubKey, contractHash })
+```
+
+### Querying by Identity
+
+It is often convenient to refer a smart object by its identity. In order to synchronize to the latest version of the object its latest revision is needed. The ``computer.getLatestRevs()`` function returns the latest revision of a given id.
+
+```js
+const [rev] = await computer.getLatestRevs([id])
+```
+Multiple ids can be passed in and their revisions will be returned in order.
+
+## Synchronizing to a Smart Object
+
+The ``computer.sync()`` method returns a smart object given a revision.
+
+```js
+const b = await computer.sync(rev)
+```
+
+In the example of our decentralized chat, a user could first synchronize to the chat to read the messages. If the user is an owner the user can post a message.
+
+```js
+const [rev] = await computer.queryRevs({ className: 'Chat' })
+const chat = await computer.sync(rev)
+await chat.post('Hello')
+```
+
+
+## Off-Chain Storage
+
+It is sometimes not the best choice to store data on chain. For example if the data is big it might be too expensive. Other data, like personal data, should never be stored on chain, not even encrypted, in order to comply with end user privacy regulation such as CCPA and GDPR.
+
+Each smart object ``a`` has a property ``a._url`` that can be set to the url of a Bitcoin Computer Node. When this property is set the meta data that encodes an update is not stored on the blockchain but on the Bitcoin Computer Node at the given url. The blockchain contains only the hash of the meta data and a link to where the data can be obtained from.
+
+For example, if we want to allow users to send images to the chat that are too large to be stored on chain, we can make use of the off-chain solution:
+
+```js
+class Chat {
+  // ... as above
+
+  post(message) {
+    this._url = null
+    this.messages.push(message)
+  }
+
+  postPic(picBuf) {
+    this._url = 'https://my.bc.node.example.com'
+    this.messages.push(picBuf)
+  }
+}
+```
+
+The meta data for that specific call will be stored on the Bitcoin Computer Node at ``https://my.node.example.com``. The only data that is stored on the blockchain is the url and the hash of the data. The cost of calling ``postPic`` is therefore independent of the size of ``picBuf``.
+
+## Sending and Storing Cryptocurrency
+
+Each smart object ``a`` can store an amount of cryptocurrency ``a._amount``. The cryptocurrency is owned by the owners of the object, and each owner can send the Bitcoin to another user by reassigning the ``a._owners`` property.
+
+
+
+<!--As an example consider the class Wallet below.
 
 ```javascript
 class Wallet {
@@ -159,3 +212,4 @@ const pKeyB = computerB.db.wallet.getPublicKey().toString()
 
 await wallet.send(20000, pKeyB)
 ```
+-->
