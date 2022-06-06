@@ -3,36 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.3.0.707792947935">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 2.2">
+    <meta name="generator" content="Retype 2.3.0">
 
     <!-- Primary Meta Tags -->
-    <title>Tutorial</title>
-    <meta name="title" content="Tutorial">
-    <meta name="description" content="This tutorial explains how smart objects can be created and updated on the Bitcoin blockchain, and how multiple users can synchronize to the same..." />
+    <title>Bitcoin Computer Library Tutorial</title>
+    <meta name="title" content="Bitcoin Computer Library Tutorial">
+    <meta name="description" content="This tutorial explains how to build an encrypted blockchain-based chat." />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="/tutorial/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="/tutorial/">
-    <meta property="og:title" content="Tutorial">
-    <meta property="og:description" content="This tutorial explains how smart objects can be created and updated on the Bitcoin blockchain, and how multiple users can synchronize to the same...">
+    <meta property="og:title" content="Bitcoin Computer Library Tutorial">
+    <meta property="og:description" content="This tutorial explains how to build an encrypted blockchain-based chat.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/tutorial/">
-    <meta property="twitter:title" content="Tutorial">
-    <meta property="twitter:description" content="This tutorial explains how smart objects can be created and updated on the Bitcoin blockchain, and how multiple users can synchronize to the same...">
+    <meta property="twitter:title" content="Bitcoin Computer Library Tutorial">
+    <meta property="twitter:description" content="This tutorial explains how to build an encrypted blockchain-based chat.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/resources/css/retype.css?v=2.2.705431028437" rel="stylesheet" data-turbo-track="reload" />
+    <link href="../resources/css/retype.css?v=2.3.0.707792947935" rel="stylesheet" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=2.2.705431028437" defer data-turbo-track="reload"></script>
-    <script type="text/javascript" src="/resources/js/retype.js?v=2.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=2.2.705431028437" defer></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=2.2.705431028437" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.3.0.707792947935" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/retype.js?v=2.3.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.3.0.707792947935" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.3.0.707792947935" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -47,7 +50,7 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="/" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../" class="flex items-center leading-snug text-xl">
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Bitcoin Computer</span>
                         </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">0.8.0</span>
                     </div>
@@ -59,9 +62,10 @@
                     <!-- Top Nav -->
                     <nav class="hidden md:flex">
                         <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
-                            <li class="md:mr-6">
-                                <a class="block py-2 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 md:mb-0" href="https://retype.com/guides/getting-started/">Getting Started</a>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://retype.com/guides/getting-started/">Getting Started</a>
                             </li>
+        
                         </ul>
                     </nav>
         
@@ -138,8 +142,9 @@
                             <nav>
                                 <ul class="flex flex-wrap justify-center items-center">
                                     <li class="mr-6">
-                                        <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://retype.com/guides/getting-started/">Getting Started</a>
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://retype.com/guides/getting-started/">Getting Started</a>
                                     </li>
+            
                                 </ul>
                             </nav>
                         </div>
@@ -162,155 +167,214 @@
                                 <div id="docs-sidebar-right-toggle"></div>
                 
                                 <!-- Page content  -->
-<doc-anchor-target id="tutorial" class="break-words">
+<doc-anchor-target id="bitcoin-computer-library-tutorial" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#tutorial">#</doc-anchor-trigger>
-        <span>Tutorial</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#bitcoin-computer-library-tutorial">#</doc-anchor-trigger>
+        <span>Bitcoin Computer Library Tutorial</span>
     </h1>
 </doc-anchor-target>
-<p>This tutorial explains how smart objects can be created and updated on the Bitcoin blockchain, and how multiple users can synchronize to the same smart object.</p>
+<p>This tutorial explains how to build an encrypted blockchain-based chat.</p>
 <doc-anchor-target id="the-computer-object">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#the-computer-object">#</doc-anchor-trigger>
         <span>The Computer Object</span>
     </h2>
 </doc-anchor-target>
-<p Computer="">The first step is to create an object computer from the Bitcoin Computer npm package.
-import  from &#x27;bitcoin-computer&#x27;</p>
+<p>The first step is to create an object <code v-pre>computer</code> from <code v-pre>bitcoin-computer-lib</code>. The <code v-pre>computer</code> object is a wallet that can build and broadcast Bitcoin transactions that encode smart object creations and updates. You can pass in a <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a> seed phrase to initialize the wallet (you can  generate a seed phrase <a href="https://iancoleman.io/bip39/">here</a>).</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const computer = new Computer({
-  seed, // defaults to a random BIP39 mnemonic
-  chain, // currently only 'LTC'
-  network, // 'mainnet', 'testnet', or 'regtest', defaults to 'testnet'
-  path // BIP32 path, defaults to &quot;m/44'/0'/0'/0&quot;
-})</code></pre>
+<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
+
+const seed = 'replace this seed' // a BIP39 pass phrase
+const computer = new Computer({ seed })</code></pre>
 </doc-codeblock></div>
-<hr />
-<p>All keys are optional. You can generate a fresh BIP39 seed phrase using a seed phrase generator.</p>
-<doc-anchor-target id="creating-a-smart-object">
+<p>By default a <code v-pre>computer</code> object is configured to connect to Litecoin testnet through a publicly available <a href="https://npmjs.com/package/bitcoin-computer-node">Bitcoin Computer Node</a>. See Section Api for details on the configuration options.</p>
+<doc-anchor-target id="smart-contracts">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#creating-a-smart-object">#</doc-anchor-trigger>
-        <span>Creating a Smart Object</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#smart-contracts">#</doc-anchor-trigger>
+        <span>Smart Contracts</span>
     </h2>
 </doc-anchor-target>
+<p>Every Javascript (ES6) class is a smart contract. For example, a smart contract for a chat could be:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">A smart contract is a Javascript class.
-class Counter {
-  constructor(n) {
-    this.n = n
+<pre class="language-javascript"><code v-pre class="language-javascript">class Chat {
+  constructor(message) {
+    this.messages = [message]
   }
-  inc() {
-    this.n += 1
+
+  post(message) {
+    this.messages.push(message)
   }
 }</code></pre>
 </doc-codeblock></div>
-<p>The <code v-pre>new()</code> method of the computer object creates a smart object from a Javascript class and an array of arguments for the constructor. A Bitcoin transaction is broadcast to record the creation of the object.</p>
+<doc-anchor-target id="smart-objects">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#smart-objects">#</doc-anchor-trigger>
+        <span>Smart Objects</span>
+    </h2>
+</doc-anchor-target>
+<p>A smart object is a Javascript object that is stored on the Bitcoin blockchain. The <code v-pre>computer.new()</code> method inputs a class and an array of arguments for the constructor of the class and returns a smart object from the class.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const counter = await computer.new(Counter, [2])</code></pre>
+<pre class="language-javascript"><code v-pre class="language-javascript">&gt; a = await computer.new(Chat, ['Hi'])
+Chat {
+  _id: '667c...2357/0',
+  _rev: '37e4...18e2/1',
+  _root: '0728...ddbe/6',
+  messages: ['Hi']
+}</code></pre>
 </doc-codeblock></div>
-<p>Every smart object has a property _id that is set to the output on the Bitcoin blockchain that records the creation of the smart object. This id remains fixed throughout the lifecycle of the object.</p>
+<p>When a smart object <code v-pre>a</code> is created a Bitcoin transaction is broadcast that records the creation of <code v-pre>a</code>. One of the outputs of the transaction is the immutable representation of the smart object on the blockchain. This output is called the <em>location</em> of <code v-pre>a</code>.</p>
+<doc-anchor-target id="object-identity">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#object-identity">#</doc-anchor-trigger>
+        <span>Object Identity</span>
+    </h3>
+</doc-anchor-target>
+<p>Each smart object <code v-pre>a</code> has a unique <em>identity</em> <code v-pre>a._id</code> that remains fixed throughout the lifecycle of the object. This identity is the transaction id and the output number of the location of <code v-pre>a</code>.</p>
+<doc-anchor-target id="object-revision">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#object-revision">#</doc-anchor-trigger>
+        <span>Object Revision</span>
+    </h3>
+</doc-anchor-target>
+<p>Each smart object <code v-pre>a</code> has a <em>revision</em> <code v-pre>a._rev</code> that is changed every time the object is updated. Each version of a smart object has a unique identifier that can be used to recover every previous version of <code v-pre>a</code>.</p>
+<doc-anchor-target id="object-root">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#object-root">#</doc-anchor-trigger>
+        <span>Object Root</span>
+    </h3>
+</doc-anchor-target>
+<p>Each smart object <code v-pre>a</code> has a <em>root</em> <code v-pre>a._root</code>. For a smart object <code v-pre>a</code> created with <code v-pre>computer.new</code> the root <code v-pre>a._root</code> of <code v-pre>a</code> is equal to <code v-pre>a._id</code>. However smart objects can also be created inside a constructor or function call on another smart object <code v-pre>b</code>. In this case the root of <code v-pre>a</code> is the root of <code v-pre>b</code>.</p>
 <doc-anchor-target id="updating-a-smart-object">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#updating-a-smart-object">#</doc-anchor-trigger>
         <span>Updating a Smart Object</span>
     </h2>
 </doc-anchor-target>
-<p>A smart object can be updated by calling one of its functions. When a smart object is updated a transaction is broadcast that records the state change. It is therefore necessary to <code v-pre>await</code> on function calls.</p>
-<div class="flex mb-6">
-    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
-                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3 w-full">
-<p>When a smart object is updated a transaction is broadcast that records the state change. It is therefore necessary to awaiton function calls.</p>
-        </div>
-    </div>
-</div>
+<p>Smart objects can be updated through function calls (it is not possible to assign to a property of a smart object directly). When a function is called, a transaction is broadcast that spends the output representing the smart object before the function call and creates a new unspent output (utxo) representing the object after the function call. Note that is necessary to <code v-pre>await</code> on function calls as broadcasting a transaction is an asynchronous operation.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">await counter.inc()</code></pre>
+<pre class="language-javascript"><code v-pre class="language-javascript">await a.post('Hi!')</code></pre>
 </doc-codeblock></div>
-<p>A new output is created that stores the new revision of the smart object. The property counter._rev.is set to the output that stores the latest revision.</p>
-<doc-anchor-target id="reading-a-smart-object">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#reading-a-smart-object">#</doc-anchor-trigger>
-        <span>Reading a Smart Object</span>
-    </h2>
-</doc-anchor-target>
-<p>The &#x60;&#x60;computer.sync()&#x60; method returns a smart object given a revision. This allows one user to create a smart object, send the revision of the smart object to another user, and the second user can synchronize to the same object. For example a user Alice could run the following code</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
-
-const computerA = new Computer({ seed: 'seed phrase of Alice' })
-const counterA = await computerA.new(Counter, [2])
-
-console.log(counterA._rev)
-// logs 'ac445f8aa0e6503cf2e...03cf2e/0'</code></pre>
-</doc-codeblock></div>
-<p>Next, Alice sends the revision <code v-pre>ac445f8aa0e6503cf2e...03cf2e/0</code> to her friend Bob. Bob can create an instance of the same smart object on his local machine.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
-
-const computerB = new Computer({ seed: 'seed phrase of Bob'})
-const revision = 'ac445f8aa0e6503cf2e...03cf2e:0'
-
-const counterB = await computerB.sync(revision)</code></pre>
-</doc-codeblock></div>
-<p>At this point, both Alice and Bob both have a local instance of the same smart object. Additionally, there is an instance of the counter object that is stored in the blockchain. The instance on the blockchain is the global source of truth. If either user has permission to updates the object the other user can recompute the state of the object so that both remain in consensus. Consider, for example, that Alice calls the inc function on her local machine:</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">await counterA.inc()</code></pre>
-</doc-codeblock></div>
-<p>The object on Alice&#x27;s computer updates the counter to 1. Next, the update is recorded on the blockchain in a transaction. Finally, Bob can sync to the latest revision of the object to compute its latest state. Bob can obtain the latest revision if he knows the owner of the smart object. This concept is explained in the next section.</p>
-<hr />
+<p>It is important to note that a user can only call a function of a smart object <code v-pre>a</code> if that user can spend the output that stores the current state of <code v-pre>a</code>. This is the basis of the security model of the Bitcoin Computer.</p>
 <doc-anchor-target id="data-ownership">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#data-ownership">#</doc-anchor-trigger>
         <span>Data Ownership</span>
     </h2>
 </doc-anchor-target>
-<p>Every smart object has a property <code v-pre>_owners</code> that can be set as a list of public key strings. A smart object can only be updated by a user whose public key is in the <code v-pre>_owners</code> array. Specifically, a smart object can only be updated if it was created by a computer instance (either by computer.new or computer.sync ) that contains a mnemonic that corresponds to a public key in the current <code v-pre>_owners</code> property.
-The <code v-pre>_owners</code> property can be set in a constructor call and updated in a function call. If no <code v-pre>_owners</code> property is specified, it defaults to a singleton array containing the public key of the current computer object.
-The following example shows how the <code v-pre>_owners</code> property can be assigned in construction and function calls.</p>
+<p>Every smart object <code v-pre>a</code> contains an array <code v-pre>a._owners</code> of public key strings. This array can be used to restrict write access to the smart object: in order to call a function on <code v-pre>a</code> a user needs a private key matching one of the public keys in the <code v-pre>a._owners</code> array.</p>
+<p>It is possible to reassign the <code v-pre>a._owners</code> property to change the ownership of <code v-pre>a</code>. If the property is not assigned in function calls it is unchanged and in constructor calls it defaults to the public key of the <code v-pre>computer</code> object that created <code v-pre>a</code>.</p>
+<p>For example, in our chat, only the user that created the chat can post initially. However, we can add an invite function to the chat to allow other users to post.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">class OwnedCounter {
-  constructor(n, pKey) {
-    this.n = n
-    this._owners = [pKey]
-  }
-  inc(pKey) {
-    this.n += 1
-    this._owners = [pKey]
+<pre class="language-javascript"><code v-pre class="language-javascript">class Chat {
+  ... // from above
+
+  invite(pubKeyString) {
+    this._owners.push(pubKeyString)
   }
 }</code></pre>
 </doc-codeblock></div>
-<p>In the following example Alice can call the inc function but Bob cannot:</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">await counterA.inc()
-// works
-
-await counterB.inc()
-// throws an error
-&gt; Communication Error
-&gt; status  400 Bad Request
-&gt; message 16: mandatory-script-verify-flag-failed
-&gt;   (Operation not valid with the current stack size). Code:-26</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="money">
+<doc-anchor-target id="encryption">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#money">#</doc-anchor-trigger>
-        <span>Money</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#encryption">#</doc-anchor-trigger>
+        <span>Encryption</span>
     </h2>
 </doc-anchor-target>
-<p>A smart object can store an amount of Bitcoin. The amount of Bitcoin, denominated in satoshi, is set through the _amount property. The Bitcoin is owned by the owners of the object, and each owner can send the Bitcoin to another user (like themselves).
-As an example consider the class Wallet below.</p>
+<p>By default the state of all smart objects is publicly visible. However, every smart object <code v-pre>a</code> has a property <code v-pre>a._readers</code> that can be used to restrict read access to <code v-pre>a</code>. If <code v-pre>a._readers</code> is set, the meta data of the current revision is encrypted so that only the specified readers can decrypt it. If the <code v-pre>a._readers</code> is not assigned, it remains unchanged in function calls and defaults to the public key of the computer object that created <code v-pre>a</code>.</p>
+<p>For example, if we want to ensure that only people invited to the chat can read the messages, we can update our example code as follows:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">class Wallet {
+<pre class="language-javascript"><code v-pre class="language-javascript">class Chat {
+  // ... as above
+
+  invite(pubKey) {
+    this._owners.push(pubKey)
+    this._readers.push(pubKey)
+  }
+}</code></pre>
+</doc-codeblock></div>
+<p>A user can (only) read the state of a smart object if they have read access to the current and all previous versions of the object. It is therefore not possible to revoke access from smart objects that has already been granted. It is however possible to remove a user&#x27;s ability to read the state of a smart object from a point in time forwards.</p>
+<p>Both encryption and decryption happens securely in user&#x27;s browsers. We note that while all smart contract data is encrypted flows of money are not obfuscated in order to not hinder anti money laundering efforts.</p>
+<doc-anchor-target id="finding-smart-objects">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#finding-smart-objects">#</doc-anchor-trigger>
+        <span>Finding Smart Objects</span>
+    </h2>
+</doc-anchor-target>
+<p>The process of reading the current stat of a smart objects <code v-pre>a</code> consists of two steps: finding the latest revision of <code v-pre>a</code> and synchronizing to the revision (synchronizing will  be described in the next Section).</p>
+<doc-anchor-target id="querying-by-ownership">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#querying-by-ownership">#</doc-anchor-trigger>
+        <span>Querying by Ownership</span>
+    </h3>
+</doc-anchor-target>
+<p>The <code v-pre>computer.queryRevs()</code> method returns an array of all revisions that satisfy certain conditions as specified in the parameter. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">const revs1 = await computer.queryRevs({ pubKey })
+const revs2 = await computer.queryRevs({ contractHash })
+const revs3 = await computer.queryRevs({ pubKey, contractHash })</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="querying-by-identity">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#querying-by-identity">#</doc-anchor-trigger>
+        <span>Querying by Identity</span>
+    </h3>
+</doc-anchor-target>
+<p>It is often convenient to refer a smart object by its identity. In order to synchronize to the latest version of the object its latest revision is needed. The <code v-pre>computer.getLatestRevs()</code> function returns the latest revision of a given id.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">const [rev] = await computer.getLatestRevs([id])</code></pre>
+</doc-codeblock></div>
+<p>Multiple ids can be passed in and their revisions will be returned in order.</p>
+<doc-anchor-target id="synchronizing-to-a-smart-object">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#synchronizing-to-a-smart-object">#</doc-anchor-trigger>
+        <span>Synchronizing to a Smart Object</span>
+    </h2>
+</doc-anchor-target>
+<p>The <code v-pre>computer.sync()</code> method returns a smart object given a revision.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">const b = await computer.sync(rev)</code></pre>
+</doc-codeblock></div>
+<p>In the example of our decentralized chat, a user could first synchronize to the chat to read the messages. If the user is an owner the user can post a message.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">const [rev] = await computer.queryRevs({ className: 'Chat' })
+const chat = await computer.sync(rev)
+await chat.post('Hello')</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="off-chain-storage">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#off-chain-storage">#</doc-anchor-trigger>
+        <span>Off-Chain Storage</span>
+    </h2>
+</doc-anchor-target>
+<p>It is sometimes not the best choice to store data on chain. For example if the data is big it might be too expensive. Other data, like personal data, should never be stored on chain, not even encrypted, in order to comply with end user privacy regulation such as CCPA and GDPR.</p>
+<p>Each smart object <code v-pre>a</code> has a property <code v-pre>a._url</code> that can be set to the url of a Bitcoin Computer Node. When this property is set the meta data that encodes an update is not stored on the blockchain but on the Bitcoin Computer Node at the given url. The blockchain contains only the hash of the meta data and a link to where the data can be obtained from.</p>
+<p>For example, if we want to allow users to send images to the chat that are too large to be stored on chain, we can make use of the off-chain solution:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">class Chat {
+  // ... as above
+
+  post(message) {
+    this._url = null
+    this.messages.push(message)
+  }
+
+  postPic(picBuf) {
+    this._url = 'https://my.bc.node.example.com'
+    this.messages.push(picBuf)
+  }
+}</code></pre>
+</doc-codeblock></div>
+<p>The meta data for that specific call will be stored on the Bitcoin Computer Node at <code v-pre>https://my.node.example.com</code>. The only data that is stored on the blockchain is the url and the hash of the data. The cost of calling <code v-pre>postPic</code> is therefore independent of the size of <code v-pre>picBuf</code>.</p>
+<doc-anchor-target id="sending-and-storing-cryptocurrency">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#sending-and-storing-cryptocurrency">#</doc-anchor-trigger>
+        <span>Sending and Storing Cryptocurrency</span>
+    </h2>
+</doc-anchor-target>
+<p>Each smart object <code v-pre>a</code> can store an amount of cryptocurrency <code v-pre>a._amount</code>. The cryptocurrency is owned by the owners of the object, and each owner can send the Bitcoin to another user by reassigning the <code v-pre>a._owners</code> property.</p>
+<!--As an example consider the class Wallet below.
+
+```javascript
+class Wallet {
   constructor(amount) {
     this._amount = amount
   }
@@ -319,11 +383,13 @@ As an example consider the class Wallet below.</p>
     this._amount = amount
     this._owners = [to]
   }
-}</code></pre>
-</doc-codeblock></div>
-<p>The following example shows how a wallet storing 30000 satoshi is created. The satoshi are taken out of the wallet of the computer object. If a function call reduces the amount of satoshi in an object the remaining satoshi (minus miner fee) are returned to the wallet in the computer object.  The example also shows how the wallet can send Bitcoin.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
+}
+```
+
+The following example shows how a wallet storing 30000 satoshi is created. The satoshi are taken out of the wallet of the computer object. If a function call reduces the amount of satoshi in an object the remaining satoshi (minus miner fee) are returned to the wallet in the computer object.  The example also shows how the wallet can send Bitcoin.
+
+```javascript
+import { Computer } from 'bitcoin-computer-lib'
 
 // create Bitcoin Computer instances
 const computerA = new Computer({ seed: 'seed phrase of Alice'})
@@ -332,8 +398,9 @@ const computerB = new Computer({ seed: 'seed phrase of Bob'})
 const wallet = await computerA.new(Wallet, [30000])
 const pKeyB = computerB.db.wallet.getPublicKey().toString()
 
-await wallet.send(20000, pKeyB)</code></pre>
-</doc-codeblock></div>
+await wallet.send(20000, pKeyB)
+```
+-->
 
                                 
                                 <!-- Required only on API pages -->
@@ -343,7 +410,7 @@ await wallet.send(20000, pKeyB)</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/start/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../start/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
@@ -353,10 +420,10 @@ await wallet.send(20000, pKeyB)</code></pre>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/api/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../api/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Api</span>
+                                                <span class="block mt-1">Bitcoin Computer Library Api</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -400,6 +467,6 @@ await wallet.send(20000, pKeyB)</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "Tutorial", icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "Bitcoin Computer Library Tutorial", level: 1, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>
