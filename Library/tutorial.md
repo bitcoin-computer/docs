@@ -2,7 +2,7 @@
 order: -30
 ---
 
-# Bitcoin Computer Library Tutorial
+# Tutorial
 
 This tutorial explains how to build an encrypted blockchain-based chat.
 

@@ -2,7 +2,7 @@
 order: -40
 ---
 
-# Bitcoin Computer Library Api
+# Api
 
 This Api describes the class Computer that can create and synchronize to smart objects, the class DB that can read, write, and update data on the blockchain, and the class Wallet, a Bitcoin wallet.
 
