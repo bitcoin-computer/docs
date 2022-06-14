@@ -1,8 +1,9 @@
 ---
-order: -20
+order: -60
+visibility: hidden
 ---
 
-# NFT
+# Non Fungible Token
 
 ```js
 class NFT {

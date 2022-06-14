@@ -1,5 +1,6 @@
 ---
 order: -30
+visibility: hidden
 ---
 
 # Chat
