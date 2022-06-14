@@ -4,11 +4,11 @@ order: -30
 
 # Fungible Token
 
-We explore how an ERC20 style contracts (as defined in [EIP20](https://eips.ethereum.org/EIPS/eip-20)) can be built on Bitcoin. We use two classes, the ``TokenBag`` class describes a simple object that stores a number of tokens with a send function. The ``ERC20`` class makes it possible to deal with multiple token bags in the same way that a wallet deals with multiple unspent outputs.
+We explore how an ERC20 style contracts (as defined in [EIP20](https://eips.ethereum.org/EIPS/eip-20)) can be built on Bitcoin. We use two classes, a ``TokenBag`` can stores tokens and has a send function. The ``ERC20`` class makes it possible to deal with multiple token bags in the same way that a wallet deals with multiple unspent outputs.
 
 ## Token Bag
 
-A ``TokenBag`` stores a number of tokens. It has a function ``send`` to send tokens to another user.
+The constructor of the ``TokenBag`` class stores the number of tokens an the initial owner. The ``send`` function first checks if there are sufficient funds. If so it creates a new smart object that sends the required number of tokens to the recipient.
 
 ```js
 export class TokenBag {
