@@ -1,5 +1,11 @@
 # Bitcoin Computer Docs
 
+## Install
+
+```shell
+yarn global add retypeapp
+```
+
 ## Run Locally
 
 ```shell
@@ -9,4 +15,6 @@ retype watch
 
 ## Update the Website
 
-Push changes to the "main" branch.
+```shell
+git push origin main
+```
