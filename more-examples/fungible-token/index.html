@@ -3,38 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.3.0.707944783899">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.3.0.708547687298">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.3.0">
 
     <!-- Primary Meta Tags -->
-    <title>Troubleshooting</title>
-    <meta name="title" content="Troubleshooting">
-    <meta name="description" content="When you use a seed phrase for the first time, the Bitcoin node needs to re-scan the blockchain." />
+    <title>Fungible Token</title>
+    <meta name="title" content="Fungible Token">
+    <meta name="description" content="We explore how an ERC20 style contracts (as defined in EIP20) can be built on Bitcoin. We use two classes, a" />
 
     <!-- Canonical -->
-    <link rel="canonical" href="/trouble/" />
+    <link rel="canonical" href="/more-examples/fungible-token/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/trouble/">
-    <meta property="og:title" content="Troubleshooting">
-    <meta property="og:description" content="When you use a seed phrase for the first time, the Bitcoin node needs to re-scan the blockchain.">
+    <meta property="og:url" content="/more-examples/fungible-token/">
+    <meta property="og:title" content="Fungible Token">
+    <meta property="og:description" content="We explore how an ERC20 style contracts (as defined in EIP20) can be built on Bitcoin. We use two classes, a">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/trouble/">
-    <meta property="twitter:title" content="Troubleshooting">
-    <meta property="twitter:description" content="When you use a seed phrase for the first time, the Bitcoin node needs to re-scan the blockchain.">
+    <meta property="twitter:url" content="/more-examples/fungible-token/">
+    <meta property="twitter:title" content="Fungible Token">
+    <meta property="twitter:description" content="We explore how an ERC20 style contracts (as defined in EIP20) can be built on Bitcoin. We use two classes, a">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=2.3.0.707944783899" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.3.0.708547687298" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.3.0.707944783899" data-turbo-eval="false" defer></script>
-    <script type="text/javascript" src="../resources/js/retype.js?v=2.3.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.3.0.707944783899" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.3.0.708547687298" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/retype.js?v=2.3.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.3.0.708547687298" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.3.0.708547687298" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -49,7 +50,7 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../" class="flex items-center leading-snug text-xl">
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Bitcoin Computer</span>
                         </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">0.8.0</span>
                     </div>
@@ -166,28 +167,134 @@
                                 <div id="docs-sidebar-right-toggle"></div>
                 
                                 <!-- Page content  -->
-<doc-anchor-target id="troubleshooting" class="break-words">
+<doc-anchor-target id="fungible-token" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#troubleshooting">#</doc-anchor-trigger>
-        <span>Troubleshooting</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fungible-token">#</doc-anchor-trigger>
+        <span>Fungible Token</span>
     </h1>
 </doc-anchor-target>
-<doc-anchor-target id="wallet-is-currently-rescanning-abort-existing-rescan-or-wait">
+<p>We explore how an ERC20 style contracts (as defined in <a href="https://eips.ethereum.org/EIPS/eip-20">EIP20</a>) can be built on Bitcoin. We use two classes, a <code v-pre>TokenBag</code> can stores tokens and has a send function. The <code v-pre>ERC20</code> class makes it possible to deal with multiple token bags in the same way that a wallet deals with multiple unspent outputs.</p>
+<doc-anchor-target id="token-bag">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#wallet-is-currently-rescanning-abort-existing-rescan-or-wait">#</doc-anchor-trigger>
-        <span>Wallet is currently rescanning. Abort existing rescan or wait.</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#token-bag">#</doc-anchor-trigger>
+        <span>Token Bag</span>
     </h2>
 </doc-anchor-target>
-<p>When you use a seed phrase for the first time, the Bitcoin node needs to re-scan the blockchain. This usually takes around 10m but can take up to an hour. Just wait and try again.</p>
-<doc-anchor-target id="insufficient-balance-in-address">
+<p>The constructor of the <code v-pre>TokenBag</code> class stores the number of tokens an the initial owner. The <code v-pre>send</code> function first checks if there are sufficient funds. If so it creates a new smart object that sends the required number of tokens to the recipient.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">export class TokenBag {
+  constructor(to: PublicKey, supply: number) {
+    this._owners = [to]
+    this.tokens = supply
+  }
+
+  send(to: PublicKey, amount: number) {
+    if (this.tokens &lt; amount) throw new Error('Insufficient funds.')
+    this.tokens -= amount
+    return new TokenBag(to, amount)
+  }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="adding-approval">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#insufficient-balance-in-address">#</doc-anchor-trigger>
-        <span>Insufficient balance in address</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#adding-approval">#</doc-anchor-trigger>
+        <span>Adding Approval</span>
     </h2>
 </doc-anchor-target>
-<p>You need to fund the wallet inside the computer object.</p>
-<p>The Bitcoin Computer currently supports Litecoin testnet. You can get free testnet coins from a Litecoin Testnet Faucet <a href="https://testnet-faucet.com/ltc-testnet/">here</a>, <a href="https://testnet.help/en/ltcfaucet/testnet">here</a>, <a href="http://litecointf.salmen.website/">here</a>, or <a href="https://tltc.bitaps.com/">here</a>.
-We recommend generating a new seed phrase through a BIP39 generator.</p>
+<p>Approval is a mechanism in of the <a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol">ERC20</a> contract where a user called <code v-pre>spender</code> is granted the right to spend certain number of tokens of the original owner.</p>
+<p>We add two properties <code v-pre>approvals</code> and <code v-pre>originalOwner</code> to the <code v-pre>TokenBag</code> class and two methods <code v-pre>approve</code> and <code v-pre>disapprove</code> to grant and revoke approval. For now these methods work on an all or nothing bases for all tokens in the bag. We also add two propertied <code v-pre>name</code> and <code v-pre>symbol</code> according to the ERC20 standard.</p>
+<div class="codeblock-wrapper"><doc-codeblock line-numbers>
+<pre class="language-javascript" data-line="5-8,11-25"><code v-pre class="language-javascript">export class TokenBag {
+  constructor(to: PublicKey, supply: number, name: string, symbol: string) {
+    this._owners = [to]
+    this.tokens = supply
+    this.approvals = []
+    this.originalOwner = to
+    this.name = name
+    this.symbol = symbol
+  }
+
+  approve(spender: PublicKey) {
+    if(this.originalOwner === spender)
+      throw new Error('Cannot approve original owner.')
+
+    this.approvals.push(spender)
+    this._owners.push(spender)
+  }
+
+  disapprove(spender: PublicKey, amount: number) {
+    if(this.originalOwner === spender)
+      throw new Error('Cannot disapprove original owner.')
+
+    this._owners = this._owners.filter(owner =&gt; owner !== spender)
+    this.approvals = this.approvals.filter(owner =&gt; owner !== spender)
+  }
+
+  send(to: PublicKey, amount: number) {
+    if (this.tokens &lt; amount) throw new Error('Insufficient funds.')
+    this.tokens -= amount
+    return new TokenBag(to, amount)
+  }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="brc20">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#brc20">#</doc-anchor-trigger>
+        <span>BRC20</span>
+    </h2>
+</doc-anchor-target>
+<p>In general each user will own several token bags, in the same way that users generally own multiple unspent outputs. The <code v-pre>BRC20</code> class adds functionality for sending tokens from multiple bags and for computing their balance across multiple bags. This is similar to the functionality of a traditional Bitcoin <a href="../wallet/">wallet</a>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
+
+export class BRC20 {
+  constructor(name: string, symbol: string, mintId?: string, mnemonic?: string) {
+    this.name = name
+    this.symbol = symbol
+    this.computer = new Computer({ mnemonic })
+    this.mintId = mintId
+  }
+
+  async totalSupply(): Promise&lt;number&gt; {
+    if(!this.mintId) throw new Error('MintId is undefined.')
+    const rootBag = await this.computer.sync(this.mintId)
+    return rootBag.tokens
+  }
+
+  async mint(publicKey: string, amount: number) {
+    const args = [publicKey, amount, this.name, this.symbol]
+    const tokenBag = await this.computer.new(TokenBag, args)
+    this.mintId = tokenBag._root
+  }
+
+  async getBags(publicKey): Promise&lt;unknown[]&gt; {
+    if(!this.mintId) throw new Error('MintId is undefined.')
+    const revs = await this.computer.queryRevs({
+      root: this.mintId,
+      publicKey
+    })
+    return Promise.all(revs.map(rev =&gt; this.computer.sync(rev)))
+  }
+
+  async balanceOf(publicKey: string): Promise&lt;number&gt; {
+    const tokenBags = await this.getBags(publicKey)
+    return tokenBags.reduce((prev, curr) =&gt; prev + curr.tokens, 0)
+  }
+
+  async transfer(to: string, amount: number) {
+    const owner = this.computer.getPublicKey()
+    const tokenBags = await this.getBags(owner)
+    while(amount &gt; 0) {
+      const bag = tokenBags.splice(0, 1)
+      const available = Math.min(amount, bag.tokens)
+      await bag.send(to, available)
+      amount -= bag.tokens
+    }
+  }
+}</code></pre>
+</doc-codeblock></div>
+<p>We note that it is not necessary to check a message sender</p>
+<p>This is a work in progress and some functions are missing. There is also a partial implementation on <a href="https://github.com/bitcoin-computer/BRC20">Github</a>.</p>
 
                                 
                                 <!-- Required only on API pages -->
@@ -197,23 +304,16 @@ We recommend generating a new seed phrase through a BIP39 generator.</p>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../start/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../more-examples/wallet/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Getting Started</span>
+                                                <span class="block mt-1">Wallet</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../help/">
-                                            <span>
-                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Getting Help</span>
-                                            </span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
-                                        </a>
                                     </div>
                                 </nav>
                             </footer>
@@ -254,6 +354,6 @@ We recommend generating a new seed phrase through a BIP39 generator.</p>
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "Troubleshooting", level: 1, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "Fungible Token", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>

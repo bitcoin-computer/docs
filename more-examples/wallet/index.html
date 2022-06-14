@@ -9,24 +9,24 @@
     <meta name="generator" content="Retype 2.3.0">
 
     <!-- Primary Meta Tags -->
-    <title>Api</title>
-    <meta name="title" content="Api">
-    <meta name="description" content="Docs coming soon." />
+    <title>Wallet</title>
+    <meta name="title" content="Wallet">
+    <meta name="description" content="A wallet allows a user to check their balance and to build a transaction to send cryptocurrency to another user." />
 
     <!-- Canonical -->
-    <link rel="canonical" href="/node/api/" />
+    <link rel="canonical" href="/more-examples/wallet/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/node/api/">
-    <meta property="og:title" content="Api">
-    <meta property="og:description" content="Docs coming soon.">
+    <meta property="og:url" content="/more-examples/wallet/">
+    <meta property="og:title" content="Wallet">
+    <meta property="og:description" content="A wallet allows a user to check their balance and to build a transaction to send cryptocurrency to another user.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/node/api/">
-    <meta property="twitter:title" content="Api">
-    <meta property="twitter:description" content="Docs coming soon.">
+    <meta property="twitter:url" content="/more-examples/wallet/">
+    <meta property="twitter:title" content="Wallet">
+    <meta property="twitter:description" content="A wallet allows a user to check their balance and to build a transaction to send cryptocurrency to another user.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -35,6 +35,7 @@
     <script type="text/javascript" src="../../resources/js/config.js?v=2.3.0.708547687298" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.3.0" data-turbo-eval="false" defer></script>
     <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.3.0.708547687298" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.3.0.708547687298" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -166,13 +167,88 @@
                                 <div id="docs-sidebar-right-toggle"></div>
                 
                                 <!-- Page content  -->
-<doc-anchor-target id="api" class="break-words">
+<doc-anchor-target id="wallet" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#api">#</doc-anchor-trigger>
-        <span>Api</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#wallet">#</doc-anchor-trigger>
+        <span>Wallet</span>
     </h1>
 </doc-anchor-target>
-<p>Docs coming soon.</p>
+<p>A wallet allows a user to check their balance and to build a transaction  to send cryptocurrency to another user.</p>
+<p>A Bitcore-style library can be used to build the transaction. Bitcoin Computer Lib can be used to provide data to the wallet and to broadcast the transaction. A <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a> mnemonic sentence can be used to generate a bitcoin computer wallet.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
+
+class Wallet {
+  constructor(mnemonic: string) {
+    this.computer = new Computer({ mnemonic })
+  }
+
+  ...
+}</code></pre>
+</doc-codeblock></div>
+<p>Computing the balance is a two step process. The first step is to find all the unspent transaction outputs (utxos) of the address. The utxos store the cryptocurrency. The second step is to sum up the satoshis in the utxos.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">async getBalance(address: Address) {
+  const utxos = await this.computer.getUtxos(address)
+  return utxos.reduce((prev, curr) =&gt; prev + curr.satoshis, 0)
+}</code></pre>
+</doc-codeblock></div>
+<p>The easy way to implement the send function is to use the Bitcoin Computer wallet.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">async send(satoshis: number, to: Address) {
+  return this.computer.send(satoshis, to)
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="the-hard-way">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#the-hard-way">#</doc-anchor-trigger>
+        <span>The Hard Way</span>
+    </h2>
+</doc-anchor-target>
+<p>It is also possible to use the Bitcoin Computer and a Bitcore style library to build a transaction directly. This is interesting because the smart contract for a fungible token is conceptually similar to the code used to build a wallet.</p>
+<p>The first step is to query for all utxos. We add inputs to the transactions that spend the utxos until we have enough to cover the amount. We then add the output to create a new utxo that the receiver can spend. The last thing left to do it to sign and braodcast the transaction.</p>
+<div class="codeblock-wrapper"><doc-codeblock line-numbers>
+<pre class="language-javascript"><code v-pre class="language-javascript">async send(satoshis: number, to: Address) {
+  const utxos = await this.computer.getUtxos()
+  let tx = new Bitcore.Transaction()
+
+  // While we have not added enough inputs to the transaction to cover the amount:
+  // add another input and decrement the nummber of satoshis to send
+  while(satoshis &gt; 0) {
+    const utxo = utxos.splice(0, 1)
+    transaction.from(utxo)
+    satoshis -= utxo.satoshis
+  }
+
+  // Throw error if not enough utxos could be found
+  if(satoshis &gt; 0) throw new Error('Not enough funds.')
+
+  // Otherwise add payment output, change output, sign the transaction and broadcast it
+  transaction.to(to, amount)
+  transaction.change(this.computer.getAddress())
+  transaction.sign(this.computer.getPrivateKey())
+
+  // Broadcast
+  await this.computer.broadcast(transaction)
+}</code></pre>
+</doc-codeblock></div>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>The &quot;More Examples&quot; Section is under construction. We are using it to refine our api so some features (<code v-pre>computer.getUtxos</code> and <code v-pre>computer.broadcast</code>) are not supported yet. See the <a href="../../library/api/">Api</a> for a list of currently supported features.</p>
+        </div>
+    </div>
+</div>
 
                                 
                                 <!-- Required only on API pages -->
@@ -182,20 +258,20 @@
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../library/api/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../node/tutorial/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Api</span>
+                                                <span class="block mt-1">Tutorial</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../node/tutorial/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../more-examples/fungible-token/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Tutorial</span>
+                                                <span class="block mt-1">Fungible Token</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -239,6 +315,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "Api", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "Wallet", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>
