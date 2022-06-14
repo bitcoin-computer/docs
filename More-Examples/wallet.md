@@ -20,7 +20,7 @@ class Wallet {
 }
 ```
 
-Computing the balance it a two step process. The first step is to find the utxos of the address. The second step is to sum up the satoshis in the utxos.
+Computing the balance is a two step process. The first step is to find all the unspent transaction outputs (utxos) of the address. The utxos store the cryptocurrency. The second step is to sum up the satoshis in the utxos.
 
 ```js
 async getBalance(address: Address) {
@@ -39,9 +39,9 @@ async send(satoshis: number, to: Address) {
 
 ## The Hard Way
 
-It is also possible to use the Bitcoin Computer and a Bitcore style library to build a transaction directly. This is interesting because the smart contract for a fungible token is has conceptual similar to the code used to build a wallet.
+It is also possible to use the Bitcoin Computer and a Bitcore style library to build a transaction directly. This is interesting because the smart contract for a fungible token is conceptually similar to the code used to build a wallet.
 
-The first step is to query for all unspent transaction outputs (utxos). The utxos store the cryptocurrency. We add inputs to the transactions that spend the utxos until we have enough to cover the amount. We then add the output to create a new utxo that the receiver can spend. The last things left to do it to sign and braodcast the transaction.
+The first step is to query for all utxos. We add inputs to the transactions that spend the utxos until we have enough to cover the amount. We then add the output to create a new utxo that the receiver can spend. The last thing left to do it to sign and braodcast the transaction.
 
 ```js #
 async send(satoshis: number, to: Address) {
@@ -68,8 +68,6 @@ async send(satoshis: number, to: Address) {
   await this.computer.broadcast(transaction)
 }
 ```
-
-There is one abstraction of the code ab
 
 !!!
 The "More Examples" Section is under construction. We are using it to refine our api so some features (``computer.getUtxos`` and ``computer.broadcast``) are not supported yet. See the [Api](../Library/api.md) for a list of currently supported features.

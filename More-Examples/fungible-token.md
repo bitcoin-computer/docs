@@ -43,7 +43,7 @@ export class TokenBag {
   }
 
   approve(spender: PublicKey) {
-    if(this.originalOwners.includes(spender))
+    if(this.originalOwner === spender)
       throw new Error('Cannot approve original owner.')
 
     this.approvals.push(spender)
@@ -51,7 +51,7 @@ export class TokenBag {
   }
 
   disapprove(spender: PublicKey, amount: number) {
-    if(this.originalOwners.includes(spender))
+    if(this.originalOwner === spender)
       throw new Error('Cannot disapprove original owner.')
 
     this._owners = this._owners.filter(owner => owner !== spender)
@@ -59,9 +59,9 @@ export class TokenBag {
   }
 
   send(to: PublicKey, amount: number) {
-    if (this.tokens < amount) throw new Error()
+    if (this.tokens < amount) throw new Error('Insufficient funds.')
     this.tokens -= amount
-    return new ApprovableTokenBag(to, amount)
+    return new TokenBag(to, amount)
   }
 }
 ```
@@ -82,8 +82,9 @@ export class BRC20 {
   }
 
   async totalSupply(): Promise<number> {
-   const rootBag = await this.computer.sync(this.mintId)
-   return rootBag.tokens
+    if(!this.mintId) throw new Error('MintId is undefined.')
+    const rootBag = await this.computer.sync(this.mintId)
+    return rootBag.tokens
   }
 
   async mint(publicKey: string, amount: number) {
@@ -92,7 +93,7 @@ export class BRC20 {
     this.mintId = tokenBag._root
   }
 
-  async getBags(publicKey) {
+  async getBags(publicKey): Promise<unknown[]> {
     if(!this.mintId) throw new Error('MintId is undefined.')
     const revs = await this.computer.queryRevs({
       root: this.mintId,
@@ -102,17 +103,17 @@ export class BRC20 {
   }
 
   async balanceOf(publicKey: string): Promise<number> {
-    const tokenBags = await this.getTokenBags(publicKey)
+    const tokenBags = await this.getBags(publicKey)
     return tokenBags.reduce((prev, curr) => prev + curr.tokens, 0)
   }
 
   async transfer(to: string, amount: number) {
     const owner = this.computer.getPublicKey()
-    const tokenBags = await this.getTokenBags(owner)
+    const tokenBags = await this.getBags(owner)
     while(amount > 0) {
       const bag = tokenBags.splice(0, 1)
       const available = Math.min(amount, bag.tokens)
-      await bag.send(available, to)
+      await bag.send(to, available)
       amount -= bag.tokens
     }
   }
