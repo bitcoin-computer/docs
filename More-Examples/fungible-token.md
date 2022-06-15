@@ -94,7 +94,7 @@ export class BRC20 {
 
   async getBags(publicKey) {
     if(!this.mintId) throw new Error('MintId is undefined.')
-    const revs = await this.computer.queryRevs({
+    const revs = await this.computer.query({
       root: this.mintId,
       publicKey
     })
@@ -119,6 +119,8 @@ export class BRC20 {
 }
 ```
 
-We note that it is not necessary to check a message sender
+Have a look at the implementation on [Github](https://github.com/bitcoin-computer/BRC20).
 
-This is a work in progress and some functions are missing. There is also a partial implementation on [Github](https://github.com/bitcoin-computer/BRC20).
+!!!
+The "More Examples" Section is under construction.
+!!!

@@ -2,66 +2,81 @@
 order: -40
 ---
 
-# Api
+# API
 
-This Api describes the class Computer that can create and synchronize to smart objects, the class DB that can read, write, and update data on the blockchain, and the class Wallet, a Bitcoin wallet.
+We describe th Api of the class Computer. Objects of the class can create and synchronize to smart objects. It also provides the usual methods of a wallet.
 
-# Computer
+### Constructor
 
-## Constructor
+Creates a new Bitcoin Computer wallet.
 
-```javascript
+```js
 import { Computer } from 'bitcoin-computer-lib'
 
 const computer = new Computer({
   // BIP39 mnemonic phrase, defaults to a random phrase
-  seed,
+  seed, //
 
-  // Defaults to 'LTC', support for other chains soon
+  // Target blockchain, defaults to 'LTC'
   chain,
 
-  // 'mainnet', 'testnet', or 'regtest', defaults to 'testnet'
+  // Network (one of 'mainnet', 'testnet', or 'regtest'),
+  // defaults to 'testnet'
   network,
 
   // BIP32 path, defaults to "m/44'/0'/0'/0"
   path,
 
-  // Url of a Bitcoin Computer Node, defaults to https://node.bitcoincomputer.io
+  // Url of a Bitcoin Computer Node, defaults to
+  // https://node.bitcoincomputer.io
   url
 })
 ```
 
-## computer.new()
+## Smart Contract Interface
 
-The ``computer.new()`` method creates new smart objects from a class and a list of arguments for the constructor of the class. The arguments can be basic data types or smart objects.
+### new()
 
-```javascript
+Creates new smart objects. The arguments are a class and a list of arguments for the constructor of the class. The arguments can be of basic data type or smart objects.
+
+```js
+// A smart contract
 class A {
   constructor(n) {
     this.n = n
   }
 }
 
+// Create a smart object
 const a = await computer.new(A, [1])
+
+// Evaluates to true
+expect(a).to.deep.equal({
+  n: 1,
+  _id: '...',
+  _rev: '...',
+  _root: '...'
+})
 ```
 
+### sync()
 
+Returns the smart object stored at a given revision.
 
-## computer.sync()
+```js
+// Compute smart object from revision
+const synced = await computer.sync(a._rev)
 
-The ``computer.sync()`` method returns the smart object stored at a given revision. For every smart object ``a`` the following invariant will be true.
-
-```javascript
-const b = await computer.sync(a._rev)
-expect(b).to.deep.equal(a)  // true
+// Evaluates to true if "a" is a smart object
+expect(synced).to.deep.equal(a)
 ```
 
-## computer.queryRevs()
+### query()
 
-The ``computer.queryRevs()`` method returns an array containing the latest revisions owned by a given public key. The public keys are string encoded. If no parameter is passed to getRevs() the public key of the computer object is used.
+Returns an array containing the latest revisions that satisfy certain conditions.
 
-```javascript
-const revs = await computer.queryRevs({
+```js
+const revs = await computer.query({
   // Return only revisions owned by a public key
   publicKey: public key,
 
@@ -73,23 +88,79 @@ const revs = await computer.queryRevs({
 })
 ```
 
-When a key is omitted the condition is ignored. For example, if only the class is set the call will return all revision of that class regardless of the owners.
+When a key is omitted the condition is ignored. For example, if only ``className`` is set the call will return all revision of that class regardless of the owners.
 
-## computer.getLatestRevs()
+### idToRev()
 
-The ``computer.getLatestRevs()`` method inputs an id and returns the latest revision of the smart object with that id. If no smart object with that id exists an error is thrown.
+Inputs an id and returns the latest revision of the smart object with that id. If no smart object with that id exists an error is thrown.
 
-```javascript
-const rev = await computer.getLatestRevs(a._id)
+```js
+// Get latest revision
+const rev = await computer.idToRev(a._id)
+
+// If a is up to date the next line evaluates to true
+expect(rev).to.be(a._rev)
 ```
 
-After running the above code ``rev`` will be equal to ``a._rev`` if a1 is a smart object.
+## Wallet Interface
+### getMenmonic()
 
+Returns a string encoding a BIP93 mnemonic sentence of the ``computer`` object.
+
+```js
+const mnemonic = computer.getMnemonic()
+```
+
+### getPublicKey()
+
+Returns a string encoded a public key.
+
+```js
+const publicKey = computer.getPublicKey()
+```
+
+### getAddress()
+
+Returns a string encoded Bitcoin address.
+
+```js
+const address = computer.getAddress()
+```
+
+### getBalance()
+
+Returns the current balance in satoshi.
+
+```js
+const balance = await computer.getBalance()
+```
+
+### send()
+
+Sends an amount of satoshi to an address.
+
+```js
+const satoshi = 100000
+const address = '1FFsHfDBEh57BB1nkeuKAk25H44U7mmMXd'
+const balance = await wallet.send(satoshi, address)
+```
+
+### broadcast()
+
+Broadcasts a hex encoded Bitcoin transaction to the Bitcoin mining network.
+
+```js
+const txHex = '7b1eabe0209b1fe794124575ef807057...'
+const txId = await computer.broadcast(txHex)
+```
+
+
+<!--
 # Db
 
 The recommended way to create an instance of the Db class is to create an object of the Computer class and to access its property computer.db.
 
-```javascript
+```js
 const { computer } = new Computer({ seed, chain, network })
 const { db } = computer
 ```
@@ -97,7 +168,7 @@ const { db } = computer
 ## db.put()
 The ``db.put()`` method inputs an array of JSON objects and stores them in a transaction. Each element of the array is stored in a separate output. The method returns the array of locations of the outputs created.
 
-```javascript
+```js
 const data = [{a: 1}, {b: { c: 2 }}]
 const locs = await computer.db.put(data)
 // locs === ['0322...8dfe:0', '0322...8dfe:1']
@@ -107,7 +178,7 @@ const locs = await computer.db.put(data)
 
 The ``db.get()`` method returns the JSON objects stored at a given array of locations.
 
-```javascript
+```js
 const locs = await computer.db.put(data)
 const fromChain = await computer.db.get(locs)
 // fromChain === data
@@ -117,7 +188,7 @@ const fromChain = await computer.db.get(locs)
 
 The ``db.update()`` method has two parameters: a list of locations and a list of JSON objects. It broadcasts a transaction that spends the locations and that has one output for each JSON object.
 
-```javascript
+```js
 const locs1 = await computer.db.put([{ n: 1 }])
 const locs2 = await computer.db.update(locs1, [{ n: 2 }])
 const fromChain = await computer.db.get(locs2)
@@ -126,58 +197,16 @@ const fromChain = await computer.db.get(locs2)
 
 You can use db.get() to inspect the smart contract protocol. Try to call db.get()with the ids or rev of a smart object to see the data on the blockchain. Remember to pass the id inside an array likedb.get([a._id]).
 
+
 # Wallet
 
 We recommend creating a Wallet instance by creating a Computer instance and accessing the nested wallet property.
 
-```javascript
+```js
 const { computer } = new Computer({ seed, chain, network })
 const { wallet } = computer.db
 ```
 
 The wallet built into Bitcoin Computer is compatible with the widely used Bitcore library. This makes it easy to integrate Bitcoin Computer into existing apps.
 
-## wallet.getMenmonic()
-
-The ``wallet.getMnemonic()`` method returns a Bitcore compatible Javascript object encoding a Mnemonic. To return the mnemonic string call the toString() method.
-
-```javascript
-const mnemonic = wallet.getMnemonic()
-const mnemonicString = mnemonic.toString()
-```
-
-## wallet.getPublicKey()
-
-The ``wallet.getPublicKey()`` method returns a Bitcore compatible Javascript object encoding a public key. To return the public key in string encoding call the toString() method.
-
-```javascript
-const publicKey = wallet.getPublicKey()
-const publicKeyString = publicKey.toString()
-```
-
-## wallet.getAddress()
-
-The ``wallet.getAddress()`` method returns a Bitcore compatible Javascript object encoding a Bitcoin address. To return the address in string encoding call the toString() method.
-
-```javascript
-const address = wallet.getAddress()
-const addressString = address.toString()
-```
-
-## wallet.getBalance()
-
-The ``wallet.getBalance()`` method returns the current balance in satoshi.
-
-```javascript
-const balance = await wallet.getBalance()
-```
-
-## wallet.send()
-
-The ``wallet.send()`` method sends an amount of satoshi to an address.
-
-```javascript
-const amount = 100000 // in satoshi
-const address = '1FFsHfDBEh57BB1nkeuKAk25H44U7mmMXd'
-const balance = await wallet.send(amount, address)
-```
+-->

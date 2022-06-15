@@ -72,5 +72,5 @@ async send(satoshis: number, to: Address) {
 There is one abstraction of the code ab
 
 !!!
-The "More Examples" Section is under construction. We are using it to refine our api so some features (``computer.getUtxos`` and ``computer.broadcast``) are not supported yet. See the [Api](../Library/api.md) for a list of currently supported features.
+The "More Examples" Section is under construction.
 !!!
