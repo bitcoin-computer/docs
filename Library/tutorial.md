@@ -117,12 +117,12 @@ The process of reading the current stat of a smart objects ``a`` consists of two
 
 ### Querying by Ownership
 
-The ``computer.query()`` method returns an array of all revisions that satisfy certain conditions as specified in the parameter. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
+The ``computer.queryRevs()`` method returns an array of all revisions that satisfy certain conditions as specified in the parameter. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
 
 ```js
-const revs1 = await computer.query({ pubKey })
-const revs2 = await computer.query({ contractHash })
-const revs3 = await computer.query({ pubKey, contractHash })
+const revs1 = await computer.queryRevs({ pubKey })
+const revs2 = await computer.queryRevs({ contractHash })
+const revs3 = await computer.queryRevs({ pubKey, contractHash })
 ```
 
 ### Querying by Identity

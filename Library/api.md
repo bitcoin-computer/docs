@@ -71,12 +71,12 @@ const synced = await computer.sync(a._rev)
 expect(synced).to.deep.equal(a)
 ```
 
-### query()
+### queryRevs()
 
 Returns an array containing the latest revisions that satisfy certain conditions.
 
 ```js
-const revs = await computer.query({
+const revs = await computer.queryRevs({
   // Return only revisions owned by a public key
   publicKey: public key,
 
@@ -108,7 +108,7 @@ expect(rev).to.be(a._rev)
 Returns a string encoding a BIP93 mnemonic sentence of the ``computer`` object.
 
 ```js
-const mnemonic = computer.getMnemonic()
+const mnemonic = computer.db.wallet.getMnemonic().toString()
 ```
 
 ### getPublicKey()
@@ -116,7 +116,7 @@ const mnemonic = computer.getMnemonic()
 Returns a string encoded a public key.
 
 ```js
-const publicKey = computer.getPublicKey()
+const publicKey = computer.db.wallet.getPublicKey().toString()
 ```
 
 ### getAddress()
@@ -124,7 +124,7 @@ const publicKey = computer.getPublicKey()
 Returns a string encoded Bitcoin address.
 
 ```js
-const address = computer.getAddress()
+const address = computer.db.wallet.getAddress().toString()
 ```
 
 ### getBalance()
@@ -132,7 +132,7 @@ const address = computer.getAddress()
 Returns the current balance in satoshi.
 
 ```js
-const balance = await computer.getBalance()
+const balance = await computer.db.wallet.getBalance()
 ```
 
 ### send()
@@ -146,6 +146,8 @@ const balance = await wallet.send(satoshi, address)
 ```
 
 ### broadcast()
+
+**Support will be added in 0.9.0-beta**
 
 Broadcasts a hex encoded Bitcoin transaction to the Bitcoin mining network.
 
