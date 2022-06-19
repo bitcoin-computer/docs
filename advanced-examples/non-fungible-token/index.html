@@ -9,24 +9,21 @@
     <meta name="generator" content="Retype 2.3.0">
 
     <!-- Primary Meta Tags -->
-    <title>API</title>
-    <meta name="title" content="API">
-    <meta name="description" content="We describe th Api of the class Computer. Objects of the class can create and synchronize to smart objects." />
+    <title>Non Fungible Token</title>
+    <meta name="title" content="Non Fungible Token">
 
     <!-- Canonical -->
-    <link rel="canonical" href="/library/api/" />
+    <link rel="canonical" href="/advanced-examples/non-fungible-token/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/library/api/">
-    <meta property="og:title" content="API">
-    <meta property="og:description" content="We describe th Api of the class Computer. Objects of the class can create and synchronize to smart objects.">
+    <meta property="og:url" content="/advanced-examples/non-fungible-token/">
+    <meta property="og:title" content="Non Fungible Token">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/library/api/">
-    <meta property="twitter:title" content="API">
-    <meta property="twitter:description" content="We describe th Api of the class Computer. Objects of the class can create and synchronize to smart objects.">
+    <meta property="twitter:url" content="/advanced-examples/non-fungible-token/">
+    <meta property="twitter:title" content="Non Fungible Token">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -167,247 +164,24 @@
                                 <div id="docs-sidebar-right-toggle"></div>
                 
                                 <!-- Page content  -->
-<doc-anchor-target id="api" class="break-words">
+<doc-anchor-target id="non-fungible-token" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#api">#</doc-anchor-trigger>
-        <span>API</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#non-fungible-token">#</doc-anchor-trigger>
+        <span>Non Fungible Token</span>
     </h1>
 </doc-anchor-target>
-<p>We describe th Api of the class Computer. Objects of the class can create and synchronize to smart objects. It also provides the usual methods of a wallet.</p>
-<doc-anchor-target id="constructor">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#constructor">#</doc-anchor-trigger>
-        <span>Constructor</span>
-    </h3>
-</doc-anchor-target>
-<p>Creates a new Bitcoin Computer wallet.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
-
-const computer = new Computer({
-  // BIP39 mnemonic phrase, defaults to a random phrase
-  seed, //
-
-  // Target blockchain, defaults to 'LTC'
-  chain,
-
-  // Network (one of 'mainnet', 'testnet', or 'regtest'),
-  // defaults to 'testnet'
-  network,
-
-  // BIP32 path, defaults to &quot;m/44'/0'/0'/0&quot;
-  path,
-
-  // Url of a Bitcoin Computer Node, defaults to
-  // https://node.bitcoincomputer.io
-  url
-})</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="smart-contract-interface">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#smart-contract-interface">#</doc-anchor-trigger>
-        <span>Smart Contract Interface</span>
-    </h2>
-</doc-anchor-target>
-<doc-anchor-target id="new">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#new">#</doc-anchor-trigger>
-        <span>new()</span>
-    </h3>
-</doc-anchor-target>
-<p>Creates new smart objects. The arguments are a class and a list of arguments for the constructor of the class. The arguments can be of basic data type or smart objects.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">// A smart contract
-class A {
-  constructor(n) {
-    this.n = n
+<pre class="language-javascript"><code v-pre class="language-javascript">class NFT {
+  constructor(url: string, owner: string) {
+    this.url = url
+    this._owners = [owner]
   }
-}
 
-// Create a smart object
-const a = await computer.new(A, [1])
-
-// Evaluates to true
-expect(a).to.deep.equal({
-  n: 1,
-  _id: '...',
-  _rev: '...',
-  _root: '...'
-})</code></pre>
+  send(to: string) {
+    this._owners = [to]
+  }
+}</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="sync">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#sync">#</doc-anchor-trigger>
-        <span>sync()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns the smart object stored at a given revision.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">// Compute smart object from revision
-const synced = await computer.sync(a._rev)
-
-// Evaluates to true if &quot;a&quot; is a smart object
-expect(synced).to.deep.equal(a)</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="queryrevs">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#queryrevs">#</doc-anchor-trigger>
-        <span>queryRevs()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns an array containing the latest revisions that satisfy certain conditions.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const revs = await computer.queryRevs({
-  // Return only revisions owned by a public key
-  publicKey: public key,
-
-  // Return only revisions of smart object from a class
-  contractName: string,
-
-  // Return only revisions of smart objects from a class by hash
-  contractHash: string
-})</code></pre>
-</doc-codeblock></div>
-<p>When a key is omitted the condition is ignored. For example, if only <code v-pre>className</code> is set the call will return all revision of that class regardless of the owners.</p>
-<doc-anchor-target id="idtorev">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#idtorev">#</doc-anchor-trigger>
-        <span>idToRev()</span>
-    </h3>
-</doc-anchor-target>
-<p>Inputs an id and returns the latest revision of the smart object with that id. If no smart object with that id exists an error is thrown.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">// Get latest revision
-const rev = await computer.idToRev(a._id)
-
-// If a is up to date the next line evaluates to true
-expect(rev).to.be(a._rev)</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="wallet-interface">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#wallet-interface">#</doc-anchor-trigger>
-        <span>Wallet Interface</span>
-    </h2>
-</doc-anchor-target>
-<doc-anchor-target id="getmenmonic">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getmenmonic">#</doc-anchor-trigger>
-        <span>getMenmonic()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns a string encoding a BIP93 mnemonic sentence of the <code v-pre>computer</code> object.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const mnemonic = computer.db.wallet.getMnemonic().toString()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getpublickey">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getpublickey">#</doc-anchor-trigger>
-        <span>getPublicKey()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns a string encoded a public key.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const publicKey = computer.db.wallet.getPublicKey().toString()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getaddress">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getaddress">#</doc-anchor-trigger>
-        <span>getAddress()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns a string encoded Bitcoin address.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const address = computer.db.wallet.getAddress().toString()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getbalance">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getbalance">#</doc-anchor-trigger>
-        <span>getBalance()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns the current balance in satoshi.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const balance = await computer.db.wallet.getBalance()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="send">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#send">#</doc-anchor-trigger>
-        <span>send()</span>
-    </h3>
-</doc-anchor-target>
-<p>Sends an amount of satoshi to an address.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const satoshi = 100000
-const address = '1FFsHfDBEh57BB1nkeuKAk25H44U7mmMXd'
-const balance = await wallet.send(satoshi, address)</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="broadcast">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#broadcast">#</doc-anchor-trigger>
-        <span>broadcast()</span>
-    </h3>
-</doc-anchor-target>
-<p><strong>Support will be added in 0.9.0-beta</strong></p>
-<p>Broadcasts a hex encoded Bitcoin transaction to the Bitcoin mining network.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const txHex = '7b1eabe0209b1fe794124575ef807057...'
-const txId = await computer.broadcast(txHex)</code></pre>
-</doc-codeblock></div>
-<!--
-# Db
-
-The recommended way to create an instance of the Db class is to create an object of the Computer class and to access its property computer.db.
-
-```js
-const { computer } = new Computer({ seed, chain, network })
-const { db } = computer
-```
-
-## db.put()
-The ``db.put()`` method inputs an array of JSON objects and stores them in a transaction. Each element of the array is stored in a separate output. The method returns the array of locations of the outputs created.
-
-```js
-const data = [{a: 1}, {b: { c: 2 }}]
-const locs = await computer.db.put(data)
-// locs === ['0322...8dfe:0', '0322...8dfe:1']
-```
-
-## db.get()
-
-The ``db.get()`` method returns the JSON objects stored at a given array of locations.
-
-```js
-const locs = await computer.db.put(data)
-const fromChain = await computer.db.get(locs)
-// fromChain === data
-```
-
-## db.update()
-
-The ``db.update()`` method has two parameters: a list of locations and a list of JSON objects. It broadcasts a transaction that spends the locations and that has one output for each JSON object.
-
-```js
-const locs1 = await computer.db.put([{ n: 1 }])
-const locs2 = await computer.db.update(locs1, [{ n: 2 }])
-const fromChain = await computer.db.get(locs2)
-// fromChain === [{n: 2}]
-```
-
-You can use db.get() to inspect the smart contract protocol. Try to call db.get()with the ids or rev of a smart object to see the data on the blockchain. Remember to pass the id inside an array likedb.get([a._id]).
-
-
-# Wallet
-
-We recommend creating a Wallet instance by creating a Computer instance and accessing the nested wallet property.
-
-```js
-const { computer } = new Computer({ seed, chain, network })
-const { wallet } = computer.db
-```
-
-The wallet built into Bitcoin Computer is compatible with the widely used Bitcore library. This makes it easy to integrate Bitcoin Computer into existing apps.
-
--->
 
                                 
                                 <!-- Required only on API pages -->
@@ -415,27 +189,6 @@ The wallet built into Bitcoin Computer is compatible with the widely used Bitcor
                             </div>
                             <footer class="clear-both">
                             
-                                <nav class="flex mt-14">
-                                    <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../library/tutorial/">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
-                                            <span>
-                                                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Tutorial</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                            
-                                    <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../node/api/">
-                                            <span>
-                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Api</span>
-                                            </span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
-                                        </a>
-                                    </div>
-                                </nav>
                             </footer>
                         </main>
                 
@@ -474,6 +227,6 @@ The wallet built into Bitcoin Computer is compatible with the widely used Bitcor
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "API", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "Non Fungible Token", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>
