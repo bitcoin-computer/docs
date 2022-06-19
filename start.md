@@ -54,7 +54,7 @@ yarn add bitcoin-computer-lib
 node index.mjs
 ```
 
-If you get an error "Insufficient balance" you have to fund the wallet, have a look [here](/trouble.md). If the wallet is funded you will see:
+If you get an error "Insufficient balance" you have to fund the wallet, have a look [here](/troubleshoot.md). If the wallet is funded you will see:
 
 ```javascript
 Counter {

@@ -72,5 +72,5 @@ async send(satoshis: number, to: Address) {
 There is one abstraction of the code ab
 
 !!!
-The "More Examples" Section is under construction.
+The "Advanced Examples" Section is are a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.
 !!!

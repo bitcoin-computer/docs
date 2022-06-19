@@ -9,13 +9,15 @@ Turing Complete smart contracts on Bitcoin
 
 ## Simple
 
-Bitcoin Computer makes it possible to run smart contracts on Bitcoin. Smart contracts are Javascript classes and you can store instances of these classes (objects) on the Bitcoin blockchain. Each object has a unique location on the blockchain and if you know the location you can read the state of the object. The state can only be updated by function calls so that constraints on data updates can be enforced.
+Bitcoin Computer makes it possible to run smart contracts on Bitcoin. Smart contracts are Javascript classes and you can store instances of these classes (smart objects) on the Bitcoin blockchain. Each smart object has a unique location on the blockchain and if you know the location you can read the state of the object. The state can only be updated by function calls so that constraints on data updates can be enforced.
 
-You can build  games, social networks, NFTs, fungible tokens, stable coins, exchanges, auctions, voting, office applications, artificial intelligence, every application you can think of. Building applications couldn't be simpler, just build a client side web application and whenever you want to store something in a database just use our client side [lib](https://www.npmjs.com/package/bitcoin-computer-lib) to store an object on the blockchain. Usually the entire backend can be replaced by a smart contract which can vastly simplify development.
+You can build  games, social networks, NFTs, fungible tokens, stable coins, exchanges, auctions, voting, office applications, artificial intelligence, every application you can think of. Building applications is simple: build a client side web application and store data on the blockchain instead of in a database using our client side [lib](https://www.npmjs.com/package/bitcoin-computer-lib). Often the entire backend can be replaced by a smart contract which can vastly simplify development.
 
 ## Efficient
 
-On other blockchains fees are charged for every computational step and for every memory allocation. On Bitcoin there is no fee per computational step or memory allocation. This is because smart contracts are evaluated client side as opposed to by miners. Bitcoin Computer smart contracts are lightweight and do not impose any additional effort on nodes and miners. The only fee that needs to be paid is for the block space required to encode the name of the function being called and its parameters. This is mostly less than a few cents. This makes it possible, for the first time, to run compute and memory intense programs as smart contracts.
+On other blockchains fees are charged for every computational step and for every memory allocation. On Bitcoin there is no fee per computational step or memory allocation. This is because smart contracts are evaluated by users client side instead of by miners. This makes Bitcoin Computer smart contracts lightweight as they do not impose any additional effort on miners, node operators, and other users.
+
+The only fee that needs to be paid is the mining fee plus a Bitcoin Computer fee that is equal to the mining fee. This is mostly just a few cents. This makes it possible, for the first time, to run compute and memory intense programs as smart contracts.
 
 
 ## Trustless
