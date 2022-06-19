@@ -70,5 +70,5 @@ async send(satoshis: number, to: Address) {
 ```
 
 !!!
-The "More Examples" Section is under construction. We are using it to refine our api so some features (``computer.getUtxos`` and ``computer.broadcast``) are not supported yet. See the [Api](../Library/api.md) for a list of currently supported features.
+The "Advanced Examples" Section is are a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.
 !!!

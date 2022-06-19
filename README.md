@@ -1,3 +1,7 @@
+---
+visibility: hidden
+---
+
 # Bitcoin Computer Docs
 
 ## Install
@@ -9,7 +13,7 @@ yarn global add retypeapp
 ## Run Locally
 
 ```shell
-retype watch
+retype watch --verbose
 ```
 
 

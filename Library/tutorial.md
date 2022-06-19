@@ -127,10 +127,10 @@ const revs3 = await computer.queryRevs({ pubKey, contractHash })
 
 ### Querying by Identity
 
-It is often convenient to refer a smart object by its identity. In order to synchronize to the latest version of the object its latest revision is needed. The ``computer.getLatestRevs()`` function returns the latest revision of a given id.
+It is often convenient to refer a smart object by its identity. In order to synchronize to the latest version of the object its latest revision is needed. The ``computer.idToRev()`` function returns the latest revision of a given id.
 
 ```js
-const [rev] = await computer.getLatestRevs([id])
+const [rev] = await computer.idToRev([id])
 ```
 Multiple ids can be passed in and their revisions will be returned in order.
 
@@ -145,7 +145,7 @@ const b = await computer.sync(rev)
 In the example of our decentralized chat, a user could first synchronize to the chat to read the messages. If the user is an owner the user can post a message.
 
 ```js
-const [rev] = await computer.queryRevs({ className: 'Chat' })
+const [rev] = await computer.query({ className: 'Chat' })
 const chat = await computer.sync(rev)
 await chat.post('Hello')
 ```
