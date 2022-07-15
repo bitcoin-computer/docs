@@ -6,13 +6,13 @@ order: -30
 
 We explore how ERC20 style contracts can be built on Bitcoin. The code is implemented and tested [here](https://github.com/bitcoin-computer/BRC20).
 
-We use two classes: a ``TokenBag`` encapsulates the minimal amount of data that needs to be stored on the blockchain. A token bag can be thought of as the equivalent to unspent transaction output (utxo) in the token world: while a utxo stores a number of satoshi a token bag stores a number of tokens. The ``ERC20`` class helps manage multiple token bags, in the same way that a wallet deals with multiple unspent outputs.
+We use two classes: a ``TokenBag`` encapsulates the minimal amount of data that needs to be stored on the blockchain. A token bag can be thought of as the equivalent to unspent transaction output (utxo) in the token world: while a utxo stores a number of satoshi, a token bag stores a number of tokens. The ``ERC20`` class helps manage multiple token bags, in the same way that a wallet deals with multiple unspent outputs.
 
 ## Token Bag
 
 The constructor of the ``TokenBag`` class initializes a new token bag with a number of tokens and an initial owner. It also sets a ``name`` and a ``symbol`` for the token bag.
 
-The ``send`` function checks if there are sufficiently many tokens to send the amount. It throws an error if insufficient funds are detected. Otherwise it decrements the number of tokens in the current bag by ``amount`` and creates a new smart object of type ``TokenBag`` that is owned by the recipient and stores the ``amount`` many tokens.
+The ``transfer`` function checks if there are sufficiently many tokens to send the amount. It throws an error if insufficient funds are detected. Otherwise, it decrements the number of tokens in the current bag by ``amount`` and creates a new smart object of type ``TokenBag`` that is owned by the recipient and stores the ``amount`` many tokens.
 
 ```js
 export class TokenBag {
@@ -36,7 +36,7 @@ export class TokenBag {
 }
 ```
 
-We note that calls to the ``send`` function do not change the overall number of tokens: when a new token bag with a number of tokens is created that same number of tokens is removed from another object (the object on which the ``send`` function is called).
+We note that calls to the ``transfer`` function do not change the overall number of tokens: when a new token bag with a number of tokens is created, that same number of tokens is removed from another object (the object on which the ``transfer`` function is called).
 
 This is because all function calls on the Bitcoin Computer are [atomic](https://en.m.wikipedia.org/wiki/Atomicity_(database_systems)) in the sense that either all instructions in a function are evaluated or none of them.
 
@@ -44,7 +44,7 @@ This is because all function calls on the Bitcoin Computer are [atomic](https://
 
 Approval is a mechanism in of the [ERC20](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol) contract where a user called ``spender`` is granted the right to spend certain number of tokens of the original owner.
 
-We add two properties ``approvals`` and ``originalOwner`` to the ``TokenBag`` class and two methods ``approve`` and ``disapprove`` to grant and revoke approval. For now these methods work on an all or nothing bases for all tokens in the bag.
+We add two properties ``approvals`` and ``originalOwner`` to the ``TokenBag`` class and two methods ``approve`` and ``disapprove`` to grant and revoke approval. For now, these methods work on an all or nothing bases for all tokens in the bag.
 
 ```js #12-13,16-22,24-30
 export class TokenBag {
@@ -90,7 +90,7 @@ You can find the MIT licensed source code on [Github](https://github.com/bitcoin
 
 ## BRC20
 
-In general each user will own several token bags, in the same way that users generally own multiple unspent outputs. The ``BRC20`` class adds functionality for sending tokens from multiple bags and for computing their balance across multiple bags. This is similar to the functionality of a traditional Bitcoin [wallet](wallet.md).
+In general, each user will own several token bags, in the same way that users generally own multiple unspent outputs. The ``BRC20`` class adds functionality for sending tokens from multiple bags and for computing their balance across multiple bags. This is similar to the functionality of a traditional Bitcoin [wallet](wallet.md).
 
 ```js
 import { Computer } from 'bitcoin-computer-lib'
@@ -153,10 +153,10 @@ export class BRC20 {
 }
 ```
 
-There is plenty of rooms for improvement with this class: one issue is that when a payment is made from multiple bags, all payments are sent in separate transaction. In addition the running time can be vastly improved through the use of caching. Both issues can be solved at the smart contract level and do not require any changes to the Bitcoin Computer.
+There is plenty of room for improvement with this class: one issue is that when a payment is made from multiple bags, all payments are sent in separate transactions. In addition, the running time can be vastly improved through the use of caching. Both issues can be solved at the smart contract level and do not require any changes to the Bitcoin Computer.
 
 The ``BRC20`` class implements the interface described in [EIP20](https://eips.ethereum.org/EIPS/eip-20). Have a look at the implementation on [Github](https://github.com/bitcoin-computer/BRC20/blob/master/src/brc-20.ts).
 
 !!!
-The "Advanced Examples" Section is are a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.
+The "Advanced Examples" Section is a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.
 !!!
