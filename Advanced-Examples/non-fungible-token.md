@@ -1,5 +1,5 @@
 ---
-order: -60
+order: -30
 ---
 
 # Non Fungible Token (NFT)
@@ -24,7 +24,7 @@ class NFT {
 More information for how to build a non-fungible token application can be found [here](https://github.com/bitcoin-computer/non-fungible-token).
 
 
-# BRC721
+## BRC721
 
 BRC721 is the ERC721 standard built on Bitcoin. It currently implements the ```IBRC721``` interface. Check out the code [here](https://github.com/bitcoin-computer/BRC721) for more information regarding the BRC721 token.
 
