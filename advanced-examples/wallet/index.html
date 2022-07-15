@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.3.0.709090042663">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.711178376706">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 2.3.0">
+    <meta name="generator" content="Retype 2.4.0">
 
     <!-- Primary Meta Tags -->
     <title>Wallet</title>
     <meta name="title" content="Wallet">
-    <meta name="description" content="A wallet allows a user to check their balance and to build a transaction to send cryptocurrency to another user." />
+    <meta name="description" content="A wallet allows a user to check their balance and to make a transaction to send cryptocurrency to another user." />
 
     <!-- Canonical -->
     <link rel="canonical" href="/advanced-examples/wallet/" />
@@ -20,22 +20,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="/advanced-examples/wallet/">
     <meta property="og:title" content="Wallet">
-    <meta property="og:description" content="A wallet allows a user to check their balance and to build a transaction to send cryptocurrency to another user.">
+    <meta property="og:description" content="A wallet allows a user to check their balance and to make a transaction to send cryptocurrency to another user.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/advanced-examples/wallet/">
     <meta property="twitter:title" content="Wallet">
-    <meta property="twitter:description" content="A wallet allows a user to check their balance and to build a transaction to send cryptocurrency to another user.">
+    <meta property="twitter:description" content="A wallet allows a user to check their balance and to make a transaction to send cryptocurrency to another user.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.3.0.709090042663" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.711178376706" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.3.0.709090042663" data-turbo-eval="false" defer></script>
-    <script type="text/javascript" src="../../resources/js/retype.js?v=2.3.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.3.0.709090042663" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.3.0.709090042663" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.711178376706" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.711178376706" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.711178376706" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -173,8 +173,8 @@
         <span>Wallet</span>
     </h1>
 </doc-anchor-target>
-<p>A wallet allows a user to check their balance and to build a transaction  to send cryptocurrency to another user.</p>
-<p>A Bitcore-style library can be used to build the transaction. Bitcoin Computer Lib can be used to provide data to the wallet and to broadcast the transaction. A <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a> mnemonic sentence can be used to generate a bitcoin computer wallet.</p>
+<p>A wallet allows a user to check their balance and to make a transaction to send cryptocurrency to another user.</p>
+<p>In order to build the transaction, we can use a Bitcore-style library. Bitcoin Computer Lib can provide data to the wallet and broadcast the transaction. A <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a> mnemonic sentence can be employed to generate a bitcoin computer wallet.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
 
@@ -186,14 +186,14 @@ class Wallet {
   ...
 }</code></pre>
 </doc-codeblock></div>
-<p>Computing the balance is a two step process. The first step is to find all the unspent transaction outputs (utxos) of the address. The utxos store the cryptocurrency. The second step is to sum up the satoshis in the utxos.</p>
+<p>Computing the balance is a two-step process. The first step is to find all the unspent transaction outputs (utxos) of the address, which store the cryptocurrency. The second step is to sum up the satoshis in the utxos.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">async getBalance(address: Address) {
   const utxos = await this.computer.getUtxos(address)
   return utxos.reduce((prev, curr) =&gt; prev + curr.satoshis, 0)
 }</code></pre>
 </doc-codeblock></div>
-<p>The easy way to implement the send function is to use the Bitcoin Computer wallet.</p>
+<p>The easy way to implement the <code v-pre>send</code> function is to use the Bitcoin Computer wallet.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">async send(satoshis: number, to: Address) {
   return this.computer.send(satoshis, to)
@@ -205,8 +205,8 @@ class Wallet {
         <span>The Hard Way</span>
     </h2>
 </doc-anchor-target>
-<p>It is also possible to use the Bitcoin Computer and a Bitcore style library to build a transaction directly. This is interesting because the smart contract for a fungible token is conceptually similar to the code used to build a wallet.</p>
-<p>The first step is to query for all utxos. We add inputs to the transactions that spend the utxos until we have enough to cover the amount. We then add the output to create a new utxo that the receiver can spend. The last thing left to do it to sign and braodcast the transaction.</p>
+<p>It is also possible to use the Bitcoin Computer and a Bitcore style library to build a transaction directly. This is interesting because the smart contract for a fungible token is conceptually similar to the code utilized to build a wallet.</p>
+<p>The first step is to query for all utxos. We add inputs to the transactions that spend the utxos until we have enough to cover the amount. Then, we add the output to create a new utxo that the receiver can spend. The last thing left to do is to sign and broadcast the transaction.</p>
 <div class="codeblock-wrapper"><doc-codeblock line-numbers>
 <pre class="language-javascript"><code v-pre class="language-javascript">async send(satoshis: number, to: Address) {
   const utxos = await this.computer.getUtxos()
@@ -245,7 +245,7 @@ class Wallet {
             </svg>
         </div>
         <div class="pr-5 ml-3 w-full">
-<p>The &quot;Advanced Examples&quot; Section is are a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.</p>
+<p>The &quot;Advanced Examples&quot; Section is a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.</p>
         </div>
     </div>
 </div>

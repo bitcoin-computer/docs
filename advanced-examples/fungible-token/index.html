@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.3.0.709090042663">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.711178376706">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 2.3.0">
+    <meta name="generator" content="Retype 2.4.0">
 
     <!-- Primary Meta Tags -->
     <title>Fungible Token</title>
@@ -30,12 +30,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.3.0.709090042663" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.711178376706" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.3.0.709090042663" data-turbo-eval="false" defer></script>
-    <script type="text/javascript" src="../../resources/js/retype.js?v=2.3.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.3.0.709090042663" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.3.0.709090042663" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.711178376706" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.711178376706" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.711178376706" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -174,7 +174,7 @@
     </h1>
 </doc-anchor-target>
 <p>We explore how ERC20 style contracts can be built on Bitcoin. The code is implemented and tested <a href="https://github.com/bitcoin-computer/BRC20">here</a>.</p>
-<p>We use two classes: a <code v-pre>TokenBag</code> encapsulates the minimal amount of data that needs to be stored on the blockchain. A token bag can be thought of as the equivalent to unspent transaction output (utxo) in the token world: while a utxo stores a number of satoshi a token bag stores a number of tokens. The <code v-pre>ERC20</code> class helps manage multiple token bags, in the same way that a wallet deals with multiple unspent outputs.</p>
+<p>We use two classes: a <code v-pre>TokenBag</code> encapsulates the minimal amount of data that needs to be stored on the blockchain. A token bag can be thought of as the equivalent to unspent transaction output (utxo) in the token world: while a utxo stores a number of satoshi, a token bag stores a number of tokens. The <code v-pre>ERC20</code> class helps manage multiple token bags, in the same way that a wallet deals with multiple unspent outputs.</p>
 <doc-anchor-target id="token-bag">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#token-bag">#</doc-anchor-trigger>
@@ -182,7 +182,7 @@
     </h2>
 </doc-anchor-target>
 <p>The constructor of the <code v-pre>TokenBag</code> class initializes a new token bag with a number of tokens and an initial owner. It also sets a <code v-pre>name</code> and a <code v-pre>symbol</code> for the token bag.</p>
-<p>The <code v-pre>send</code> function checks if there are sufficiently many tokens to send the amount. It throws an error if insufficient funds are detected. Otherwise it decrements the number of tokens in the current bag by <code v-pre>amount</code> and creates a new smart object of type <code v-pre>TokenBag</code> that is owned by the recipient and stores the <code v-pre>amount</code> many tokens.</p>
+<p>The <code v-pre>transfer</code> function checks if there are sufficiently many tokens to send the amount. It throws an error if insufficient funds are detected. Otherwise, it decrements the number of tokens in the current bag by <code v-pre>amount</code> and creates a new smart object of type <code v-pre>TokenBag</code> that is owned by the recipient and stores the <code v-pre>amount</code> many tokens.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">export class TokenBag {
   tokens: number
@@ -204,7 +204,7 @@
   }
 }</code></pre>
 </doc-codeblock></div>
-<p>We note that calls to the <code v-pre>send</code> function do not change the overall number of tokens: when a new token bag with a number of tokens is created that same number of tokens is removed from another object (the object on which the <code v-pre>send</code> function is called).</p>
+<p>We note that calls to the <code v-pre>transfer</code> function do not change the overall number of tokens: when a new token bag with a number of tokens is created, that same number of tokens is removed from another object (the object on which the <code v-pre>transfer</code> function is called).</p>
 <p>This is because all function calls on the Bitcoin Computer are <a href="https://en.m.wikipedia.org/wiki/Atomicity_(database_systems)">atomic</a> in the sense that either all instructions in a function are evaluated or none of them.</p>
 <doc-anchor-target id="adding-approval">
     <h2>
@@ -213,7 +213,7 @@
     </h2>
 </doc-anchor-target>
 <p>Approval is a mechanism in of the <a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol">ERC20</a> contract where a user called <code v-pre>spender</code> is granted the right to spend certain number of tokens of the original owner.</p>
-<p>We add two properties <code v-pre>approvals</code> and <code v-pre>originalOwner</code> to the <code v-pre>TokenBag</code> class and two methods <code v-pre>approve</code> and <code v-pre>disapprove</code> to grant and revoke approval. For now these methods work on an all or nothing bases for all tokens in the bag.</p>
+<p>We add two properties <code v-pre>approvals</code> and <code v-pre>originalOwner</code> to the <code v-pre>TokenBag</code> class and two methods <code v-pre>approve</code> and <code v-pre>disapprove</code> to grant and revoke approval. For now, these methods work on an all or nothing bases for all tokens in the bag.</p>
 <div class="codeblock-wrapper"><doc-codeblock line-numbers>
 <pre class="language-javascript" data-line="12-13,16-22,24-30"><code v-pre class="language-javascript">export class TokenBag {
   tokens: number
@@ -260,7 +260,7 @@
         <span>BRC20</span>
     </h2>
 </doc-anchor-target>
-<p>In general each user will own several token bags, in the same way that users generally own multiple unspent outputs. The <code v-pre>BRC20</code> class adds functionality for sending tokens from multiple bags and for computing their balance across multiple bags. This is similar to the functionality of a traditional Bitcoin <a href="../wallet/">wallet</a>.</p>
+<p>In general, each user will own several token bags, in the same way that users generally own multiple unspent outputs. The <code v-pre>BRC20</code> class adds functionality for sending tokens from multiple bags and for computing their balance across multiple bags. This is similar to the functionality of a traditional Bitcoin <a href="../wallet/">wallet</a>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
 import { TokenBag } from './token-bag'
@@ -321,7 +321,7 @@ export class BRC20 {
   }
 }</code></pre>
 </doc-codeblock></div>
-<p>There is plenty of rooms for improvement with this class: one issue is that when a payment is made from multiple bags, all payments are sent in separate transaction. In addition the running time can be vastly improved through the use of caching. Both issues can be solved at the smart contract level and do not require any changes to the Bitcoin Computer.</p>
+<p>There is plenty of room for improvement with this class: one issue is that when a payment is made from multiple bags, all payments are sent in separate transactions. In addition, the running time can be vastly improved through the use of caching. Both issues can be solved at the smart contract level and do not require any changes to the Bitcoin Computer.</p>
 <p>The <code v-pre>BRC20</code> class implements the interface described in <a href="https://eips.ethereum.org/EIPS/eip-20">EIP20</a>. Have a look at the implementation on <a href="https://github.com/bitcoin-computer/BRC20/blob/master/src/brc-20.ts">Github</a>.</p>
 <div class="flex mb-6">
     <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
@@ -336,7 +336,7 @@ export class BRC20 {
             </svg>
         </div>
         <div class="pr-5 ml-3 w-full">
-<p>The &quot;Advanced Examples&quot; Section is are a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.</p>
+<p>The &quot;Advanced Examples&quot; Section is a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.</p>
         </div>
     </div>
 </div>
@@ -349,7 +349,7 @@ export class BRC20 {
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../advanced-examples/wallet/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../advanced-examples/wallet/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
@@ -359,6 +359,13 @@ export class BRC20 {
                                     </div>
                             
                                     <div class="w-1/2">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../advanced-examples/non-fungible-token/">
+                                            <span>
+                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                                                <span class="block mt-1">Non Fungible Token (NFT)</span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                        </a>
                                     </div>
                                 </nav>
                             </footer>

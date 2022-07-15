@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.3.0.709090042663">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.711178376706">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 2.3.0">
+    <meta name="generator" content="Retype 2.4.0">
 
     <!-- Primary Meta Tags -->
     <title>Chat</title>
     <meta name="title" content="Chat">
+    <meta name="description" content="The Bitcoin Chat presented here is a hackable chat that runs on the blockchain." />
 
     <!-- Canonical -->
     <link rel="canonical" href="/advanced-examples/chat/" />
@@ -19,20 +20,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="/advanced-examples/chat/">
     <meta property="og:title" content="Chat">
+    <meta property="og:description" content="The Bitcoin Chat presented here is a hackable chat that runs on the blockchain.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/advanced-examples/chat/">
     <meta property="twitter:title" content="Chat">
+    <meta property="twitter:description" content="The Bitcoin Chat presented here is a hackable chat that runs on the blockchain.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.3.0.709090042663" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.711178376706" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.3.0.709090042663" data-turbo-eval="false" defer></script>
-    <script type="text/javascript" src="../../resources/js/retype.js?v=2.3.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.3.0.709090042663" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.3.0.709090042663" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.711178376706" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.711178376706" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.711178376706" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -170,6 +173,9 @@
         <span>Chat</span>
     </h1>
 </doc-anchor-target>
+<p>The Bitcoin Chat presented here is a hackable chat that runs on the blockchain. The chat does not need a database backend because all data is stored on the blockchain (currently runs on LTC, testnet). The interface between the chat and the blockchain is provided by <a href="https://www.bitcoincomputer.io">Bitcoin Computer</a>.</p>
+<p>The <code v-pre>Chat</code> class has a constructor and two functions, <code v-pre>post</code> and <code v-pre>invite</code>.</p>
+<p>The constructor initializes a owner to the chat and an empty <code v-pre>messages</code> array. The <code v-pre>post</code> function stores the new messages, and the <code v-pre>invite</code> function records the users who join the chat.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class Chat {
   constructor(publicKey: string) {
@@ -186,6 +192,25 @@
   }
 }</code></pre>
 </doc-codeblock></div>
+<p>You can find the MIT licensed source code on <a href="https://github.com/bitcoin-computer/bitcoin-chat/blob/master/public/chat-sc.js">GitHub</a>.</p>
+<p>This is intended as a starting point for developers to build on top of. Contributions are more than welcome. <a href="https://github.com/bitcoin-computer/bitcoin-chat">Here</a> is the GitHub repository of Bitcoin Chat. Have a look at the open issues, or make a pull request with a new feature. You can also make a feature request by creating an issue.</p>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>The &quot;Advanced Examples&quot; Section is a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.</p>
+        </div>
+    </div>
+</div>
 
                                 
                                 <!-- Required only on API pages -->
@@ -193,6 +218,20 @@
                             </div>
                             <footer class="clear-both">
                             
+                                <nav class="flex mt-14">
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../advanced-examples/non-fungible-token/">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                            <span>
+                                                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                                                <span class="block mt-1">Non Fungible Token (NFT)</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                            
+                                    <div class="w-1/2">
+                                    </div>
+                                </nav>
                             </footer>
                         </main>
                 
