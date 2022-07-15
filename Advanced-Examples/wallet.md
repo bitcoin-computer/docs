@@ -4,9 +4,9 @@ order: 0
 
 # Wallet
 
-A wallet allows a user to check their balance and to build a transaction  to send cryptocurrency to another user.
+A wallet allows a user to check their balance and to make a transaction to send cryptocurrency to another user.
 
-A Bitcore-style library can be used to build the transaction. Bitcoin Computer Lib can be used to provide data to the wallet and to broadcast the transaction. A [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) mnemonic sentence can be used to generate a bitcoin computer wallet.
+In order to build the transaction, we can use a Bitcore-style library. Bitcoin Computer Lib can provide data to the wallet and broadcast the transaction. A [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) mnemonic sentence can be employed to generate a bitcoin computer wallet.
 
 ```js
 import { Computer } from 'bitcoin-computer-lib'
@@ -20,7 +20,7 @@ class Wallet {
 }
 ```
 
-Computing the balance is a two step process. The first step is to find all the unspent transaction outputs (utxos) of the address. The utxos store the cryptocurrency. The second step is to sum up the satoshis in the utxos.
+Computing the balance is a two-step process. The first step is to find all the unspent transaction outputs (utxos) of the address, which store the cryptocurrency. The second step is to sum up the satoshis in the utxos.
 
 ```js
 async getBalance(address: Address) {
@@ -29,7 +29,7 @@ async getBalance(address: Address) {
 }
 ```
 
-The easy way to implement the send function is to use the Bitcoin Computer wallet.
+The easy way to implement the ``send`` function is to use the Bitcoin Computer wallet.
 
 ```js
 async send(satoshis: number, to: Address) {
@@ -39,9 +39,9 @@ async send(satoshis: number, to: Address) {
 
 ## The Hard Way
 
-It is also possible to use the Bitcoin Computer and a Bitcore style library to build a transaction directly. This is interesting because the smart contract for a fungible token is conceptually similar to the code used to build a wallet.
+It is also possible to use the Bitcoin Computer and a Bitcore style library to build a transaction directly. This is interesting because the smart contract for a fungible token is conceptually similar to the code utilized to build a wallet.
 
-The first step is to query for all utxos. We add inputs to the transactions that spend the utxos until we have enough to cover the amount. We then add the output to create a new utxo that the receiver can spend. The last thing left to do it to sign and braodcast the transaction.
+The first step is to query for all utxos. We add inputs to the transactions that spend the utxos until we have enough to cover the amount. Then, we add the output to create a new utxo that the receiver can spend. The last thing left to do is to sign and broadcast the transaction.
 
 ```js #
 async send(satoshis: number, to: Address) {
@@ -70,5 +70,5 @@ async send(satoshis: number, to: Address) {
 ```
 
 !!!
-The "Advanced Examples" Section is are a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.
+The "Advanced Examples" Section is a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.
 !!!
