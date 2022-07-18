@@ -2,40 +2,47 @@
 order: 0
 ---
 
+!!!
+This section explains how a Bitcoin wallet works. The reader interested in smart contracts can skip ahead to the next section.
+!!!
+
 # Wallet
 
-A wallet allows a user to check their balance and to build a transaction  to send cryptocurrency to another user.
+A Bitcoin wallet can determine the balance of an address and can build and broadcast a transaction to send cryptocurrency from the current user to another user.
 
-A Bitcore-style library can be used to build the transaction. Bitcoin Computer Lib can be used to provide data to the wallet and to broadcast the transaction. A [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) mnemonic sentence can be used to generate a bitcoin computer wallet.
+```js
+interface Wallet {
+  getBalance(address: Address): Promise<number>;
+  transfer(to: Address, satoshis: number): Promise<string>
+}
+```
+
+The Bitcoin Computer library implements the wallet interface.
 
 ```js
 import { Computer } from 'bitcoin-computer-lib'
 
-class Wallet {
-  constructor(mnemonic: string) {
-    this.computer = new Computer({ mnemonic })
-  }
-
-  ...
-}
+...
+const computer = new Computer({ mnemonic, url })
+const balance = await computer.getBalance(address)
+const txId = await computer.send(to, satoshis)
+...
 ```
 
-Computing the balance is a two step process. The first step is to find all the unspent transaction outputs (utxos) of the address. The utxos store the cryptocurrency. The second step is to sum up the satoshis in the utxos.
+When the ``send`` function is called the ``computer`` object connects to a Bitcoin Computer Node to broadcast a transaction encoding payment.
 
-```js
-async getBalance(address: Address) {
-  const utxos = await this.computer.getUtxos(address)
-  return utxos.reduce((prev, curr) => prev + curr.satoshis, 0)
-}
-```
 
-The easy way to implement the send function is to use the Bitcoin Computer wallet.
 
-```js
-async send(satoshis: number, to: Address) {
-  return this.computer.send(satoshis, to)
-}
-```
+The Bitcoin Computer library
+
+also provides a more low level interface that can be used in conjunction with a Bitcore style library.
+
+
+can also be used in conjunction with a Bitcore-style library to build a transac
+
+
+ can be used to build the transaction. Bitcoin Computer Lib can be used to provide data to the wallet and to broadcast the transaction. A [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) mnemonic sentence can be used to generate a bitcoin computer wallet.
+
 
 ## The Hard Way
 
