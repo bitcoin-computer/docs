@@ -6,7 +6,7 @@ order: -10
 
 ## Run the Tests
 
-The easiest way to get started is to run the tests. If you get an error have a look here.
+The easiest way to get started is to run the tests. If you get an error, have a look here.
 
 ```shell
 git clone git@github.com:bitcoin-computer/bitcoin-computer-lib.git
@@ -17,7 +17,7 @@ yarn test
 
 ## Run in Node.js
 
-Create file index.mjs
+Create the file ```index.mjs```.
 
 ```javascript
 import { Computer } from 'bitcoin-computer-lib'
@@ -47,14 +47,14 @@ class Counter {
 })()
 ```
 
-Then, execute the following in the same directory
+Then, execute the following in the same directory.
 
 ```shell
 yarn add bitcoin-computer-lib
 node index.mjs
 ```
 
-If you get an error "Insufficient balance" you have to fund the wallet, have a look [here](/troubleshoot.md). If the wallet is funded you will see:
+If you get an error ```Insufficient balance```, you have to fund the wallet; have a look [here](/troubleshoot.md). If the wallet is funded, you will see:
 
 ```javascript
 Counter {
@@ -64,11 +64,11 @@ Counter {
 }
 ```
 
-You can clone the [boilerplate](https://github.com/bitcoin-computer/bitcoin-computer-node-js-boilerplate) or watch the [video walkthrough](https://www.youtube.com/watch?v=51ZFe_8mSPw)
+You can clone the [boilerplate](https://github.com/bitcoin-computer/bitcoin-computer-node-js-boilerplate) or watch the [video walkthrough](https://www.youtube.com/watch?v=51ZFe_8mSPw).
 
 ## Run in the Browser
 
-Create file index.js.
+Create the file ```index.js```.
 
 ```javascript
 import { Computer } from 'bitcoin-computer-lib'
@@ -94,7 +94,7 @@ class Counter {
 })()
 ```
 
-Create file index.html
+Create the file ```index.html```.
 
 ```html
 <html>
@@ -105,7 +105,7 @@ Create file index.html
 </html>
 ```
 
-Run the following in an empty directory and open your browser at [http://localhost:1234](http://localhost:1234).
+Run the following in an empty directory, and open your browser at [http://localhost:1234](http://localhost:1234).
 
 ```shell
 yarn add bitcoin-computer-lib
@@ -113,4 +113,4 @@ yarn global add parcel
 parcel index.html
 ```
 
-More info in this [video](https://www.youtube.com/watch?v=vcjzIFjt3VY)
+More information in this [video](https://www.youtube.com/watch?v=vcjzIFjt3VY).
