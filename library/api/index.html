@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.711232706552">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.713229982299">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>API</title>
     <meta name="title" content="API">
-    <meta name="description" content="We describe th Api of the class Computer. Objects of the class can create and synchronize to smart objects." />
+    <meta name="description" content="In this section, we will describe the API of the class Computer." />
 
     <!-- Canonical -->
     <link rel="canonical" href="/library/api/" />
@@ -20,22 +20,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="/library/api/">
     <meta property="og:title" content="API">
-    <meta property="og:description" content="We describe th Api of the class Computer. Objects of the class can create and synchronize to smart objects.">
+    <meta property="og:description" content="In this section, we will describe the API of the class Computer.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/library/api/">
     <meta property="twitter:title" content="API">
-    <meta property="twitter:description" content="We describe th Api of the class Computer. Objects of the class can create and synchronize to smart objects.">
+    <meta property="twitter:description" content="In this section, we will describe the API of the class Computer.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.711232706552" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.713229982299" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.711232706552" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.713229982299" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.711232706552" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.711232706552" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.713229982299" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.713229982299" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -173,14 +173,14 @@
         <span>API</span>
     </h1>
 </doc-anchor-target>
-<p>We describe th Api of the class Computer. Objects of the class can create and synchronize to smart objects. It also provides the usual methods of a wallet.</p>
+<p>In this section, we will describe the API of the class <code v-pre>Computer</code>. Objects of this class can create and synchronize to smart objects; it also provides the usual methods of a wallet.</p>
 <doc-anchor-target id="constructor">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#constructor">#</doc-anchor-trigger>
         <span>Constructor</span>
     </h3>
 </doc-anchor-target>
-<p>Creates a new Bitcoin Computer wallet.</p>
+<p>The constructor of the <code v-pre>Computer</code> class creates a new Bitcoin Computer wallet.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
 
@@ -215,7 +215,7 @@ const computer = new Computer({
         <span>new()</span>
     </h3>
 </doc-anchor-target>
-<p>Creates new smart objects. The arguments are a class and a list of arguments for the constructor of the class. The arguments can be of basic data type or smart objects.</p>
+<p>This method creates new smart objects. The inputs include a class and a list of arguments for the constructor of the class. The arguments can be of basic data type or smart objects.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">// A smart contract
 class A {
@@ -241,7 +241,7 @@ expect(a).to.deep.equal({
         <span>sync()</span>
     </h3>
 </doc-anchor-target>
-<p>Returns the smart object stored at a given revision.</p>
+<p>This returns the smart object stored at a given revision.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">// Compute smart object from revision
 const synced = await computer.sync(a._rev)
@@ -255,7 +255,7 @@ expect(synced).to.deep.equal(a)</code></pre>
         <span>queryRevs()</span>
     </h3>
 </doc-anchor-target>
-<p>Returns an array containing the latest revisions that satisfy certain conditions.</p>
+<p>This function returns an array containing the latest revisions that satisfy certain conditions.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const revs = await computer.queryRevs({
   // Return only revisions owned by a public key
@@ -268,14 +268,14 @@ expect(synced).to.deep.equal(a)</code></pre>
   contractHash: string
 })</code></pre>
 </doc-codeblock></div>
-<p>When a key is omitted the condition is ignored. For example, if only <code v-pre>className</code> is set the call will return all revision of that class regardless of the owners.</p>
+<p>When a key is omitted, the condition is ignored. For example, if only <code v-pre>className</code> is set, the call will return all revisions of that class regardless of the owners.</p>
 <doc-anchor-target id="idtorev">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#idtorev">#</doc-anchor-trigger>
         <span>idToRev()</span>
     </h3>
 </doc-anchor-target>
-<p>Inputs an id and returns the latest revision of the smart object with that id. If no smart object with that id exists an error is thrown.</p>
+<p>It inputs an id and returns the latest revision of the smart object with that id. If no smart object with that id exists, then an error is thrown.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">// Get latest revision
 const rev = await computer.idToRev(a._id)
@@ -305,7 +305,7 @@ expect(rev).to.be(a._rev)</code></pre>
         <span>getPublicKey()</span>
     </h3>
 </doc-anchor-target>
-<p>Returns a string encoded a public key.</p>
+<p>Returns a string encoding a public key.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const publicKey = computer.db.wallet.getPublicKey().toString()</code></pre>
 </doc-codeblock></div>
@@ -315,7 +315,7 @@ expect(rev).to.be(a._rev)</code></pre>
         <span>getAddress()</span>
     </h3>
 </doc-anchor-target>
-<p>Returns a string encoded Bitcoin address.</p>
+<p>Returns a string encoding Bitcoin address.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const address = computer.db.wallet.getAddress().toString()</code></pre>
 </doc-codeblock></div>
@@ -335,7 +335,7 @@ expect(rev).to.be(a._rev)</code></pre>
         <span>send()</span>
     </h3>
 </doc-anchor-target>
-<p>Sends an amount of satoshi to an address.</p>
+<p>Sends an amount of satoshis to an address.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const satoshi = 100000
 const address = '1FFsHfDBEh57BB1nkeuKAk25H44U7mmMXd'
@@ -348,7 +348,7 @@ const balance = await wallet.send(satoshi, address)</code></pre>
     </h3>
 </doc-anchor-target>
 <p><strong>Support will be added in 0.9.0-beta</strong></p>
-<p>Broadcasts a hex encoded Bitcoin transaction to the Bitcoin mining network.</p>
+<p>Broadcasts a hex-encoded Bitcoin transaction to the Bitcoin mining network.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const txHex = '7b1eabe0209b1fe794124575ef807057...'
 const txId = await computer.broadcast(txHex)</code></pre>

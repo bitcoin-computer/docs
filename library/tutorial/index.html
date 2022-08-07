@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.711232706552">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.713229982299">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -30,12 +30,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.711232706552" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.713229982299" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.711232706552" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.713229982299" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.711232706552" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.711232706552" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.713229982299" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.713229982299" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -180,14 +180,14 @@
         <span>The Computer Object</span>
     </h2>
 </doc-anchor-target>
-<p>The first step is to create an object <code v-pre>computer</code> from <code v-pre>bitcoin-computer-lib</code>. The <code v-pre>computer</code> object is a wallet that can build and broadcast Bitcoin transactions that encode smart object creations and updates. You can pass in a <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a> seed phrase to initialize the wallet (you can  generate a seed phrase <a href="https://iancoleman.io/bip39/">here</a>).</p>
+<p>The first step is to create an object <code v-pre>computer</code> from <code v-pre>bitcoin-computer-lib</code>. The <code v-pre>computer</code> object is a wallet that can build and broadcast Bitcoin transactions, which encode smart object creations and updates. You can pass in a <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a> seed phrase to initialize the wallet. (To generate a seed phrase, check <a href="https://iancoleman.io/bip39/">this</a> out.)</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
 
 const seed = 'replace this seed' // a BIP39 pass phrase
 const computer = new Computer({ seed })</code></pre>
 </doc-codeblock></div>
-<p>By default a <code v-pre>computer</code> object is configured to connect to Litecoin testnet through a publicly available <a href="https://npmjs.com/package/bitcoin-computer-node">Bitcoin Computer Node</a>. See Section Api for details on the configuration options.</p>
+<p>By default, a <code v-pre>computer</code> object is configured to connect to Litecoin testnet through a publicly available <a href="https://npmjs.com/package/bitcoin-computer-node">Bitcoin Computer Node</a>. See Section API for details on the configuration options.</p>
 <doc-anchor-target id="smart-contracts">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#smart-contracts">#</doc-anchor-trigger>
@@ -212,7 +212,7 @@ const computer = new Computer({ seed })</code></pre>
         <span>Smart Objects</span>
     </h2>
 </doc-anchor-target>
-<p>A smart object is a Javascript object that is stored on the Bitcoin blockchain. The <code v-pre>computer.new()</code> method inputs a class and an array of arguments for the constructor of the class and returns a smart object from the class.</p>
+<p>A smart object is a Javascript object that is stored on the Bitcoin blockchain. The <code v-pre>computer.new()</code> method inputs a class and an array of arguments for the constructor of the class, and then returns a smart object from the class.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">&gt; a = await computer.new(Chat, ['Hi'])
 Chat {
@@ -222,48 +222,48 @@ Chat {
   messages: ['Hi']
 }</code></pre>
 </doc-codeblock></div>
-<p>When a smart object <code v-pre>a</code> is created a Bitcoin transaction is broadcast that records the creation of <code v-pre>a</code>. One of the outputs of the transaction is the immutable representation of the smart object on the blockchain. This output is called the <em>location</em> of <code v-pre>a</code>.</p>
+<p>When a smart object <code v-pre>a</code> is created, a Bitcoin transaction is broadcasted, which records the creation of <code v-pre>a</code>. One of the outputs of the transaction is the immutable representation of the smart object on the blockchain. This output is called the <em>location</em> of <code v-pre>a</code>.</p>
 <doc-anchor-target id="object-identity">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#object-identity">#</doc-anchor-trigger>
         <span>Object Identity</span>
     </h3>
 </doc-anchor-target>
-<p>Each smart object <code v-pre>a</code> has a unique <em>identity</em> <code v-pre>a._id</code> that remains fixed throughout the lifecycle of the object. This identity is the transaction id and the output number of the location of <code v-pre>a</code>.</p>
+<p>Each smart object <code v-pre>a</code> has a unique <em>identity</em> <code v-pre>a._id</code> that remains fixed throughout the lifecycle of the object. This identity includes the transaction id and the output number of the location of <code v-pre>a</code>.</p>
 <doc-anchor-target id="object-revision">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#object-revision">#</doc-anchor-trigger>
         <span>Object Revision</span>
     </h3>
 </doc-anchor-target>
-<p>Each smart object <code v-pre>a</code> has a <em>revision</em> <code v-pre>a._rev</code> that is changed every time the object is updated. Each version of a smart object has a unique identifier that can be used to recover every previous version of <code v-pre>a</code>.</p>
+<p>Each smart object <code v-pre>a</code> has a <em>revision</em> <code v-pre>a._rev</code> that changes every time the object is updated. Each version of a smart object has a unique identifier that can be used to recover every previous version of <code v-pre>a</code>.</p>
 <doc-anchor-target id="object-root">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#object-root">#</doc-anchor-trigger>
         <span>Object Root</span>
     </h3>
 </doc-anchor-target>
-<p>Each smart object <code v-pre>a</code> has a <em>root</em> <code v-pre>a._root</code>. For a smart object <code v-pre>a</code> created with <code v-pre>computer.new</code> the root <code v-pre>a._root</code> of <code v-pre>a</code> is equal to <code v-pre>a._id</code>. However smart objects can also be created inside a constructor or function call on another smart object <code v-pre>b</code>. In this case the root of <code v-pre>a</code> is the root of <code v-pre>b</code>.</p>
+<p>Each smart object <code v-pre>a</code> has a <em>root</em> <code v-pre>a._root</code>. For a smart object <code v-pre>a</code> created with <code v-pre>computer.new</code>, the root <code v-pre>a._root</code> of <code v-pre>a</code> is equal to <code v-pre>a._id</code>. However, smart objects can also be created inside a constructor or a function call on another smart object <code v-pre>b</code>. In this case, the root of <code v-pre>a</code> is the root of <code v-pre>b</code>.</p>
 <doc-anchor-target id="updating-a-smart-object">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#updating-a-smart-object">#</doc-anchor-trigger>
         <span>Updating a Smart Object</span>
     </h2>
 </doc-anchor-target>
-<p>Smart objects can be updated through function calls (it is not possible to assign to a property of a smart object directly). When a function is called, a transaction is broadcast that spends the output representing the smart object before the function call and creates a new unspent output (utxo) representing the object after the function call. Note that is necessary to <code v-pre>await</code> on function calls as broadcasting a transaction is an asynchronous operation.</p>
+<p>Smart objects can be updated through function calls (because it is not possible to assign to a property of a smart object directly). When a function is called, the output representing the smart object before the function call is spent, and a new unspent output (utxo) representing the object after the call is created; this transaction is then broadcasted. Note that it is necessary to <code v-pre>await</code> on function calls as broadcasting a transaction is an asynchronous operation.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">await a.post('Hi!')</code></pre>
 </doc-codeblock></div>
-<p>It is important to note that a user can only call a function of a smart object <code v-pre>a</code> if that user can spend the output that stores the current state of <code v-pre>a</code>. This is the basis of the security model of the Bitcoin Computer.</p>
+<p>It is important to note that a user can call the function of a smart object <code v-pre>a</code> only if that user can spend the output that stores the current state of <code v-pre>a</code>. This is the basis of the security model of the Bitcoin Computer.</p>
 <doc-anchor-target id="data-ownership">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#data-ownership">#</doc-anchor-trigger>
         <span>Data Ownership</span>
     </h2>
 </doc-anchor-target>
-<p>Every smart object <code v-pre>a</code> contains an array <code v-pre>a._owners</code> of public key strings. This array can be used to restrict write access to the smart object: in order to call a function on <code v-pre>a</code> a user needs a private key matching one of the public keys in the <code v-pre>a._owners</code> array.</p>
-<p>It is possible to reassign the <code v-pre>a._owners</code> property to change the ownership of <code v-pre>a</code>. If the property is not assigned in function calls it is unchanged and in constructor calls it defaults to the public key of the <code v-pre>computer</code> object that created <code v-pre>a</code>.</p>
-<p>For example, in our chat, only the user that created the chat can post initially. However, we can add an invite function to the chat to allow other users to post.</p>
+<p>Every smart object <code v-pre>a</code> contains an array <code v-pre>a._owners</code> of public key strings. This array can be used to restrict write access to the smart object: in order to call a function on <code v-pre>a</code>, a user needs a private key matching one of the public keys in the <code v-pre>a._owners</code> array.</p>
+<p>It is possible to reassign the <code v-pre>a._owners</code> property to change the ownership of <code v-pre>a</code>. If the property is not assigned in function calls, it is unchanged; in constructor calls, it defaults to the public key of the <code v-pre>computer</code> object that creates <code v-pre>a</code>.</p>
+<p>For example, in our chat, only the user that creates the chat can post initially. However, we can add an invite function to the chat to allow other users to post.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class Chat {
   ... // from above
@@ -279,7 +279,7 @@ Chat {
         <span>Encryption</span>
     </h2>
 </doc-anchor-target>
-<p>By default the state of all smart objects is publicly visible. However, every smart object <code v-pre>a</code> has a property <code v-pre>a._readers</code> that can be used to restrict read access to <code v-pre>a</code>. If <code v-pre>a._readers</code> is set, the meta data of the current revision is encrypted so that only the specified readers can decrypt it. If the <code v-pre>a._readers</code> is not assigned, it remains unchanged in function calls and defaults to the public key of the computer object that created <code v-pre>a</code>.</p>
+<p>By default. the state of all smart objects is publicly visible. However, every smart object <code v-pre>a</code> has a property <code v-pre>a._readers</code> that can be used to restrict read access to <code v-pre>a</code>. If <code v-pre>a._readers</code> is set, the meta data of the current revision is encrypted so that only the specified readers can decrypt it. If <code v-pre>a._readers</code> is not assigned, it remains unchanged in function calls and defaults to the public key of the <code v-pre>computer</code> object that creates <code v-pre>a</code>.</p>
 <p>For example, if we want to ensure that only people invited to the chat can read the messages, we can update our example code as follows:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class Chat {
@@ -291,15 +291,15 @@ Chat {
   }
 }</code></pre>
 </doc-codeblock></div>
-<p>A user can (only) read the state of a smart object if they have read access to the current and all previous versions of the object. It is therefore not possible to revoke access from smart objects that has already been granted. It is however possible to remove a user&#x27;s ability to read the state of a smart object from a point in time forwards.</p>
-<p>Both encryption and decryption happens securely in user&#x27;s browsers. We note that while all smart contract data is encrypted flows of money are not obfuscated in order to not hinder anti money laundering efforts.</p>
+<p>A user can (only) read the state of a smart object if they have read access to the current and all previous versions of the object. It is, therefore, not possible to revoke access that has already been granted from smart objects. However, it is possible to remove a user&#x27;s ability to read the state of a smart object from a point in time forwards.</p>
+<p>Both encryption and decryption happen securely in users&#x27; browsers. We note that while all smart contract data is encrypted, flows of money are not obfuscated in order not to hinder anti-money laundering efforts.</p>
 <doc-anchor-target id="finding-smart-objects">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#finding-smart-objects">#</doc-anchor-trigger>
         <span>Finding Smart Objects</span>
     </h2>
 </doc-anchor-target>
-<p>The process of reading the current stat of a smart objects <code v-pre>a</code> consists of two steps: finding the latest revision of <code v-pre>a</code> and synchronizing to the revision (synchronizing will  be described in the next Section).</p>
+<p>The process of reading the current state of a smart objects <code v-pre>a</code> consists of two steps: finding the latest revision of <code v-pre>a</code> and synchronizing to the revision (synchronizing will be described in the next Section).</p>
 <doc-anchor-target id="querying-by-ownership">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#querying-by-ownership">#</doc-anchor-trigger>
@@ -318,11 +318,11 @@ const revs3 = await computer.queryRevs({ pubKey, contractHash })</code></pre>
         <span>Querying by Identity</span>
     </h3>
 </doc-anchor-target>
-<p>It is often convenient to refer a smart object by its identity. In order to synchronize to the latest version of the object its latest revision is needed. The <code v-pre>computer.idToRev()</code> function returns the latest revision of a given id.</p>
+<p>It is often convenient to refer to a smart object by its identity. In order to synchronize to the latest version of the object, its latest revision is needed. The <code v-pre>computer.idToRev()</code> function returns the latest revision of a given id.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const [rev] = await computer.idToRev([id])</code></pre>
 </doc-codeblock></div>
-<p>Multiple ids can be passed in and their revisions will be returned in order.</p>
+<p>Multiple ids can be passed in, and their revisions will be returned in that order.</p>
 <doc-anchor-target id="synchronizing-to-a-smart-object">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#synchronizing-to-a-smart-object">#</doc-anchor-trigger>
@@ -333,7 +333,7 @@ const revs3 = await computer.queryRevs({ pubKey, contractHash })</code></pre>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const b = await computer.sync(rev)</code></pre>
 </doc-codeblock></div>
-<p>In the example of our decentralized chat, a user could first synchronize to the chat to read the messages. If the user is an owner the user can post a message.</p>
+<p>In the example of our decentralized chat, a user can first synchronize to the chat to read the messages. If the user is an owner, then the user can post a message.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const [rev] = await computer.query({ className: 'Chat' })
 const chat = await computer.sync(rev)
@@ -345,9 +345,9 @@ await chat.post('Hello')</code></pre>
         <span>Off-Chain Storage</span>
     </h2>
 </doc-anchor-target>
-<p>It is sometimes not the best choice to store data on chain. For example if the data is big it might be too expensive. Other data, like personal data, should never be stored on chain, not even encrypted, in order to comply with end user privacy regulation such as CCPA and GDPR.</p>
-<p>Each smart object <code v-pre>a</code> has a property <code v-pre>a._url</code> that can be set to the url of a Bitcoin Computer Node. When this property is set the meta data that encodes an update is not stored on the blockchain but on the Bitcoin Computer Node at the given url. The blockchain contains only the hash of the meta data and a link to where the data can be obtained from.</p>
-<p>For example, if we want to allow users to send images to the chat that are too large to be stored on chain, we can make use of the off-chain solution:</p>
+<p>It is sometimes not the best choice to store data on the blockchain. For example, if there&#x27;s a large amount of data, it might be too expensive. Other data, like personal data, should never be stored on chain, not even encrypted, in order to comply with end user privacy regulations, such as CCPA and GDPR.</p>
+<p>Each smart object <code v-pre>a</code> has a property <code v-pre>a._url</code> that can be set to the url of a Bitcoin Computer Node. When this property is set, the meta data that encodes an update is not stored on the blockchain but on the Bitcoin Computer Node at the given url. The blockchain contains only the hash of the meta data and a link to where the data can be obtained.</p>
+<p>For example, if we want to allow users to send images that are too large to be stored on chain to the chat, we can make use of the off-chain solution:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class Chat {
   // ... as above
@@ -363,7 +363,7 @@ await chat.post('Hello')</code></pre>
   }
 }</code></pre>
 </doc-codeblock></div>
-<p>The meta data for that specific call will be stored on the Bitcoin Computer Node at <code v-pre>https://my.node.example.com</code>. The only data that is stored on the blockchain is the url and the hash of the data. The cost of calling <code v-pre>postPic</code> is therefore independent of the size of <code v-pre>picBuf</code>.</p>
+<p>The meta data for that specific call will be stored on the Bitcoin Computer Node at <code v-pre>https://my.node.example.com</code>. The only data that is stored on the blockchain is the url and the hash of the data. The cost of calling <code v-pre>postPic</code> is thus independent of the size of <code v-pre>picBuf</code>.</p>
 <doc-anchor-target id="sending-and-storing-cryptocurrency">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#sending-and-storing-cryptocurrency">#</doc-anchor-trigger>
@@ -371,7 +371,7 @@ await chat.post('Hello')</code></pre>
     </h2>
 </doc-anchor-target>
 <p>Each smart object <code v-pre>a</code> can store an amount of cryptocurrency <code v-pre>a._amount</code>. The cryptocurrency is owned by the owners of the object, and each owner can send the Bitcoin to another user by reassigning the <code v-pre>a._owners</code> property.</p>
-<!--As an example consider the class Wallet below.
+<!--As an example, consider the class ```Wallet``` below.
 
 ```javascript
 class Wallet {
@@ -386,7 +386,7 @@ class Wallet {
 }
 ```
 
-The following example shows how a wallet storing 30000 satoshi is created. The satoshi are taken out of the wallet of the computer object. If a function call reduces the amount of satoshi in an object the remaining satoshi (minus miner fee) are returned to the wallet in the computer object.  The example also shows how the wallet can send Bitcoin.
+The following example shows how a wallet storing 30000 satoshis is created. The satoshis are taken out of the wallet of the ```computer``` object. If a function call reduces the amount of satoshis in an object, the remaining satoshis (minus miner fee) are then returned to the wallet in the ```computer``` object.  This example also shows how the wallet can send Bitcoins.
 
 ```javascript
 import { Computer } from 'bitcoin-computer-lib'

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.711232706552">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.713229982299">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>Getting Started</title>
     <meta name="title" content="Getting Started">
-    <meta name="description" content="The easiest way to get started is to run the tests. If you get an error have a look here." />
+    <meta name="description" content="The easiest way to get started is to run the tests. If you get an error, have a look here." />
 
     <!-- Canonical -->
     <link rel="canonical" href="/start/" />
@@ -20,22 +20,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="/start/">
     <meta property="og:title" content="Getting Started">
-    <meta property="og:description" content="The easiest way to get started is to run the tests. If you get an error have a look here.">
+    <meta property="og:description" content="The easiest way to get started is to run the tests. If you get an error, have a look here.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/start/">
     <meta property="twitter:title" content="Getting Started">
-    <meta property="twitter:description" content="The easiest way to get started is to run the tests. If you get an error have a look here.">
+    <meta property="twitter:description" content="The easiest way to get started is to run the tests. If you get an error, have a look here.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=2.4.0.711232706552" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.713229982299" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.711232706552" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.713229982299" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.711232706552" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.711232706552" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.713229982299" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.713229982299" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -179,7 +179,7 @@
         <span>Run the Tests</span>
     </h2>
 </doc-anchor-target>
-<p>The easiest way to get started is to run the tests. If you get an error have a look here.</p>
+<p>The easiest way to get started is to run the tests. If you get an error, have a look here.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-bash"><code v-pre class="language-bash">git clone git@github.com:bitcoin-computer/bitcoin-computer-lib.git
 cd bitcoin-computer-lib
@@ -192,7 +192,7 @@ yarn test</code></pre>
         <span>Run in Node.js</span>
     </h2>
 </doc-anchor-target>
-<p>Create file index.mjs</p>
+<p>Create the file <code v-pre>index.mjs</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
 
@@ -220,12 +220,12 @@ class Counter {
   console.log(counter)
 })()</code></pre>
 </doc-codeblock></div>
-<p>Then, execute the following in the same directory</p>
+<p>Then, execute the following in the same directory.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-bash"><code v-pre class="language-bash">yarn add bitcoin-computer-lib
 node index.mjs</code></pre>
 </doc-codeblock></div>
-<p>If you get an error &quot;Insufficient balance&quot; you have to fund the wallet, have a look <a href="../troubleshoot/">here</a>. If the wallet is funded you will see:</p>
+<p>If you get an error <code v-pre>Insufficient balance</code>, you have to fund the wallet; have a look <a href="../troubleshoot/">here</a>. If the wallet is funded, you will see:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">Counter {
   n: 1,
@@ -233,14 +233,14 @@ node index.mjs</code></pre>
   _rev: '290923708ca56ea448dd67...'
 }</code></pre>
 </doc-codeblock></div>
-<p>You can clone the <a href="https://github.com/bitcoin-computer/bitcoin-computer-node-js-boilerplate">boilerplate</a> or watch the <a href="https://www.youtube.com/watch?v=51ZFe_8mSPw">video walkthrough</a></p>
+<p>You can clone the <a href="https://github.com/bitcoin-computer/bitcoin-computer-node-js-boilerplate">boilerplate</a> or watch the <a href="https://www.youtube.com/watch?v=51ZFe_8mSPw">video walkthrough</a>.</p>
 <doc-anchor-target id="run-in-the-browser">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#run-in-the-browser">#</doc-anchor-trigger>
         <span>Run in the Browser</span>
     </h2>
 </doc-anchor-target>
-<p>Create file index.js.</p>
+<p>Create the file <code v-pre>index.js</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
 
@@ -264,7 +264,7 @@ class Counter {
   document.getElementById(&quot;el&quot;).innerHTML = `Counter is ${counter.n}`
 })()</code></pre>
 </doc-codeblock></div>
-<p>Create file index.html</p>
+<p>Create the file <code v-pre>index.html</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-markup"><code v-pre class="language-markup">&lt;html&gt;
   &lt;body&gt;
@@ -273,13 +273,13 @@ class Counter {
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 </doc-codeblock></div>
-<p>Run the following in an empty directory and open your browser at <a href="http://localhost:1234">http://localhost:1234</a>.</p>
+<p>Run the following in an empty directory, and open your browser at <a href="http://localhost:1234">http://localhost:1234</a>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-bash"><code v-pre class="language-bash">yarn add bitcoin-computer-lib
 yarn global add parcel
 parcel index.html</code></pre>
 </doc-codeblock></div>
-<p>More info in this <a href="https://www.youtube.com/watch?v=vcjzIFjt3VY">video</a></p>
+<p>More information in this <a href="https://www.youtube.com/watch?v=vcjzIFjt3VY">video</a>.</p>
 
                                 
                                 <!-- Required only on API pages -->

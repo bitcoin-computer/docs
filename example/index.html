@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.711232706552">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.713229982299">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -30,12 +30,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=2.4.0.711232706552" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.713229982299" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.711232706552" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.713229982299" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.711232706552" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.711232706552" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.713229982299" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.713229982299" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -180,7 +180,7 @@
     </h2>
 </doc-anchor-target>
 <p>A non-fungible token is an object that stores an image url, the title of an artwork, and the name of a artist.</p>
-<p>A keyword property <code v-pre>_owners</code> is set to a public key. The holder of that public key is the owner of the object in the sense the corresponding private key is required to update the object. To send the NFT to another user, the current owner can reassign the <code v-pre>_owners</code> property to the new owner&#x27;s public key.</p>
+<p>A keyword property <code v-pre>_owners</code> is set to a public key. The holder of that public key is the owner of the object in the sense that the corresponding private key is required to update the object. To send the NFT to another user, the current owner can reassign the <code v-pre>_owners</code> property to the new owner&#x27;s public key.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class NFT {
   constructor(url, title, artist, owner) {
@@ -203,7 +203,7 @@
     </h2>
 </doc-anchor-target>
 <p>A fungible token is initialized to a fixed supply and an initial owner.</p>
-<p>The only function is a <code v-pre>send</code> function. This function checks that the supply of the token is above the amount to be sent. If so the amount stored in this instance is decreased by &quot;amount&quot;. Then a new instance of the token class is created. The owner of the new token is set to the recipient.</p>
+<p>The only function is a <code v-pre>send</code> function. This function checks if the supply of the token is above the amount to be sent. If so, the amount stored in this instance is decreased by <code v-pre>amount</code>. Then, a new instance of the token class is created. The owner of the new token is set to the recipient.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class Token {
   constructor(supply, to) {
@@ -218,14 +218,14 @@
   }
 }</code></pre>
 </doc-codeblock></div>
-<p>See <a href="https://github.com/bitcoin-computer/fungible-token">Github</a>.</p>
+<p>See <a href="https://github.com/bitcoin-computer/fungible-token">Github</a> for more information.</p>
 <doc-anchor-target id="chat">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#chat">#</doc-anchor-trigger>
         <span>Chat</span>
     </h2>
 </doc-anchor-target>
-<p>A chat is an object that stores a list of messages that is initially empty. It has a function invite that adds another user to the <code v-pre>_owners</code> array thereby giving them write access (only the creator of the chat can post and invite users initially). Once invited a user can call post to send a message to the chat and invite other users.</p>
+<p>A chat is an object that stores a list of messages that is initially empty. It has a function <code v-pre>invite</code> that adds another user to the <code v-pre>_owners</code> array thereby giving them write access. (Only the creator of the chat can post and invite users initially.) Once invited, a user can call <code v-pre>post</code> function to send a message to the chat and invite other users.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class Chat {
   constructor() {
