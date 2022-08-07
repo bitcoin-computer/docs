@@ -4,11 +4,11 @@ order: -40
 
 # API
 
-We describe th Api of the class Computer. Objects of the class can create and synchronize to smart objects. It also provides the usual methods of a wallet.
+In this section, we will describe the API of the class ```Computer```. Objects of this class can create and synchronize to smart objects; it also provides the usual methods of a wallet.
 
 ### Constructor
 
-Creates a new Bitcoin Computer wallet.
+The constructor of the ```Computer``` class creates a new Bitcoin Computer wallet.
 
 ```js
 import { Computer } from 'bitcoin-computer-lib'
@@ -37,7 +37,7 @@ const computer = new Computer({
 
 ### new()
 
-Creates new smart objects. The arguments are a class and a list of arguments for the constructor of the class. The arguments can be of basic data type or smart objects.
+This method creates new smart objects. The inputs include a class and a list of arguments for the constructor of the class. The arguments can be of basic data type or smart objects.
 
 ```js
 // A smart contract
@@ -61,7 +61,7 @@ expect(a).to.deep.equal({
 
 ### sync()
 
-Returns the smart object stored at a given revision.
+This returns the smart object stored at a given revision.
 
 ```js
 // Compute smart object from revision
@@ -73,7 +73,7 @@ expect(synced).to.deep.equal(a)
 
 ### queryRevs()
 
-Returns an array containing the latest revisions that satisfy certain conditions.
+This function returns an array containing the latest revisions that satisfy certain conditions.
 
 ```js
 const revs = await computer.queryRevs({
@@ -88,11 +88,11 @@ const revs = await computer.queryRevs({
 })
 ```
 
-When a key is omitted the condition is ignored. For example, if only ``className`` is set the call will return all revision of that class regardless of the owners.
+When a key is omitted, the condition is ignored. For example, if only ``className`` is set, the call will return all revisions of that class regardless of the owners.
 
 ### idToRev()
 
-Inputs an id and returns the latest revision of the smart object with that id. If no smart object with that id exists an error is thrown.
+It inputs an id and returns the latest revision of the smart object with that id. If no smart object with that id exists, then an error is thrown.
 
 ```js
 // Get latest revision
@@ -113,7 +113,7 @@ const mnemonic = computer.db.wallet.getMnemonic().toString()
 
 ### getPublicKey()
 
-Returns a string encoded a public key.
+Returns a string encoding a public key.
 
 ```js
 const publicKey = computer.db.wallet.getPublicKey().toString()
@@ -121,7 +121,7 @@ const publicKey = computer.db.wallet.getPublicKey().toString()
 
 ### getAddress()
 
-Returns a string encoded Bitcoin address.
+Returns a string encoding Bitcoin address.
 
 ```js
 const address = computer.db.wallet.getAddress().toString()
@@ -137,7 +137,7 @@ const balance = await computer.db.wallet.getBalance()
 
 ### send()
 
-Sends an amount of satoshi to an address.
+Sends an amount of satoshis to an address.
 
 ```js
 const satoshi = 100000
@@ -149,7 +149,7 @@ const balance = await wallet.send(satoshi, address)
 
 **Support will be added in 0.9.0-beta**
 
-Broadcasts a hex encoded Bitcoin transaction to the Bitcoin mining network.
+Broadcasts a hex-encoded Bitcoin transaction to the Bitcoin mining network.
 
 ```js
 const txHex = '7b1eabe0209b1fe794124575ef807057...'
