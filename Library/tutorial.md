@@ -93,7 +93,7 @@ class Chat {
 
 ## Encryption
 
-By default. the state of all smart objects is publicly visible. However, every smart object ``a`` has a property ``a._readers`` that can be used to restrict read access to ``a``. If ``a._readers`` is set, the meta data of the current revision is encrypted so that only the specified readers can decrypt it. If ``a._readers`` is not assigned, it remains unchanged in function calls and defaults to the public key of the ``computer`` object that creates ``a``.
+By default, the state of all smart objects is publicly visible. However, every smart object ``a`` has a property ``a._readers`` that can be used to restrict read access to ``a``. If ``a._readers`` is set, the meta data of the current revision is encrypted so that only the specified readers can decrypt it. If ``a._readers`` is not assigned, it remains unchanged in function calls and defaults to the public key of the ``computer`` object that creates ``a``.
 
 For example, if we want to ensure that only people invited to the chat can read the messages, we can update our example code as follows:
 
