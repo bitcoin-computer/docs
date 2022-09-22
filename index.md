@@ -9,20 +9,19 @@ Lightweight smart contracts on Bitcoin and Litecoin :tada:
 
 ## Simple
 
-Bitcoin Computer makes it possible to run smart contracts on utxo based blockchains such as Bitcoin, Litecoin, Dogecoin, and others. You can write smart contracts in Javascript and you can store instances of the smart contracts on the blockchain. Each smart object has a unique location and if you know the location you can read the state of the object. The state can be updated by a function calls. Each object has an owner and only the owner of an object can call it's functions.
+The Bitcoin Computer makes it possible to run smart contracts on UTXO based blockchains like Bitcoin, Litecoin, or Dogecoin. You can write smart contracts in Javascript and you can store instances of the smart contracts (called smart objects) on a UTXO based blockchain. Each smart object has one or more owners that can update the smart object through function calls. Each smart object also has an unique identifier and anyone can read the latest state of the smart object if they know the identifier.
 
-You can build  games, social networks, NFTs, fungible tokens, stable coins, exchanges, auctions, voting, office applications, artificial intelligence, every application you can think of. Building applications is simple: build a client side web application and store data on the blockchain instead of in a database using our client side [lib](https://www.npmjs.com/package/@bitcoin-computer/lib). Often the entire backend can be replaced by a smart contract which can vastly simplify development.
+You can build  games, social networks, NFTs, fungible tokens, stable coins, exchanges, auctions, voting, decentralized key-value stores, office applications, artificial intelligence, every application you can think of. Building applications is simple because our smart contracts written in Javascript integrate seamlessly into web applications.
 
 ## Efficient
 
-On other blockchains fees are charged for every computational step and for every memory allocation. On Bitcoin there are no fees per computational step or memory allocation. This is because smart contracts are evaluated by users client side instead of by miners. This makes Bitcoin Computer smart contracts lightweight as they do not impose any additional effort on miners, node operators, or other users.
+On most smart contract systems fees are charged for every computational step and for every memory allocation or update. Bitcoin has always had smart contracts with free computation called colored coins. This is because smart contracts are evaluated by users client-side instead of by miners. Bitcoin Computer smart contracts lightweight as they do not impose any additional work on miners, node operators, or other users.
 
-The only fee that needs to be paid is the mining fee plus a Bitcoin Computer fee that is equal to the mining fee. This is mostly just a few cents. The Bitcoin Computer makes it possible, for the first time, to run compute and memory intense programs as smart contracts.
-
+The only fee that needs to be paid is the mining fee plus a Bitcoin Computer fee that is equal to the mining fee. The fixed fee makes it possible, for the first time, to run compute and memory intense programs as smart contracts.
 
 ## Trustless
 
-You can run your own [node](https://www.npmjs.com/package/@bitcoin-computer/node). The node gives you trustless access to the Bitcoin Computer. Nobody can revoke your access if you have a copy of the node and the lib. You can think of a node as a universal backend that can power any application.
+You can run your own [node](https://www.npmjs.com/package/@bitcoin-computer/node) and direct our client side [library](https://www.npmjs.com/package/@bitcoin-computer/lib) to it. The node gives you trustless access to the Bitcoin Computer. Nobody can revoke your access if you have a copy of the node and the lib. You can think of a node as a universal backend that can power any application.
 
 We are launching at the [Litecoin Summit](https://www.litecoin.net/summit) on October 21st :rocket:
 
