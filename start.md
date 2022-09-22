@@ -4,13 +4,15 @@ order: -10
 
 # Getting Started
 
+The code consists of a client side library [lib](https://www.npmjs.com/package/@bitcoin-computer/lib) and server side library [node](https://www.npmjs.com/package/@bitcoin-computer/node). By default lib connects to an instance of the node we are running but you can run your own node and point lib to it. You can find examples from out [monorepo](https://github.com/bitcoin-computer/monorepo).
+
 ## Run the Tests
 
 The easiest way to get started is to run the tests. If you get an error, have a look here.
 
 ```shell
-git clone git@github.com:bitcoin-computer/bitcoin-computer-lib.git
-cd bitcoin-computer-lib
+git clone https://github.com/bitcoin-computer/monorepo.git
+cd packages/lib
 yarn install
 yarn test
 ```
@@ -20,7 +22,7 @@ yarn test
 Create the file ```index.mjs```.
 
 ```javascript
-import { Computer } from 'bitcoin-computer-lib'
+import { Computer } from '@bitcoin-computer/lib'
 
 // a smart contract
 class Counter {
@@ -64,14 +66,14 @@ Counter {
 }
 ```
 
-You can clone the [boilerplate](https://github.com/bitcoin-computer/bitcoin-computer-node-js-boilerplate) or watch the [video walkthrough](https://www.youtube.com/watch?v=51ZFe_8mSPw).
+You can clone the [boilerplate](@bitcoin-computer/node-js-boilerplate) or watch the [video walkthrough](https://www.youtube.com/watch?v=51ZFe_8mSPw).
 
 ## Run in the Browser
 
 Create the file ```index.js```.
 
 ```javascript
-import { Computer } from 'bitcoin-computer-lib'
+import { Computer } from '@bitcoin-computer/lib'
 
 class Counter {
   constructor() {
