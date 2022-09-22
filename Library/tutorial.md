@@ -4,7 +4,7 @@ order: -30
 
 # Tutorial
 
-This tutorial explains how to build an encrypted blockchain-based chat.
+This tutorial explains how to build an encrypted blockchain-based chat. You can download the code from [Npm](https://www.npmjs.com/package/@bitcoin-computer/lib) or [Github](https://github.com/bitcoin-computer/monorepo/tree/main/packages/lib).
 
 ## The Computer Object
 

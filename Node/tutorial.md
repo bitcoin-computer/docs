@@ -1,5 +1,3 @@
 # Tutorial
 
-Docs coming soon.
-
-For now have a look at the readme of the [npm package](https://npmjs.com/package/bitcoin-computer-node).
+Have a look at the documentation on [Npm](https://www.npmjs.com/package/@bitcoin-computer/node) or [Github](https://github.com/bitcoin-computer/monorepo/tree/main/packages/node). More coming soon.

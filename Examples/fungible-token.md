@@ -4,7 +4,7 @@ order: -60
 
 # Fungible Token
 
-We explore how ERC20 style contracts can be built on Bitcoin. The code is implemented and tested [here](https://github.com/bitcoin-computer/BRC20).
+We explore how ERC20 style fungible token contracts can be built on Bitcoin. The code is implemented and tested [here](https://github.com/bitcoin-computer/BRC20).
 
 We use two classes: a ``TokenBag`` encapsulates the minimal amount of data that needs to be stored on the blockchain. A token bag can be thought of as the equivalent to unspent transaction output (utxo) in the token world: while a utxo stores a number of satoshi, a token bag stores a number of tokens. The ``ERC20`` class helps manage multiple token bags, in the same way that a wallet deals with multiple unspent outputs.
 
@@ -156,7 +156,3 @@ export class BRC20 {
 There is plenty of room for improvement with this class: one issue is that when a payment is made from multiple bags, all payments are sent in separate transactions. In addition, the running time can be vastly improved through the use of caching. Both issues can be solved at the smart contract level and do not require any changes to the Bitcoin Computer.
 
 The ``BRC20`` class implements the interface described in [EIP20](https://eips.ethereum.org/EIPS/eip-20). Have a look at the implementation on [Github](https://github.com/bitcoin-computer/BRC20/blob/master/src/brc-20.ts).
-
-!!!
-The "Advanced Examples" Section is a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.
-!!!

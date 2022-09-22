@@ -2,9 +2,9 @@
 order: -30
 ---
 
-# Non Fungible Token (NFT)
+# Non-Fungible Token
 
-Let's explore how ERC721 style contracts can be implemented on Bitcoin. The code is written and tested [here](https://github.com/bitcoin-computer/BRC721).
+Let's explore how ERC721 style non-fungible token (NFT) contracts can be implemented on Bitcoin. The code is written and tested [here](https://github.com/bitcoin-computer/BRC721).
 
 In the ```NFT``` class, we have a constructor and a ```send``` function. The constructor initializes a new token with a url and an initial owner. The ```send``` function adds the new owner to the list of owners of this token.
 
@@ -67,7 +67,3 @@ async transfer(to: string, tokenId: string) {
   await obj.transfer(to)
 }
 ```
-
-!!!
-The "Advanced Examples" Section is a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.
-!!!

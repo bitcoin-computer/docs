@@ -68,7 +68,3 @@ async send(satoshis: number, to: Address) {
   await this.computer.broadcast(transaction)
 }
 ```
-
-!!!
-The "Advanced Examples" Section is a work in progress. We are using the examples in this section to determine the final syntax and semantics for the Bitcoin Computer.
-!!!

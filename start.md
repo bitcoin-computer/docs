@@ -2,9 +2,9 @@
 order: -10
 ---
 
-# Getting Started
+# Start
 
-The code consists of a client side library [lib](https://www.npmjs.com/package/@bitcoin-computer/lib) and server side library [node](https://www.npmjs.com/package/@bitcoin-computer/node). By default lib connects to an instance of the node we are running but you can run your own node and point lib to it. You can find examples from out [monorepo](https://github.com/bitcoin-computer/monorepo).
+The code consists of a client side library [lib](https://www.npmjs.com/package/@bitcoin-computer/lib) and server side library [node](https://www.npmjs.com/package/@bitcoin-computer/node). By default lib connects to an instance of the node we are running but you can run your own node and point lib to it. You can find examples in the [monorepo](https://github.com/bitcoin-computer/monorepo).
 
 ## Run the Tests
 
@@ -116,3 +116,25 @@ parcel index.html
 ```
 
 More information in this [video](https://www.youtube.com/watch?v=vcjzIFjt3VY).
+
+## Troubleshooting
+
+### Wallet is currently rescanning. Abort existing rescan or wait.
+
+When you use a seed phrase for the first time, the Bitcoin node needs to re-scan the blockchain. This usually takes around 10 minutes but can take up to an hour. Please wait and try again.
+
+### Insufficient balance in address
+
+You need to fund the wallet inside the ```computer``` object.
+
+The Bitcoin Computer currently supports Litecoin testnet. You can get free testnet coins from a Litecoin Testnet Faucet [here](https://testnet-faucet.com/ltc-testnet/), [here](https://testnet.help/en/ltcfaucet/testnet), [here](http://litecointf.salmen.website/), or [here](https://tltc.bitaps.com/).
+We recommend generating a new seed phrase through a BIP39 generator.
+
+## Getting Help
+
+If you have any questions or are having trouble writing a smart contract, please get in touch. You can
+
+ * ask a question in the [Telegram Group](https://t.me/joinchat/FMrjOUWRuUkNuIt7zJL8tg)
+ * create and issue on [Github](https://github.com/bitcoin-computer/bitcoin-computer-lib/issues)
+
+We can also help you develop a smart contract on the Bitcoin Computer. Email ``clemens@bitcoincomputer.io`` for more information.
