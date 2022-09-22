@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.713296059271">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.717137115586">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>Getting Started</title>
     <meta name="title" content="Getting Started">
-    <meta name="description" content="The easiest way to get started is to run the tests. If you get an error, have a look here." />
+    <meta name="description" content="The code consists of a client side library lib and server side library node." />
 
     <!-- Canonical -->
     <link rel="canonical" href="/start/" />
@@ -20,22 +20,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="/start/">
     <meta property="og:title" content="Getting Started">
-    <meta property="og:description" content="The easiest way to get started is to run the tests. If you get an error, have a look here.">
+    <meta property="og:description" content="The code consists of a client side library lib and server side library node.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/start/">
     <meta property="twitter:title" content="Getting Started">
-    <meta property="twitter:description" content="The easiest way to get started is to run the tests. If you get an error, have a look here.">
+    <meta property="twitter:description" content="The code consists of a client side library lib and server side library node.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=2.4.0.713296059271" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.717137115586" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.713296059271" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.717137115586" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.713296059271" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.713296059271" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.717137115586" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.717137115586" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -173,6 +173,7 @@
         <span>Getting Started</span>
     </h1>
 </doc-anchor-target>
+<p>The code consists of a client side library <a href="https://www.npmjs.com/package/@bitcoin-computer/lib">lib</a> and server side library <a href="https://www.npmjs.com/package/@bitcoin-computer/node">node</a>. By default lib connects to an instance of the node we are running but you can run your own node and point lib to it. You can find examples from out <a href="https://github.com/bitcoin-computer/monorepo">monorepo</a>.</p>
 <doc-anchor-target id="run-the-tests">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#run-the-tests">#</doc-anchor-trigger>
@@ -181,8 +182,8 @@
 </doc-anchor-target>
 <p>The easiest way to get started is to run the tests. If you get an error, have a look here.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">git clone git@github.com:bitcoin-computer/bitcoin-computer-lib.git
-cd bitcoin-computer-lib
+<pre class="language-bash"><code v-pre class="language-bash">git clone https://github.com/bitcoin-computer/monorepo.git
+cd packages/lib
 yarn install
 yarn test</code></pre>
 </doc-codeblock></div>
@@ -194,7 +195,7 @@ yarn test</code></pre>
 </doc-anchor-target>
 <p>Create the file <code v-pre>index.mjs</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
+<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from '@bitcoin-computer/lib'
 
 // a smart contract
 class Counter {
@@ -233,7 +234,7 @@ node index.mjs</code></pre>
   _rev: '290923708ca56ea448dd67...'
 }</code></pre>
 </doc-codeblock></div>
-<p>You can clone the <a href="https://github.com/bitcoin-computer/bitcoin-computer-node-js-boilerplate">boilerplate</a> or watch the <a href="https://www.youtube.com/watch?v=51ZFe_8mSPw">video walkthrough</a>.</p>
+<p>You can clone the <a href="bitcoin-computer/node-js-boilerplate">boilerplate</a> or watch the <a href="https://www.youtube.com/watch?v=51ZFe_8mSPw">video walkthrough</a>.</p>
 <doc-anchor-target id="run-in-the-browser">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#run-in-the-browser">#</doc-anchor-trigger>
@@ -242,7 +243,7 @@ node index.mjs</code></pre>
 </doc-anchor-target>
 <p>Create the file <code v-pre>index.js</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from 'bitcoin-computer-lib'
+<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from '@bitcoin-computer/lib'
 
 class Counter {
   constructor() {
