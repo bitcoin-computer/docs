@@ -27,6 +27,6 @@ class Chat {
 }
 ```
 
-You can find the MIT licensed source code on [GitHub](https://github.com/bitcoin-computer/bitcoin-chat/blob/master/public/chat-sc.js).
-
-This is intended as a starting point for developers to build on top of. Contributions are more than welcome. [Here](https://github.com/bitcoin-computer/bitcoin-chat) is the GitHub repository of Bitcoin Chat. Have a look at the open issues, or make a pull request with a new feature. You can also make a feature request by creating an issue.
+!!!
+Check out a working version on [Github](https://github.com/bitcoin-computer/monorepo/tree/main/packages/chat).
+!!!

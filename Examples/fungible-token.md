@@ -4,7 +4,7 @@ order: -60
 
 # Fungible Token
 
-We explore how ERC20 style fungible token contracts can be built on Bitcoin. The code is implemented and tested [here](https://github.com/bitcoin-computer/BRC20).
+We explore how ERC20 style fungible token contracts can be built on Bitcoin. The ``BRC20`` class implements the interface described in [EIP20](https://eips.ethereum.org/EIPS/eip-20).
 
 We use two classes: a ``TokenBag`` encapsulates the minimal amount of data that needs to be stored on the blockchain. A token bag can be thought of as the equivalent to unspent transaction output (utxo) in the token world: while a utxo stores a number of satoshi, a token bag stores a number of tokens. The ``ERC20`` class helps manage multiple token bags, in the same way that a wallet deals with multiple unspent outputs.
 
@@ -86,8 +86,6 @@ export class TokenBag {
 }
 ```
 
-You can find the MIT licensed source code on [Github](https://github.com/bitcoin-computer/BRC20/blob/master/src/token-bag.ts).
-
 ## BRC20
 
 In general, each user will own several token bags, in the same way that users generally own multiple unspent outputs. The ``BRC20`` class adds functionality for sending tokens from multiple bags and for computing their balance across multiple bags. This is similar to the functionality of a traditional Bitcoin [wallet](wallet.md).
@@ -155,4 +153,6 @@ export class BRC20 {
 
 There is plenty of room for improvement with this class: one issue is that when a payment is made from multiple bags, all payments are sent in separate transactions. In addition, the running time can be vastly improved through the use of caching. Both issues can be solved at the smart contract level and do not require any changes to the Bitcoin Computer.
 
-The ``BRC20`` class implements the interface described in [EIP20](https://eips.ethereum.org/EIPS/eip-20). Have a look at the implementation on [Github](https://github.com/bitcoin-computer/BRC20/blob/master/src/brc-20.ts).
+!!!
+Check out a working version of the [BRC721](https://github.com/bitcoin-computer/monorepo/tree/main/packages/BRC20) contract and a [NFT application](https://github.com/bitcoin-computer/monorepo/tree/main/packages/fungible-token).
+!!!

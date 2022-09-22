@@ -26,5 +26,5 @@ You can run your own [node](https://www.npmjs.com/package/@bitcoin-computer/node
 We are launching at the [Litecoin Summit](https://www.litecoin.net/summit) on October 21st :rocket:
 
 !!!
-Check out our code on [Github](https://github.com/bitcoin-computer/monorepo).
+Check out our code with working examples on [Github](https://github.com/bitcoin-computer/monorepo).
 !!!

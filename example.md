@@ -27,7 +27,7 @@ class NFT {
 }
 ```
 
-You can find a working implementation for minting, storing, and sending NFTs on [Github](https://github.com/bitcoin-computer/non-fungible-token).
+You can find a working implementation for minting, storing, and sending NFTs on [Github](https://github.com/bitcoin-computer/monorepo/tree/main/packages/non-fungible-token).
 
 ## Fungible Tokens
 
@@ -51,7 +51,7 @@ class Token {
 }
 ```
 
-See [Github](https://github.com/bitcoin-computer/fungible-token) for more information.
+See [Github](https://github.com/bitcoin-computer/monorepo/tree/main/packages/fungible-token) for more information.
 
 ## Chat
 
@@ -74,4 +74,4 @@ class Chat {
 }
 ```
 
-Try it out on [Github](https://github.com/bitcoin-computer/bitcoin-chat).
+Try it out on [Github](https://github.com/bitcoin-computer/monorepo/tree/main/packages/chat).

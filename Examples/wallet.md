@@ -68,3 +68,7 @@ async send(satoshis: number, to: Address) {
   await this.computer.broadcast(transaction)
 }
 ```
+
+!!!
+Check out a working version on [Github](https://github.com/bitcoin-computer/monorepo/tree/main/packages/wallet)
+!!!

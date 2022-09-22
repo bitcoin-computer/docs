@@ -4,7 +4,7 @@ order: -30
 
 # Non-Fungible Token
 
-Let's explore how ERC721 style non-fungible token (NFT) contracts can be implemented on Bitcoin. The code is written and tested [here](https://github.com/bitcoin-computer/BRC721).
+Let's explore how ERC721 style non-fungible token (NFT) contracts can be implemented on Bitcoin.
 
 In the ```NFT``` class, we have a constructor and a ```send``` function. The constructor initializes a new token with a url and an initial owner. The ```send``` function adds the new owner to the list of owners of this token.
 
@@ -21,16 +21,12 @@ class NFT {
 }
 ```
 
-More information for how to build a non-fungible token application can be found [here](https://github.com/bitcoin-computer/non-fungible-token).
-
 
 ## BRC721
 
-BRC721 is the ERC721 standard built on Bitcoin. It currently implements the ```IBRC721``` interface. Check out the code [here](https://github.com/bitcoin-computer/BRC721) for more information regarding the BRC721 token.
+BRC721 is the ERC721 standard built on Bitcoin. It currently implements the ```IBRC721``` interface.
 
-The ```BRC721``` class has the following functions: ```mint```, ```balanceOf```, ```ownerOf```, and ```transfer```.
-
-The ```mint``` function mints a new non-fungible token. It first checks whether or not there is a ```masterNFT```. If not, and a name and a symbol are inputted, the computer generates a new NFT, which includes the name and symbol and a new owner's information, and sets it as this BRC721's ```masterNFT```. If there's already a ```masterNFT```, but its name does not match the name inputted, or the symbol does not match, throw an error. Otherwise, the ```masterNFT``` will mint a new token with the new owner's information.
+The ```BRC721``` class has the following functions: ```mint```, ```balanceOf```, ```ownerOf```, and ```transfer```. The ```mint``` function mints a new non-fungible token. It first checks whether or not there is a ```masterNFT```. If not, and a name and a symbol are inputted, the computer generates a new NFT, which includes the name and symbol and a new owner's information, and sets it as this BRC721's ```masterNFT```. If there's already a ```masterNFT```, but its name does not match the name inputted, or the symbol does not match, throw an error. Otherwise, the ```masterNFT``` will mint a new token with the new owner's information.
 
 ```js
 async mint(to: string, name?: string, symbol?: string): Promise<NFT> {
@@ -67,3 +63,7 @@ async transfer(to: string, tokenId: string) {
   await obj.transfer(to)
 }
 ```
+
+!!!
+Check out a working version of the [BRC721](https://github.com/bitcoin-computer/monorepo/tree/main/packages/BRC721) contract and a [NFT application](https://github.com/bitcoin-computer/monorepo/tree/main/packages/non-fungible-token).
+!!!
