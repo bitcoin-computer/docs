@@ -27,5 +27,5 @@ You can run your own [node](https://www.npmjs.com/package/@bitcoin-computer/node
 We are launching on Litecoin. In the future we want to support all currencies in the Bitcoin family.
 
 !!!
-Get started on [Github](https://github.com/bitcoin-computer/monorepo).
+Check out our code on [Github](https://github.com/bitcoin-computer/monorepo).
 !!!
