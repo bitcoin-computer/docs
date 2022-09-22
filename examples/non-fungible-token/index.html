@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.717141187921">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.717193601285">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>Non-Fungible Token</title>
     <meta name="title" content="Non-Fungible Token">
-    <meta name="description" content="Let's explore how ERC721 style non-fungible token (NFT) contracts can be implemented on Bitcoin. The code is written and tested" />
+    <meta name="description" content="Let's explore how ERC721 style non-fungible token (NFT) contracts can be implemented on Bitcoin." />
 
     <!-- Canonical -->
     <link rel="canonical" href="/examples/non-fungible-token/" />
@@ -20,22 +20,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="/examples/non-fungible-token/">
     <meta property="og:title" content="Non-Fungible Token">
-    <meta property="og:description" content="Let's explore how ERC721 style non-fungible token (NFT) contracts can be implemented on Bitcoin. The code is written and tested">
+    <meta property="og:description" content="Let's explore how ERC721 style non-fungible token (NFT) contracts can be implemented on Bitcoin.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/examples/non-fungible-token/">
     <meta property="twitter:title" content="Non-Fungible Token">
-    <meta property="twitter:description" content="Let's explore how ERC721 style non-fungible token (NFT) contracts can be implemented on Bitcoin. The code is written and tested">
+    <meta property="twitter:description" content="Let's explore how ERC721 style non-fungible token (NFT) contracts can be implemented on Bitcoin.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.717141187921" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.717193601285" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.717141187921" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.717193601285" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.717141187921" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.717141187921" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.717193601285" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.717193601285" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -173,7 +173,7 @@
         <span>Non-Fungible Token</span>
     </h1>
 </doc-anchor-target>
-<p>Let&#x27;s explore how ERC721 style non-fungible token (NFT) contracts can be implemented on Bitcoin. The code is written and tested <a href="https://github.com/bitcoin-computer/BRC721">here</a>.</p>
+<p>Let&#x27;s explore how ERC721 style non-fungible token (NFT) contracts can be implemented on Bitcoin.</p>
 <p>In the <code v-pre>NFT</code> class, we have a constructor and a <code v-pre>send</code> function. The constructor initializes a new token with a url and an initial owner. The <code v-pre>send</code> function adds the new owner to the list of owners of this token.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class NFT {
@@ -187,16 +187,14 @@
   }
 }</code></pre>
 </doc-codeblock></div>
-<p>More information for how to build a non-fungible token application can be found <a href="https://github.com/bitcoin-computer/non-fungible-token">here</a>.</p>
 <doc-anchor-target id="brc721">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#brc721">#</doc-anchor-trigger>
         <span>BRC721</span>
     </h2>
 </doc-anchor-target>
-<p>BRC721 is the ERC721 standard built on Bitcoin. It currently implements the <code v-pre>IBRC721</code> interface. Check out the code <a href="https://github.com/bitcoin-computer/BRC721">here</a> for more information regarding the BRC721 token.</p>
-<p>The <code v-pre>BRC721</code> class has the following functions: <code v-pre>mint</code>, <code v-pre>balanceOf</code>, <code v-pre>ownerOf</code>, and <code v-pre>transfer</code>.</p>
-<p>The <code v-pre>mint</code> function mints a new non-fungible token. It first checks whether or not there is a <code v-pre>masterNFT</code>. If not, and a name and a symbol are inputted, the computer generates a new NFT, which includes the name and symbol and a new owner&#x27;s information, and sets it as this BRC721&#x27;s <code v-pre>masterNFT</code>. If there&#x27;s already a <code v-pre>masterNFT</code>, but its name does not match the name inputted, or the symbol does not match, throw an error. Otherwise, the <code v-pre>masterNFT</code> will mint a new token with the new owner&#x27;s information.</p>
+<p>BRC721 is the ERC721 standard built on Bitcoin. It currently implements the <code v-pre>IBRC721</code> interface.</p>
+<p>The <code v-pre>BRC721</code> class has the following functions: <code v-pre>mint</code>, <code v-pre>balanceOf</code>, <code v-pre>ownerOf</code>, and <code v-pre>transfer</code>. The <code v-pre>mint</code> function mints a new non-fungible token. It first checks whether or not there is a <code v-pre>masterNFT</code>. If not, and a name and a symbol are inputted, the computer generates a new NFT, which includes the name and symbol and a new owner&#x27;s information, and sets it as this BRC721&#x27;s <code v-pre>masterNFT</code>. If there&#x27;s already a <code v-pre>masterNFT</code>, but its name does not match the name inputted, or the symbol does not match, throw an error. Otherwise, the <code v-pre>masterNFT</code> will mint a new token with the new owner&#x27;s information.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">async mint(to: string, name?: string, symbol?: string): Promise&lt;NFT&gt; {
   if (!this.masterNFT &amp;&amp; name &amp;&amp; symbol) {
@@ -230,6 +228,23 @@ async transfer(to: string, tokenId: string) {
   await obj.transfer(to)
 }</code></pre>
 </doc-codeblock></div>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>Check out a working version of the <a href="https://github.com/bitcoin-computer/monorepo/tree/main/packages/BRC721">BRC721</a> contract and a <a href="https://github.com/bitcoin-computer/monorepo/tree/main/packages/non-fungible-token">NFT application</a>.</p>
+        </div>
+    </div>
+</div>
 
                                 
                                 <!-- Required only on API pages -->
