@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.717137339769">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.717139500708">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
 
     <!-- Primary Meta Tags -->
-    <title>Getting Started</title>
-    <meta name="title" content="Getting Started">
+    <title>Start</title>
+    <meta name="title" content="Start">
     <meta name="description" content="The code consists of a client side library lib and server side library node." />
 
     <!-- Canonical -->
@@ -19,23 +19,23 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="/start/">
-    <meta property="og:title" content="Getting Started">
+    <meta property="og:title" content="Start">
     <meta property="og:description" content="The code consists of a client side library lib and server side library node.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/start/">
-    <meta property="twitter:title" content="Getting Started">
+    <meta property="twitter:title" content="Start">
     <meta property="twitter:description" content="The code consists of a client side library lib and server side library node.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=2.4.0.717137339769" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.717139500708" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.717137339769" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.717139500708" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.717137339769" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.717137339769" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.717139500708" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.717139500708" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -167,13 +167,13 @@
                                 <div id="docs-sidebar-right-toggle"></div>
                 
                                 <!-- Page content  -->
-<doc-anchor-target id="getting-started" class="break-words">
+<doc-anchor-target id="start" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getting-started">#</doc-anchor-trigger>
-        <span>Getting Started</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#start">#</doc-anchor-trigger>
+        <span>Start</span>
     </h1>
 </doc-anchor-target>
-<p>The code consists of a client side library <a href="https://www.npmjs.com/package/@bitcoin-computer/lib">lib</a> and server side library <a href="https://www.npmjs.com/package/@bitcoin-computer/node">node</a>. By default lib connects to an instance of the node we are running but you can run your own node and point lib to it. You can find examples from out <a href="https://github.com/bitcoin-computer/monorepo">monorepo</a>.</p>
+<p>The code consists of a client side library <a href="https://www.npmjs.com/package/@bitcoin-computer/lib">lib</a> and server side library <a href="https://www.npmjs.com/package/@bitcoin-computer/node">node</a>. By default lib connects to an instance of the node we are running but you can run your own node and point lib to it. You can find examples in the <a href="https://github.com/bitcoin-computer/monorepo">monorepo</a>.</p>
 <doc-anchor-target id="run-the-tests">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#run-the-tests">#</doc-anchor-trigger>
@@ -226,7 +226,7 @@ class Counter {
 <pre class="language-bash"><code v-pre class="language-bash">yarn add bitcoin-computer-lib
 node index.mjs</code></pre>
 </doc-codeblock></div>
-<p>If you get an error <code v-pre>Insufficient balance</code>, you have to fund the wallet; have a look <a href="../troubleshoot/">here</a>. If the wallet is funded, you will see:</p>
+<p>If you get an error <code v-pre>Insufficient balance</code>, you have to fund the wallet; have a look <a href="/troubleshoot.md">here</a>. If the wallet is funded, you will see:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">Counter {
   n: 1,
@@ -281,6 +281,40 @@ yarn global add parcel
 parcel index.html</code></pre>
 </doc-codeblock></div>
 <p>More information in this <a href="https://www.youtube.com/watch?v=vcjzIFjt3VY">video</a>.</p>
+<doc-anchor-target id="troubleshooting">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#troubleshooting">#</doc-anchor-trigger>
+        <span>Troubleshooting</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="wallet-is-currently-rescanning-abort-existing-rescan-or-wait">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#wallet-is-currently-rescanning-abort-existing-rescan-or-wait">#</doc-anchor-trigger>
+        <span>Wallet is currently rescanning. Abort existing rescan or wait.</span>
+    </h3>
+</doc-anchor-target>
+<p>When you use a seed phrase for the first time, the Bitcoin node needs to re-scan the blockchain. This usually takes around 10 minutes but can take up to an hour. Please wait and try again.</p>
+<doc-anchor-target id="insufficient-balance-in-address">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#insufficient-balance-in-address">#</doc-anchor-trigger>
+        <span>Insufficient balance in address</span>
+    </h3>
+</doc-anchor-target>
+<p>You need to fund the wallet inside the <code v-pre>computer</code> object.</p>
+<p>The Bitcoin Computer currently supports Litecoin testnet. You can get free testnet coins from a Litecoin Testnet Faucet <a href="https://testnet-faucet.com/ltc-testnet/">here</a>, <a href="https://testnet.help/en/ltcfaucet/testnet">here</a>, <a href="http://litecointf.salmen.website/">here</a>, or <a href="https://tltc.bitaps.com/">here</a>.
+We recommend generating a new seed phrase through a BIP39 generator.</p>
+<doc-anchor-target id="getting-help">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getting-help">#</doc-anchor-trigger>
+        <span>Getting Help</span>
+    </h2>
+</doc-anchor-target>
+<p>If you have any questions or are having trouble writing a smart contract, please get in touch. You can</p>
+<ul>
+<li>ask a question in the <a href="https://t.me/joinchat/FMrjOUWRuUkNuIt7zJL8tg">Telegram Group</a></li>
+<li>create and issue on <a href="https://github.com/bitcoin-computer/bitcoin-computer-lib/issues">Github</a></li>
+</ul>
+<p>We can also help you develop a smart contract on the Bitcoin Computer. Email <code v-pre>clemens@bitcoincomputer.io</code> for more information.</p>
 
                                 
                                 <!-- Required only on API pages -->
@@ -290,20 +324,13 @@ parcel index.html</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../example/">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
-                                            <span>
-                                                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Examples</span>
-                                            </span>
-                                        </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../troubleshoot/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../examples/wallet/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Troubleshooting</span>
+                                                <span class="block mt-1">Wallet</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -347,6 +374,6 @@ parcel index.html</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "Getting Started", level: 1, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "Start", level: 1, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>
