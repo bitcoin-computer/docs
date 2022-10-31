@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.717193601285">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.720571679604">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -30,12 +30,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.717193601285" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.720571679604" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.717193601285" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.720571679604" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.717193601285" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.717193601285" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.720571679604" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.720571679604" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -370,7 +370,35 @@ await chat.post('Hello')</code></pre>
         <span>Sending and Storing Cryptocurrency</span>
     </h2>
 </doc-anchor-target>
-<p>Each smart object <code v-pre>a</code> can store an amount of cryptocurrency <code v-pre>a._amount</code>. The cryptocurrency is owned by the owners of the object, and each owner can send the Bitcoin to another user by reassigning the <code v-pre>a._owners</code> property.</p>
+<p>Each smart object can store an amount of cryptocurrency. By default a smart object stores a minimal (non-dust) amount. The smart contract developper can set an amount by assigning an integer to a property <code v-pre>_amount</code> of a smart object.</p>
+<p>For example, consider the class <code v-pre>Payment</code> below.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">class Payment {
+  constructor(to: string, amount: number) {
+    this._owners = [to]
+    this._amount = amount
+  }
+
+  cashOut() {
+    this._amount = 10000
+  }
+}</code></pre>
+</doc-codeblock></div>
+<p>If a user <code v-pre>A</code> wants to send 200000 satoshis to a user <code v-pre>B</code>, the user <code v-pre>A</code> can setup the payment as follows:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">const computerA = new Computer({ seed: &lt;A's seed phrase&gt; })
+const payment = computerA.new(Payment, [&lt;B's public key&gt;, 210000])</code></pre>
+</doc-codeblock></div>
+<p>When the <code v-pre>payment</code> smart object is created, the wallet inside the <code v-pre>computerA</code> object funds the <code v-pre>210000</code> satoshi that are stored in the <code v-pre>payment</code> object.</p>
+<p>Generally, constructor and function calls with no parameters work in the same way: The <code v-pre>computer</code> object that either created or synced against the smart object has to cover the satoshis in a smart object without parameters.</p>
+<p>In the case of a constructor or function call with parameters we first check if the parameters contain enough funds to cover the amount in the parameters after the call and the amount(s) in the return value. If so, no additional fees from the &quot;current&quot; wallet is needed. If the amount in the parameters exceeds the amount specified in the smart object the funds are sent back to the &quot;current&quot; wallet.</p>
+<p>In the next step, <code v-pre>A</code> can send send <code v-pre>payment._rev</code> to user <code v-pre>B</code>. To claim the funds user <code v-pre>B</code> can execute:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">const computerB = new Computer({ seed: &lt;B's seed phrase&gt; })
+const paymentB = await computerB.sync(payment._rev)
+await paymentB.cashOut()</code></pre>
+</doc-codeblock></div>
+<p>At the end of the process 210000-10000= 200000 many additional satoshis will be in the wallet with seed <code v-pre>&lt;B's seed phrase&gt;</code>.</p>
 <!--As an example, consider the class ```Wallet``` below.
 
 ```javascript
