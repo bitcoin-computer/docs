@@ -196,11 +196,11 @@ class Payment {
 }
 ```
 
-If a user ``A`` wants to send funds to a user ``B``, ``A`` can setup the payment as follows:
+If a user ``A`` wants to send 200000 satoshis to a user ``B``, the user ``A`` can setup the payment as follows:
 
 ```js
 const computerA = new Computer({ seed: <A's seed phrase> })
-const payment = computerA.new(Payment, [<pkB>, 210000])
+const payment = computerA.new(Payment, [<B's public key>, 210000])
 ```
 
 When the ``payment`` smart object is created, the wallet inside the ``computerA`` object funds the ``210000`` satoshi that are stored in the ``payment`` object.
