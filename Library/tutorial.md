@@ -179,8 +179,45 @@ The meta data for that specific call will be stored on the Bitcoin Computer Node
 
 ## Sending and Storing Cryptocurrency
 
-Each smart object ``a`` can store an amount of cryptocurrency ``a._amount``. The cryptocurrency is owned by the owners of the object, and each owner can send the Bitcoin to another user by reassigning the ``a._owners`` property.
+Each smart object can store an amount of cryptocurrency. By default a smart object stores a minimal (non-dust) amount. The smart contract developper can set an amount by assigning an integer to a property ``_amount`` of a smart object.
 
+For example, consider the class ``Payment`` below.
+
+```js
+class Payment {
+  constructor(to: string, amount: number) {
+    this._owners = [to]
+    this._amount = amount
+  }
+
+  cashOut() {
+    this._amount = 10000
+  }
+}
+```
+
+If a user ``A`` wants to send funds to a user ``B``, ``A`` can setup the payment as follows:
+
+```js
+const computerA = new Computer({ seed: <A's seed phrase> })
+const payment = computerA.new(Payment, [<pkB>, 210000])
+```
+
+When the ``payment`` smart object is created, the wallet inside the ``computerA`` object funds the ``210000`` satoshi that are stored in the ``payment`` object.
+
+Generally, constructor and function calls with no parameters work in the same way: The ``computer`` object that either created or synced against the smart object has to cover the satoshis in a smart object without parameters.
+
+In the case of a constructor or function call with parameters we first check if the parameters contain enough funds to cover the amount in the parameters after the call and the amount(s) in the return value. If so, no additional fees from the "current" wallet is needed. If the amount in the parameters exceeds the amount specified in the smart object the funds are sent back to the "current" wallet.
+
+In the next step, ``A`` can send send ``payment._rev`` to user ``B``. To claim the funds user ``B`` can execute:
+
+```js
+const computerB = new Computer({ seed: <B's seed phrase> })
+const paymentB = await computerB.sync(payment._rev)
+await paymentB.cashOut()
+```
+
+At the end of the process 210000-10000= 200000 many additional satoshis will be in the wallet with seed ``<B's seed phrase>``.
 
 
 <!--As an example, consider the class ```Wallet``` below.
