@@ -21,11 +21,14 @@ By default, a ``computer`` object is configured to connect to Litecoin testnet t
 
 ## Smart Contracts
 
-Every Javascript (ES6) class is a smart contract. For example, a smart contract for a chat could be:
+A *smart contract* is a Javascript (ES6) class that inherits from ``Contract``. For example, a smart contract for a chat could be:
 
 ```javascript
-class Chat {
+import { Computer } from 'bitcoin-computer-lib'
+
+class Chat extends Contract {
   constructor(message) {
+    super()
     this.messages = [message]
   }
 
@@ -37,7 +40,7 @@ class Chat {
 
 ## Smart Objects
 
-A smart object is a Javascript object that is stored on the Bitcoin blockchain. The ``computer.new()`` method inputs a class and an array of arguments for the constructor of the class, and then returns a smart object from the class.
+A *smart object* is an object that is created from a smart contract using the ``computer.new`` function. It inputs a class and an array of arguments for the constructor of the class and returns a smart object.
 
 ```javascript
 > a = await computer.new(Chat, ['Hi'])
@@ -49,15 +52,15 @@ Chat {
 }
 ```
 
-When a smart object ``a`` is created, a Bitcoin transaction is broadcasted, which records the creation of ``a``. One of the outputs of the transaction is the immutable representation of the smart object on the blockchain. This output is called the *location* of ``a``.
+When a smart object ``a`` is created the ``computer`` object broadcasts a Bitcoin transaction which records the creation of ``a``. One of the outputs of the transaction is the immutable representation of ``a`` on the blockchain. This output is called the *location* of ``a``. You can think of a location as the blockchain equivalent of a memory location.
 
 ### Object Identity
 
-Each smart object ``a`` has a unique *identity* ``a._id`` that remains fixed throughout the lifecycle of the object. This identity includes the transaction id and the output number of the location of ``a``.
+Each smart object ``a`` has a unique *identity* ``a._id`` that remains fixed throughout the lifecycle of the object. This identity is the transaction id and the output number of the location of ``a``.
 
 ### Object Revision
 
-Each smart object ``a`` has a *revision* ``a._rev`` that changes every time the object is updated. Each version of a smart object has a unique identifier that can be used to recover every previous version of ``a``.
+Each smart object ``a`` has a *revision* ``a._rev`` that changes every time the object is updated. It is a transaction id an output number that represent the current state of ``a``. The revision can be used to recover a historic versions of ``a``.
 
 ### Object Root
 

@@ -2,7 +2,7 @@
 order: -40
 ---
 
-# API
+# Lib
 
 In this section, we will describe the API of the class ```Computer```. Objects of this class can create and synchronize to smart objects; it also provides the usual methods of a wallet.
 
