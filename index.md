@@ -1,17 +1,16 @@
 ---
 layout: page
-description: This is a custom description for this page
 ---
 
 # Bitcoin Computer
 
-Lightweight smart contracts on Bitcoin and Litecoin
+**Lightweight smart contracts for Litecoin**
+
+You can build trustless, non-custodial web applications that are as secure and available as Litecoin. Applications can be games, social networks, NFTs, fungible tokens, stable coins, exchanges, auctions, voting, decentralized key-value stores, office applications, artificial intelligence, every application you can think of.
 
 ## Simple
 
-The Bitcoin Computer makes it possible to run smart contracts on UTXO based blockchains like Bitcoin, Litecoin, or Dogecoin. You can write smart contracts in Javascript and store instances of the smart contracts (called smart objects) on a UTXO based blockchain. Each smart object has one or more owners. Owners can update the smart object but nobody else. Each smart object also has an unique identifier and anyone can read the latest state of the smart object if they know the identifier.
-
-You can build  games, social networks, NFTs, fungible tokens, stable coins, exchanges, auctions, voting, decentralized key-value stores, office applications, artificial intelligence, every application you can think of. Building applications is simple because our smart contracts written in Javascript integrate seamlessly into web applications.
+Smart contracts are Javascript classes that inherit from a special class called ``Contract``. Instances of smart contracts, called smart objects, are stored on the Litecoin blockchain. A smart object has one or more owners and only owners can update the smart object by calling one of its functions. Each smart object also has an unique identifier and anyone can read the latest state of the smart object if they know its identifier. This makes it easy to build applications in which multiple parties collaborate on shared state.
 
 ## Efficient
 
