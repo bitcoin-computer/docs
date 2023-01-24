@@ -4,28 +4,29 @@ order: -30
 
 # Tutorial
 
-This tutorial explains how to build an encrypted blockchain-based chat. You can download the code from [Npm](https://www.npmjs.com/package/@bitcoin-computer/lib) or [Github](https://github.com/bitcoin-computer/monorepo/tree/main/packages/lib).
+This tutorial explains how to build an encrypted blockchain-based chat. You can download the code from [Npm](https://www.npmjs.com/package/@bitcoin-computer/lib) or [Github](https://github.com/bitcoin-computer/monorepo).
 
 ## The Computer Object
 
-The first step is to create an object ``computer`` from ``bitcoin-computer-lib``. The ``computer`` object is a wallet that can build and broadcast Bitcoin transactions, which encode smart object creations and updates. You can pass in a [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) seed phrase to initialize the wallet. (To generate a seed phrase, check [this](https://iancoleman.io/bip39/) out.)
+The first step is to create an object ``computer`` from ``@bitcoin-computer/lib``. The ``computer`` object is a wallet that can build and broadcast Bitcoin transactions, which encode smart object creations and updates. You can pass in a [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) seed phrase to initialize the wallet. (To generate a seed phrase, check [this](https://iancoleman.io/bip39/) out.)
 
 ```javascript
-import { Computer } from 'bitcoin-computer-lib'
+import { Computer } from '@bitcoin-computer/lib'
 
 const seed = 'replace this seed' // a BIP39 pass phrase
 const computer = new Computer({ seed })
 ```
 
-By default, a ``computer`` object is configured to connect to Litecoin testnet through a publicly available [Bitcoin Computer Node](https://npmjs.com/package/bitcoin-computer-node). See Section API for details on the configuration options.
+By default, a ``computer`` object is configured to connect to Litecoin testnet through a publicly available [Bitcoin Computer Node](https://github.com/bitcoin-computer/monorepo/tree/main/packages/node). See Section [API](./api.md) for details on the configuration options.
 
 ## Smart Contracts
 
 Every Javascript (ES6) class is a smart contract. For example, a smart contract for a chat could be:
 
 ```javascript
-class Chat {
+class Chat extends Contract {
   constructor(message) {
+    super()
     this.messages = [message]
   }
 
@@ -65,7 +66,7 @@ Each smart object ``a`` has a *root* ``a._root``. For a smart object ``a`` creat
 
 ## Updating a Smart Object
 
-Smart objects can be updated through function calls (because it is not possible to assign to a property of a smart object directly). When a function is called, the output representing the smart object before the function call is spent, and a new unspent output (utxo) representing the object after the call is created; this transaction is then broadcasted. Note that it is necessary to ``await`` on function calls as broadcasting a transaction is an asynchronous operation.
+Smart objects can be updated through function calls (because it is not possible to assign to a property of a smart object directly). When a function is called, the output representing the smart object before the function call is spent, and a new unspent output (UTXO) representing the object after the call is created; this transaction is then broadcasted. Note that it is necessary to ``await`` on function calls as broadcasting a transaction is an asynchronous operation.
 
 ```javascript
 await a.post('Hi!')
@@ -82,7 +83,7 @@ It is possible to reassign the ``a._owners`` property to change the ownership of
 For example, in our chat, only the user that creates the chat can post initially. However, we can add an invite function to the chat to allow other users to post.
 
 ```js
-class Chat {
+class Chat extends Contract {
   ... // from above
 
   invite(pubKeyString) {
@@ -93,7 +94,7 @@ class Chat {
 
 ## Encryption
 
-By default, the state of all smart objects is publicly visible. However, every smart object ``a`` has a property ``a._readers`` that can be used to restrict read access to ``a``. If ``a._readers`` is set, the meta data of the current revision is encrypted so that only the specified readers can decrypt it. If ``a._readers`` is not assigned, it remains unchanged in function calls and defaults to the public key of the ``computer`` object that creates ``a``.
+By default, the state of all smart objects is publicly visible. However, every smart object ``a`` has a property ``a._readers`` that can be used to restrict read access to ``a``. If ``a._readers`` is set, the meta-data of the current revision is encrypted so that only the specified readers can decrypt it. If ``a._readers`` is not assigned, it remains unchanged in function calls and defaults to the public key of the ``computer`` object that creates ``a``.
 
 For example, if we want to ensure that only people invited to the chat can read the messages, we can update our example code as follows:
 
@@ -114,24 +115,24 @@ Both encryption and decryption happen securely in users' browsers. We note that 
 
 ## Finding Smart Objects
 
-The process of reading the current state of a smart objects ``a`` consists of two steps: finding the latest revision of ``a`` and synchronizing to the revision (synchronizing will be described in the next Section).
+The process of reading the current state of a smart objects ``a`` consists of two steps: finding the latest revision of ``a`` and synchronizing to the revision (synchronizing will be described in the next [section](#synchronizing-to-a-smart-object)).
 
 ### Querying by Ownership
 
-The ``computer.queryRevs()`` method returns an array of all revisions that satisfy certain conditions as specified in the parameter. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
+The ``computer.query()`` method returns an array of all revisions that satisfy certain conditions as specified in the parameter. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
 
 ```js
-const revs1 = await computer.queryRevs({ pubKey })
-const revs2 = await computer.queryRevs({ contractHash })
-const revs3 = await computer.queryRevs({ pubKey, contractHash })
+const revs1 = await computer.query({ pubKey })
+const revs2 = await computer.query({ contract: { class }})
+const revs3 = await computer.query({ pubKey, contract: { class } })
 ```
 
 ### Querying by Identity
 
-It is often convenient to refer to a smart object by its identity. In order to synchronize to the latest version of the object, its latest revision is needed. The ``computer.idToRev()`` function returns the latest revision of a given id.
+It is often convenient to refer to a smart object by its identity. In order to synchronize to the latest version of the object, its latest revision is needed. The ``computer.getLatestRevs()`` function returns the latest revision of a given id.
 
 ```js
-const [rev] = await computer.idToRev([id])
+const [rev] = await computer.getLatestRevs([id])
 ```
 Multiple ids can be passed in, and their revisions will be returned in that order.
 
@@ -146,7 +147,7 @@ const b = await computer.sync(rev)
 In the example of our decentralized chat, a user can first synchronize to the chat to read the messages. If the user is an owner, then the user can post a message.
 
 ```js
-const [rev] = await computer.query({ className: 'Chat' })
+const [rev] = await computer.query({ contract: { class: 'Chat', args: ['Hi'] }})
 const chat = await computer.sync(rev)
 await chat.post('Hello')
 ```
@@ -160,7 +161,7 @@ Each smart object ``a`` has a property ``a._url`` that can be set to the url of 
 For example, if we want to allow users to send images that are too large to be stored on chain to the chat, we can make use of the off-chain solution:
 
 ```js
-class Chat {
+class Chat extends Contract {
   // ... as above
 
   post(message) {
@@ -184,8 +185,9 @@ Each smart object can store an amount of cryptocurrency. By default a smart obje
 For example, consider the class ``Payment`` below.
 
 ```js
-class Payment {
+class Payment extends Contract {
   constructor(to: string, amount: number) {
+    super()
     this._owners = [to]
     this._amount = amount
   }
