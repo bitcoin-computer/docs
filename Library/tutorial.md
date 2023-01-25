@@ -52,17 +52,36 @@ Chat {
 
 When a smart object ``a`` is created, a Bitcoin transaction is broadcasted, which records the creation of ``a``. One of the outputs of the transaction is the immutable representation of the smart object on the blockchain. This output is called the *location* of ``a``.
 
-### Object Identity
+## Keyword properties
 
-Each smart object ``a`` has a unique *identity* ``a._id`` that remains fixed throughout the lifecycle of the object. This identity includes the transaction id and the output number of the location of ``a``.
+Each smart object has some immutable properties that are used to identify and update the object, and other properties that can be changed by the user.
+### Identity
 
-### Object Revision
+Each smart object ``a`` has a unique immutable *identity* ``a._id`` that remains fixed throughout the lifecycle of the object. This identity includes the transaction id and the output number of the location of ``a``.
 
-Each smart object ``a`` has a *revision* ``a._rev`` that changes every time the object is updated. Each version of a smart object has a unique identifier that can be used to recover every previous version of ``a``.
+### Revision
 
-### Object Root
+Each smart object ``a`` has a *revision* ``a._rev`` that automatically changes every time the object is updated. Each version of a smart object has a unique identifier that can be used to recover every previous version of ``a``.
 
-Each smart object ``a`` has a *root* ``a._root``. For a smart object ``a`` created with ``computer.new``, the root ``a._root`` of ``a`` is equal to ``a._id``. However, smart objects can also be created inside a constructor or a function call on another smart object ``b``. In this case, the root of ``a`` is the root of ``b``.
+### Root
+
+Each smart object ``a`` has a *root* ``a._root``. For a smart object ``a`` created with ``computer.new``, the root ``a._root`` of ``a`` is equal to ``a._id``. However, smart objects can also be created inside a constructor or a function call on another smart object ``b``. In this case, the root of ``a`` is the root of ``b``. The root property is immutably computed.
+
+### Amount
+
+Each smart object ``a`` has an *amount* ``a._amount``. This is the amount of cryptocurrency that is spent to create the smart object. The amount is set to a minimal non dust value by default, but it can be changed by the user.
+
+### Owners
+
+Each smart object ``a`` has an array of *owners* ``a._owners``. This array contains the public keys of the users that can update the smart object. The owners are set to the public key of the ``computer`` object that creates the smart object by default, but it can be changed by the user. See Section [Data Ownership](./tutorial.md#data-ownership) for details.
+
+### Readers
+
+Each smart object ``a`` has an array of *readers* ``a._readers``. This array contains the public keys of the users that can read the smart object. If ``a._readers`` is set, the meta-data of the current revision is encrypted so that only the specified readers can decrypt it. If ``a._readers`` is not assigned, it remains unchanged in function calls and defaults to the public key of the ``computer`` object that creates ``a``. See Section [Encryption](./tutorial.md#encryption) for details.
+
+### Url
+
+Each smart object ``a`` can have a *url* ``a._url`` property. Each smart object ``a`` has a property ``a._url`` that can be set to the url of a Bitcoin Computer Node. When this property is set, the meta data that encodes an update is not stored on the blockchain but on the Bitcoin Computer Node at the given url. The blockchain contains only the hash of the meta data and a link to where the data can be obtained. See Section [Off-chain Storage](./tutorial.md#off-chain-storage) for details.
 
 ## Updating a Smart Object
 
@@ -94,7 +113,7 @@ class Chat extends Contract {
 
 ## Encryption
 
-By default, the state of all smart objects is publicly visible. However, every smart object ``a`` has a property ``a._readers`` that can be used to restrict read access to ``a``. If ``a._readers`` is set, the meta-data of the current revision is encrypted so that only the specified readers can decrypt it. If ``a._readers`` is not assigned, it remains unchanged in function calls and defaults to the public key of the ``computer`` object that creates ``a``.
+By default, the state of all smart objects is publicly visible. However, every smart object ``a`` has a property ``a._readers`` that can be used to restrict read access to ``a``. As explained above, if ``a._readers`` is assigned, the meta-data of the current revision is encrypted in a way that only the specified readers can decrypt it. If ``a._readers`` is not set, it remains unchanged during function calls and defaults to the public key of the "computer" object that created ``a``.
 
 For example, if we want to ensure that only people invited to the chat can read the messages, we can update our example code as follows:
 
@@ -123,17 +142,16 @@ The ``computer.query()`` method returns an array of all revisions that satisfy c
 
 ```js
 const revs1 = await computer.query({ pubKey })
-const revs2 = await computer.query({ contract: { class }})
-const revs3 = await computer.query({ pubKey, contract: { class } })
+const revs2 = await computer.query({ contract: { class: 'Chat', args: ['Hi'] }})
+const revs3 = await computer.query({ pubKey, contract: { class: 'Chat', args: ['Hi'] }})
 ```
 
-### Querying by Identity
-
-It is often convenient to refer to a smart object by its identity. In order to synchronize to the latest version of the object, its latest revision is needed. The ``computer.getLatestRevs()`` function returns the latest revision of a given id.
+It is often convenient to refer to a smart object by its identity. In order to synchronize to the latest version of the object, its latest revision is needed. You can query for the latest revision of a given id.
 
 ```js
-const [rev] = await computer.getLatestRevs([id])
+const revs4 = await computer.query({ ids:[id] })
 ```
+
 Multiple ids can be passed in, and their revisions will be returned in that order.
 
 ## Synchronizing to a Smart Object
@@ -156,7 +174,7 @@ await chat.post('Hello')
 
 It is sometimes not the best choice to store data on the blockchain. For example, if there's a large amount of data, it might be too expensive. Other data, like personal data, should never be stored on chain, not even encrypted, in order to comply with end user privacy regulations, such as CCPA and GDPR.
 
-Each smart object ``a`` has a property ``a._url`` that can be set to the url of a Bitcoin Computer Node. When this property is set, the meta data that encodes an update is not stored on the blockchain but on the Bitcoin Computer Node at the given url. The blockchain contains only the hash of the meta data and a link to where the data can be obtained.
+The property ```a._url``` of each smart object can be used to specify the URL of a Bitcoin Computer Node. When this property is set, the meta data that encodes an update is not recorded on the blockchain, but instead is stored on the specified Bitcoin Computer Node. The blockchain only contains a hash of the meta data and a link to where it can be retrieved.
 
 For example, if we want to allow users to send images that are too large to be stored on chain to the chat, we can make use of the off-chain solution:
 
@@ -180,7 +198,7 @@ The meta data for that specific call will be stored on the Bitcoin Computer Node
 
 ## Sending and Storing Cryptocurrency
 
-Each smart object can store an amount of cryptocurrency. By default a smart object stores a minimal (non-dust) amount. The smart contract developper can set an amount by assigning an integer to a property ``_amount`` of a smart object.
+Each smart object can store an amount of cryptocurrency. By default a smart object stores a minimal (non-dust) amount. The smart contract developer can set an amount by assigning an integer to a property ``_amount`` of a smart object.
 
 For example, consider the class ``Payment`` below.
 
@@ -198,10 +216,10 @@ class Payment extends Contract {
 }
 ```
 
-If a user ``A`` wants to send 200000 satoshis to a user ``B``, the user ``A`` can setup the payment as follows:
+If a user ``A`` wants to send 210000 satoshis to a user ``B``, the user ``A`` can setup the payment as follows:
 
 ```js
-const computerA = new Computer({ seed: <A's seed phrase> })
+const computerA = new Computer({ mnemonic: <A's seed phrase> })
 const payment = computerA.new(Payment, [<B's public key>, 210000])
 ```
 
