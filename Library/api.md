@@ -277,7 +277,7 @@ This method creates new smart objects. The inputs include a class and a list of 
 
 ```js
 // A smart contract
-class A {
+class A extends Contract {
   constructor(n) {
     this.n = n
   }
