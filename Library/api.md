@@ -6,52 +6,239 @@ order: -40
 
 In this section, we will describe the API of the class ```Computer```. Objects of this class can create and synchronize to smart objects; it also provides the usual methods of a wallet.
 
+In the tables below we use the following abbreviations:
+
+```ts
+type Class = new (...args: any) => any
+type Transition = { exp: string, env?: { [s: string]: string }, mod?: string }
+type Location = { _id: string, _rev: string, _root: string }
+type Query = {
+  publicKey?: string
+  limit?: number,
+  offset?: number,
+  order?: string,
+  contract?: {
+    class: T,
+    args?: ConstructorParameters<T>;
+  }
+}
+```
+<br />
+
 ## Smart Contract Interface
 
-Property   | Description | Type
----    | --- | ---
-[constructor](#constructor) | Creates a Computer object | (params: { <br> &nbsp;&nbsp; mnemonic?: string, <br> &nbsp;&nbsp; chain?: string, <br> &nbsp;&nbsp; network?: string, <br> &nbsp;&nbsp; path?: string, <br> &nbsp;&nbsp; url?: string, <br> &nbsp;&nbsp; passphrase?: string <br> }) => Computer
-[broadcast](#broadcast) | Broadcasts a Bitcoin transaction to the Bitcoin mining network | (tx: BitcoreTx) => Promise\<string\>
-[decode](#decode) | Converts a Bitcoin transaction into a transition object | (tx: BitcoreTx) => <br> Promise<Transition>
-[deploy](#deploy) | Deploys an smart contract to the blockchain | (module: string) => Promise\<string\>
-[encode](#encode)  | Encodes an expression, an environment and a module specifier into a Bitcoin transaction | (tr: Transition) => <br> Promise<BitcoreTx>
-[encodeNew](#encodenew) | Encodes a smart object creation into a Bitcoin transaction | ({ constructor: T, args?: ConstructorParameters<T>, mod?: string }) => Promise\<BitcoreTx\>
-[encodeCall](#encodecall) | Encodes a smart object call into a Bitcoin transaction | ({ target: InstanceType<T> & Location, property: string, args: Parameters<InstanceType<T>[K]>, mod?: string }) => Promise\<BitcoreTx\>
-[fund](#fund) | Funds a Bitcoin transaction | (tx: BitcoreTx) => Promise\<void\>
-[getAddress](#getaddress) | Returns a string encoding Bitcoin address | () => string
-[getBalance](#getbalance) | Returns the current balance in satoshi | () => Promise\<number\>
-[getChain](#getchain) | Returns the target blockchain | () => string
-[getMnemonic](#getmenmonic) | Returns a string encoding a BIP93 mnemonic sentence | () => string
-[getNetwork](#getnetwork) | Returns the target network | () => string
-[getPassphrase](#getpassphrase) | Returns the passphrase associated to the wallet | () => string
-[getPrivateKey](#getprivatekey) | Returns a string encoding a private key | () => string
-[getPublicKey](#getpublickey) | Returns a string encoding a public key | () => string
-[getUtxos](#getutxos) | Returns an array of unspent transaction outputs | () => Promise\<BitcoreUTXO[]\>
-[import](#import) | Imports a smart contract from the blockchain | (name: string, rev: string) => Promise\<Class\>
-[new](#new) | Creates new smart objects | (constructor: T, args?: ConstructorParameters\<T\>, mod: string) => <br> Promise\<InstanceType\<T\> & Location\>
-[query](#query) | Returns an array containing the latest revisions that satisfy certain conditions | (query: Query<T>) => Promise<string[]>
-[rpcCall](#rpccall) | Calls a Bitcoin RPC method  | (method: string, params: string) => Promise\<any\>
-[sync](#sync) | Returns the smart object stored at a given revision | (rev: string) => Promise\<unknown\>
-[send](#send) | Sends an amount of satoshis to an address | (amount: number, address: string) => Promise\<string\>
-[sign](#sign) | Signs a Bitcoin transaction | (tx: BitcoreTx) => void
+The following functions are sufficient for most smart contract development. Start here.
 
-Types used in the interface:
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Description</th>
+    <th>Type</th>
+  </tr>
+  <tr>
+    <td><a href="#constructor">constructor</a></td>
+    <td>Creates a Computer object</td>
+    <td><pre style="font-size:12px">new (params: {<br>  mnemonic?: string,<br>  chain?: string,<br>  network?: string,<br>  path?: string, <br>  url?: string, <br>  passphrase?: string <br> }) => Computer</pre></td>
+  </tr>
+  <tr>
+    <td><a href="#new">new</a></td>
+    <td>Creates new smart objects</td>
+    <td><pre style="font-size:12px">(constructor: T, args?: ConstructorParameters&lt;T&gt;, mod: string) => <br> Promise&lt;InstanceType&lt;T&gt; & Location&gt;</pre></td>
+  </tr>
+  <tr>
+    <td><a href="#sync">sync</a></td>
+    <td>Returns the smart object stored at a given revision</td>
+    <td><pre style="font-size:12px">(rev: string) => Promise&lt;unknown&gt;</pre></td>
+  </tr>
+  <tr>
+    <td><a href="#query">query</a></td>
+    <td>Returns an array containing the latest revisions that satisfy certain conditions</td>
+    <td><pre style="font-size:12px">(query: Query&lt;T&gt;) => Promise&lt;string[]&gt;</pre></td>
+  </tr>
+</table>
+<br />
 
-Type | Description | Details
----    | --- | ---
-BitcoreTx | A Bitcoin transaction | Menmonic.bitcore.Transaction
-BitcoreUTXO | A Bitcoin Unspent Transaction Output | Menmonic.bitcore.Transaction.UnspentOutput
-Class | A smart contract | new (...args: any) => any
-Query | A query | { <br> &nbsp;&nbsp; publicKey?: string <br> &nbsp;&nbsp; limit?: number, <br> &nbsp;&nbsp; offset?: number, <br> &nbsp;&nbsp; order?: string, <br> &nbsp;&nbsp; contract?: { <br> &nbsp;&nbsp;&nbsp; class: T, <br> &nbsp;&nbsp;&nbsp; args?: ConstructorParameters\<T\> <br>&nbsp;&nbsp;} <br>}
-Transition | A transition | { exp: string, env?: { [s: string]: string }, mod?: string }
-Location | Key-value pairs that identify a smart object | { _id: string, _rev: string, _root: string }
+## Modules
 
+You can use modules to decompose your smart contracts.
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Description</th>
+    <th>Type</th>
+  </tr>
+
+  <tr>
+    <td><a href="#deploy">deploy</a></td>
+    <td>Deploys an smart contract to the blockchain</td>
+    <td><pre style="font-size:12px">(module: string) => Promise&lt;string&gt;</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#import">import</a></td>
+    <td>Imports an ES6 module from the blockchain</td>
+    <td><pre style="font-size:12px">(name: string, rev: string) => Promise&lt;Class&gt;</pre></td>
+  </tr>
+
+</table>
+<br />
+
+## Advanced Smart Contract Interface
+
+If you want to use advanced features like off-chain signing or server side funding you can use the following functions.
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Description</th>
+    <th>Type</th>
+  </tr>
+
+  <tr>
+    <td><a href="#decode">decode</a></td>
+    <td>Converts a Bitcoin transaction into a transition object</td>
+    <td><pre style="font-size:12px">(tx: Bitcore.Transaction) => Promise&lt;Transition&gt;</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#encode">encode</a></td>
+    <td>Encodes an expression, an environment and a module specifier in a Bitcoin transaction</td>
+    <td><pre style="font-size:12px">(transition: Transition) => Promise&lt;Bitcore.Transaction&gt;</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#encodenew">encodeNew</a></td>
+    <td>Encodes a constructor call in a Bitcoin transaction</td>
+    <td><pre style="font-size:12px">&lt;T extends Class&gt;({<br />  constructor: T,<br />  args?: ConstructorParameters&lt;T&gt;,<br />  mod?: string<br />}) => Promise&lt;Bitcore.Transaction&gt;</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#encodecall">encodeCall</a></td>
+    <td>Encodes a function call into a Bitcoin transaction</td>
+    <td><pre style="font-size:12px">({<br />  target: InstanceType&lt;T&gt; & Location,<br />  property: string,<br />  args: Parameters&lt;InstanceType&lt;T&gt;[K]&gt;,<br />  mod?: string<br />}) => Promise&lt;Bitcore.Transaction&gt;</pre></td>
+  </tr>
+
+</table>
+<br />
+
+## Wallet Interface
+
+An object of class ``Computer`` also provides the functionality of a wallet.
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Description</th>
+    <th>Type</th>
+  </tr>
+
+  <tr>
+    <td><a href="#broadcast">broadcast</a></td>
+    <td>Broadcasts a Bitcoin transaction to the Bitcoin mining network</td>
+    <td><pre style="font-size:12px">(tx: Bitcore.Transaction) => Promise&lt;string&gt;</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#fund">fund</a></td>
+    <td>Funds a Bitcoin transaction</td>
+    <td><pre style="font-size:12px">(tx: Bitcore.Transaction) => Promise&lt;void&gt;</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#getaddress">getAddress</a></td>
+    <td>Returns a string encoding Bitcoin address</td>
+    <td><pre style="font-size:12px">() => string</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#getbalance">getBalance</a></td>
+    <td>Returns the current balance in satoshi</td>
+    <td><pre style="font-size:12px">() => Promise&lt;number&gt;</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#getchain">getChain</a></td>
+    <td>Returns the target blockchain</td>
+    <td><pre style="font-size:12px">() => string</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#getmenmonic">getMnemonic</a></td>
+    <td>Returns a string encoding a BIP93 mnemonic sentence</td>
+    <td><pre style="font-size:12px">() => string</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#getnetwork">getNetwork</a></td>
+    <td>Returns the target network</td>
+    <td><pre style="font-size:12px">() => string</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#getpassphrase">getPassphrase</a></td>
+    <td>Returns the passphrase associated to the wallet</td>
+    <td><pre style="font-size:12px">() => string</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#getprivatekey">getPrivateKey</a></td>
+    <td>Returns a string encoding a private key</td>
+    <td><pre style="font-size:12px">() => string</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#getpublickey">getPublicKey</a></td>
+    <td>Returns a string encoding a public key</td>
+    <td><pre style="font-size:12px">() => string</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#getUtxos">getUtxos</a></td>
+    <td>Returns an array of unspent transaction outputs</td>
+    <td><pre style="font-size:12px">() => Promise&lt;Bitcore.Transaction.UnspentOutput[]&gt;</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#send">send</a></td>
+    <td>Sends an amount of satoshis to an address</td>
+    <td><pre style="font-size:12px">(amount: number, address: string) => Promise&lt;string&gt;</pre></td>
+  </tr>
+
+  <tr>
+    <td><a href="#sign">sign</a></td>
+    <td>Signs a Bitcoin transaction</td>
+    <td><pre style="font-size:12px">(tx: Bitcore.Transaction) => void</pre></td>
+  </tr>
+</table>
+<br />
+
+## RPC interface
+
+An object of class ``Computer`` can also access the RPC interface of the connected node.
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Description</th>
+    <th>Type</th>
+  </tr>
+
+  <tr>
+    <td><a href="#rpccall">rpcCall</a></td>
+    <td>Calls a Bitcoin RPC method</td>
+    <td><pre style="font-size:12px">(method: string, params: string) => Promise&lt;any&gt;</pre></td>
+  </tr>
+</table>
+<br />
+
+## Details
 
 ### Constructor
 
 The constructor of the ```Computer``` class creates a new Bitcoin Computer wallet.
 
-```js
+```ts
 import { Computer } from '@bitcoin-computer/lib'
 
 const computer = new Computer({
@@ -82,7 +269,7 @@ const computer = new Computer({
 
 Broadcasts a Bitcoin transaction to the Bitcoin mining network.
 
-```js
+```ts
 class C extends Contract {}
 const exp = `${C} new ${C.name}()`
 
@@ -99,7 +286,7 @@ expect(hex).to.be.a('string')
 
 Converts a Bitcore transaction into a transition object.
 
-```js
+```ts
 const tx = new Bitcore.Transaction(txHex)
 const transition = computer.decode(tx)
 ```
@@ -108,7 +295,7 @@ const transition = computer.decode(tx)
 
 Deploys a smart contract to the blockchain, and returns the revision id.
 
-```js
+```ts
 class Vehicle extends Contract {
   constructor() {
     super()
@@ -140,7 +327,7 @@ expect(await car.stop()).eq('stopped')
 
 Encodes an expression, an environment and a module specifier into a Bitcoin transaction that can be broadcasted to the Bitcoin mining network.
 
-```js
+```ts
 class C extends Contract {}
 const exp = `${C} new ${C.name}()`
 
@@ -156,7 +343,7 @@ expect(tx2.tx.toString('hex')).to.eq(hex)
 
 Encodes a smart object creation into a Bitcoin transaction that can be broadcasted to the Bitcoin mining network.
 
-```js
+```ts
 class C extends Contract {}
 const computer = new Computer()
 const encoded = await computer.encodeNew({constructor: C})
@@ -168,7 +355,7 @@ expect(decoded).to.eq({ exp: `new ${C.name}()`, env: {}, mod: '' })
 
 Encodes a smart object call into a Bitcoin transaction that can be broadcasted to the Bitcoin mining network.
 
-```js
+```ts
 class C extends Contract {
   constructor() {
     super()
@@ -186,7 +373,7 @@ expect(decoded).to.eq({ exp: `new ${C.name}().foo()`, env: {}, mod: '' })
 
 Funds a Bitcoin transaction with UTXOs from the wallet.
 
-```js
+```ts
 class C extends Contract {}
 const exp = `${C} new ${C.name}()`
 
@@ -203,7 +390,7 @@ expect(hex).to.be.a('string')
 
 Returns a string encoding Bitcoin address.
 
-```js
+```ts
 const address = computer.getAddress()
 ```
 
@@ -211,7 +398,7 @@ const address = computer.getAddress()
 
 Returns the current balance in satoshi.
 
-```js
+```ts
 const balance = await computer.getBalance()
 ```
 
@@ -219,7 +406,7 @@ const balance = await computer.getBalance()
 
 Returns the chain of the ``computer`` object.
 
-```js
+```ts
 const chain = computer.getChain()
 ```
 
@@ -227,14 +414,14 @@ const chain = computer.getChain()
 
 Returns a string encoding a public key.
 
-```js
+```ts
 const publicKey = computer.getPublicKey()
 ```
 ### getMenmonic()
 
 Returns a string encoding a BIP32 mnemonic sentence of the ``computer`` object.
 
-```js
+```ts
 const mnemonic = computer.getMnemonic()
 ```
 
@@ -243,7 +430,7 @@ const mnemonic = computer.getMnemonic()
 
 Returns the network of the ``computer`` object.
 
-```js
+```ts
 const network = computer.getNetwork()
 ```
 
@@ -251,7 +438,7 @@ const network = computer.getNetwork()
 
 Returns the passphrase of the ``computer`` object.
 
-```js
+```ts
 const passphrase = computer.getPassphrase()
 ```
 
@@ -259,7 +446,7 @@ const passphrase = computer.getPassphrase()
 
 Returns a string encoding a private key.
 
-```js
+```ts
 const privateKey = computer.getPrivateKey()
 ```
 
@@ -267,7 +454,7 @@ const privateKey = computer.getPrivateKey()
 
 Returns a string encoding a public key.
 
-```js
+```ts
 const publicKey = computer.getPublicKey()
 ```
 
@@ -275,7 +462,7 @@ const publicKey = computer.getPublicKey()
 
 Returns an array of UTXOs.
 
-```js
+```ts
 const utxos = await computer.getUtxos()
 ```
 
@@ -283,7 +470,7 @@ const utxos = await computer.getUtxos()
 
 Imports a smart contract from a module specifier.
 
-```js
+```ts
 const fooClass = await computer.import('Foo','028e6db2f1c6eb0c449d89a4ce9a607029ede7d4')
 ```
 
@@ -291,7 +478,7 @@ const fooClass = await computer.import('Foo','028e6db2f1c6eb0c449d89a4ce9a607029
 
 This method creates new smart objects. The inputs include a class and a list of arguments for the constructor of the class. The arguments can be of basic data type or smart objects.
 
-```js
+```ts
 // A smart contract
 class A extends Contract {
   constructor(n) {
@@ -315,7 +502,7 @@ expect(a).to.deep.equal({
 
 Returns an array containing the latest revisions that satisfy certain conditions, as specified in the parameter. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
 
-```js
+```ts
 const revs = await computer.query({
   // Return only revisions owned by a public key
   publicKey: string,
@@ -331,13 +518,13 @@ const revs = await computer.query({
 
   // Return only revisions with a specific id
   ids: string[],
-  
+
 })
 ```
 
 When a key is omitted, the condition is ignored. For example, if only ``class`` is set in the ```contract```parameter, the call will return all revisions of that class regardless of the owners.
 
-```js
+```ts
 // Return all revisions of a class
 const revs1 = await computer.query({ contract: { class: A }})
 const revs2 = await computer.query({ publicKey: '...', contract: { class: A }})
@@ -347,7 +534,7 @@ const revs4 = await computer.query({ order: 'ASC', contract: { class: A }})
 
  The ```query()``` function can be used to return the latest revision of the smart object with that id, or the latest revision of a smart object of a specific class.
 
-```js
+```ts
 // Get latest revision
 const [rev] = await computer.query({ids:[a._id]})
 
@@ -361,7 +548,7 @@ const revs5 = await computer.query({ ids: [a._id], contract: { class: A }})
 
 Calls a Bitcoin RPC method with the given parameters.
 
-```js
+```ts
 await computer.rpcCall('getBlockchainInfo', '')
 ```
 
@@ -369,7 +556,7 @@ await computer.rpcCall('getBlockchainInfo', '')
 
 Sends an amount of satoshis to an address.
 
-```js
+```ts
 const satoshi = 100000
 const address = '1FFsHfDBEh57BB1nkeuKAk25H44U7mmMXd'
 const balance = await wallet.send(satoshi, address)
@@ -379,7 +566,7 @@ const balance = await wallet.send(satoshi, address)
 
 Signs a Bitcore transaction with the private key of the wallet.
 
-```js
+```ts
 class C extends Contract {}
 const exp = `${C} new ${C.name}()`
 
@@ -395,7 +582,7 @@ expect(hex).to.be.a('string')
 
 This returns the smart object stored at a given revision.
 
-```js
+```ts
 // Compute smart object from revision
 const synced = await computer.sync(a._rev)
 
