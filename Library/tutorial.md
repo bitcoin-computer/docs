@@ -118,7 +118,7 @@ By default, the state of all smart objects is publicly visible. However, every s
 For example, if we want to ensure that only people invited to the chat can read the messages, we can update our example code as follows:
 
 ```js
-class Chat {
+class Chat extends Contract {
   // ... as above
 
   invite(pubKey) {

@@ -11,8 +11,8 @@ In this section, we will describe the API of the class ```Computer```. Objects o
 Property   | Description | Type
 ---    | --- | ---
 [constructor](#constructor) | Creates a Computer object | (params: { <br> &nbsp;&nbsp; mnemonic?: string, <br> &nbsp;&nbsp; chain?: string, <br> &nbsp;&nbsp; network?: string, <br> &nbsp;&nbsp; path?: string, <br> &nbsp;&nbsp; url?: string, <br> &nbsp;&nbsp; passphrase?: string <br> }) => Computer
-[broadcast](#broadcast) | Broadcasts a Bitcoin transaction to the Bitcoin mining network | (tx: any) => Promise\<string\>
-[decode](#decode) | Converts a Bitcore transaction into a transition object | (tx: BitcoreTx) => <br> Promise<Transition>
+[broadcast](#broadcast) | Broadcasts a Bitcoin transaction to the Bitcoin mining network | (tx: BitcoreTx) => Promise\<string\>
+[decode](#decode) | Converts a Bitcoin transaction into a transition object | (tx: BitcoreTx) => <br> Promise<Transition>
 [deploy](#deploy) | Deploys an smart contract to the blockchain | (module: string) => Promise\<string\>
 [encode](#encode)  | Encodes an expression, an environment and a module specifier into a Bitcoin transaction | (tr: Transition) => <br> Promise<BitcoreTx>
 [encodeNew](#encodenew) | Encodes a smart object creation into a Bitcoin transaction | ({ constructor: T, args?: ConstructorParameters<T>, mod?: string }) => Promise\<BitcoreTx\>
@@ -42,8 +42,8 @@ Types used in the interface:
 
 Type | Description | Details
 ---    | --- | ---
-BitcoreTx | A Bitcore transaction | Menmonic.bitcore.Transaction
-BitcoreUTXO | A Bitcore unspent transaction output | Menmonic.bitcore.Transaction.UnspentOutput
+BitcoreTx | A Bitcoin transaction | Menmonic.bitcore.Transaction
+BitcoreUTXO | A Bitcoin Unspent Transaction Output | Menmonic.bitcore.Transaction.UnspentOutput
 Class | A smart contract | new (...args: any) => any
 Query | A query | { <br> &nbsp;&nbsp; publicKey?: string <br> &nbsp;&nbsp; limit?: number, <br> &nbsp;&nbsp; offset?: number, <br> &nbsp;&nbsp; order?: string, <br> &nbsp;&nbsp; contract?: { <br> &nbsp;&nbsp;&nbsp; class: T, <br> &nbsp;&nbsp;&nbsp; args?: ConstructorParameters\<T\> <br>&nbsp;&nbsp;} <br>}
 Transition | A transition | { exp: string, env?: { [s: string]: string }, mod?: string }
@@ -83,11 +83,19 @@ const computer = new Computer({
 
 ### broadcast()
 
-Broadcasts a hex-encoded Bitcoin transaction to the Bitcoin mining network.
+Broadcasts a Bitcoin transaction to the Bitcoin mining network.
 
 ```js
-const txHex = '7b1eabe0209b1fe794124575ef807057...'
-const txId = await computer.broadcast(txHex)
+class C extends Contract {}
+const exp = `${C} new ${C.name}()`
+
+const tx: Mnemonic.bitcore.transaction = await computer.encode({ exp })
+expect(tx).not.to.be.undefined
+
+await computer.fund(tx)
+await computer.sign(tx)
+const hex = await computer.broadcast(tx)
+expect(hex).to.be.a('string')
 ```
 
 ### decode()
@@ -137,11 +145,14 @@ Encodes an expression, an environment and a module specifier into a Bitcoin tran
 
 ```js
 class C extends Contract {}
-const computer = new Computer()
 const exp = `${C} new ${C.name}()`
-const encoded = await computer.encode({ exp })
-const decoded = await computer.decode(encoded)
-expect(decoded).to.eq({ exp, env: {}, mod: '' })
+
+const tx: Mnemonic.bitcore.transaction = await computer.encode({ exp })
+await computer.wallet.fundTx(tx)
+computer.wallet.signTx(tx)
+const hex: string = tx.toString('hex')
+const tx2: Tx = await computer.txFromHex({ hex })
+expect(tx2.tx.toString('hex')).to.eq(hex)
 
 ```
 ### encodeNew()
@@ -179,8 +190,16 @@ expect(decoded).to.eq({ exp: `new ${C.name}().foo()`, env: {}, mod: '' })
 Funds a Bitcoin transaction with UTXOs from the wallet.
 
 ```js
-const tx = new Bitcore.Transaction()
-const fundedTx = await computer.fund(tx)
+class C extends Contract {}
+const exp = `${C} new ${C.name}()`
+
+const tx: Mnemonic.bitcore.transaction = await computer.encode({ exp })
+expect(tx).not.to.be.undefined
+
+await computer.fund(tx)
+await computer.sign(tx)
+const hex = await computer.broadcast(tx)
+expect(hex).to.be.a('string')
 ```
 
 ### getAddress()
@@ -297,7 +316,7 @@ expect(a).to.deep.equal({
 
 ### query()
 
-Returns an array containing the latest revisions that satisfy certain conditions. as specified in the parameter. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
+Returns an array containing the latest revisions that satisfy certain conditions, as specified in the parameter. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
 
 ```js
 const revs = await computer.query({
@@ -373,8 +392,16 @@ const balance = await wallet.send(satoshi, address)
 Signs a Bitcore transaction with the private key of the wallet.
 
 ```js
-const tx = new Bitcore.Transaction()
-const signedTx = await computer.sign(tx)
+class C extends Contract {}
+const exp = `${C} new ${C.name}()`
+
+const tx: Mnemonic.bitcore.transaction = await computer.encode({ exp })
+expect(tx).not.to.be.undefined
+
+await computer.fund(tx)
+await computer.sign(tx)
+const hex = await computer.broadcast(tx)
+expect(hex).to.be.a('string')
 ```
 ### sync()
 
