@@ -4,7 +4,7 @@ order: -10
 
 # Start
 
-The code consists of a client side library [lib](https://www.npmjs.com/package/@bitcoin-computer/lib) and server side library [node](https://www.npmjs.com/package/@bitcoin-computer/node). By default lib connects to an instance of the node we are running but you can run your own node and point lib to it. You can find examples in the [monorepo](https://github.com/bitcoin-computer/monorepo).
+The code consists of a client side library ([lib](https://www.npmjs.com/package/@bitcoin-computer/lib)) and server side library ([node](https://www.npmjs.com/package/bitcoin-computer)). By default, lib connects to an instance of a node we are running but you can run your own node and point lib to it. You can find examples in the [monorepo](https://github.com/bitcoin-computer/monorepo).
 
 ## Run the Tests
 
@@ -12,9 +12,7 @@ The easiest way to get started is to run the tests. If you get an error, have a 
 
 ```shell
 git clone https://github.com/bitcoin-computer/monorepo.git
-cd packages/lib
-yarn install
-yarn test
+lerna bootstrap
 ```
 
 ## Run in Node.js
@@ -22,11 +20,12 @@ yarn test
 Create the file ```index.mjs```.
 
 ```javascript
-import { Computer } from '@bitcoin-computer/lib'
+import { Computer, Contract } from '@bitcoin-computer/lib'
 
 // a smart contract
-class Counter {
+class Counter extends Contract {
   constructor() {
+    super()
     this.n = 0
   }
 
@@ -37,14 +36,16 @@ class Counter {
 
 // run the smart contract
 ;(async () => {
-  // create Bitcoin Computer wallet
-  const computer = new Computer({ seed: 'replace this seed' })
+  // create Litecoin or Bitcoin Computer wallet
+  const computer = new Computer({ mnemonic: 'replace this seed' })
 
   // deploy a smart object
   const counter = await computer.new(Counter)
 
   // update a smart object
   await counter.inc()
+
+  // log the state
   console.log(counter)
 })()
 ```
@@ -52,17 +53,19 @@ class Counter {
 Then, execute the following in the same directory.
 
 ```shell
-yarn add bitcoin-computer-lib
+yarn init -y
+yarn add @bitcoin-computer/lib
 node index.mjs
 ```
 
-If you get an error ```Insufficient balance```, you have to fund the wallet; have a look [here](/troubleshoot.md). If the wallet is funded, you will see:
+If you get an error ```Insufficient balance```, you have to fund the wallet; have a look [here](#troubleshooting). If the wallet is funded, you will see:
 
 ```javascript
 Counter {
   n: 1,
   _id: '83553f27c9e4651323f1ebb...',
-  _rev: '290923708ca56ea448dd67...'
+  _rev: '290923708ca56ea448dd67...',
+  _root: '8136e4bceaf528ef6a8ff...'
 }
 ```
 
@@ -73,10 +76,11 @@ You can clone the [boilerplate](@bitcoin-computer/node-js-boilerplate) or watch 
 Create the file ```index.js```.
 
 ```javascript
-import { Computer } from '@bitcoin-computer/lib'
+import { Computer, Contract } from "https://unpkg.com/@bitcoin-computer/lib/dist/bc-lib.browser.min.mjs";
 
-class Counter {
+class Counter extends Contract {
   constructor() {
+    super()
     this.n = 0
   }
 
@@ -86,7 +90,7 @@ class Counter {
 }
 
 ;(async () => {
-  const computer = new Computer({ seed: 'replace this seed' })
+  const computer = new Computer({ mnemonic: 'replace this seed' })
 
   const counter = await computer.new(Counter)
   document.getElementById("el").innerHTML = `Counter is ${counter.n}`
@@ -107,15 +111,15 @@ Create the file ```index.html```.
 </html>
 ```
 
-Run the following in an empty directory, and open your browser at [http://localhost:1234](http://localhost:1234).
+Run the following in an empty directory and open your browser at the defaults [http://localhost:8080](http://localhost:8080).
 
 ```shell
-yarn add bitcoin-computer-lib
-yarn global add parcel
-parcel index.html
+npm init -y
+npm i http-server
+http-server
 ```
 
-More information in this [video](https://www.youtube.com/watch?v=vcjzIFjt3VY).
+See the readme file of the [Bitcoin Computer Monorepo](https://github.com/bitcoin-computer/monorepo).
 
 ## Troubleshooting
 

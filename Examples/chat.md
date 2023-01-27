@@ -11,8 +11,9 @@ The ```Chat``` class has a constructor and two functions, ```post``` and ```invi
 The constructor initializes a owner of the chat and an empty ```messages``` array. The ```post``` function stores the new messages, and the ```invite``` function records the users who join the chat.
 
 ```js
-class Chat {
+class Chat extends Contract {
   constructor(publicKey: string) {
+    super()
     this.messages = []
     this._owners = [publicKey]
   }
