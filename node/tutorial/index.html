@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.720571679604">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.728173002310">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>Tutorial</title>
     <meta name="title" content="Tutorial">
-    <meta name="description" content="Have a look at the documentation on Npm or Github. More coming soon." />
+    <meta name="description" content="A Litecoin node optimized for smart contract applications. The server-side component of the Bitcoin Computer" />
 
     <!-- Canonical -->
     <link rel="canonical" href="/node/tutorial/" />
@@ -20,21 +20,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="/node/tutorial/">
     <meta property="og:title" content="Tutorial">
-    <meta property="og:description" content="Have a look at the documentation on Npm or Github. More coming soon.">
+    <meta property="og:description" content="A Litecoin node optimized for smart contract applications. The server-side component of the Bitcoin Computer">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/node/tutorial/">
     <meta property="twitter:title" content="Tutorial">
-    <meta property="twitter:description" content="Have a look at the documentation on Npm or Github. More coming soon.">
+    <meta property="twitter:description" content="A Litecoin node optimized for smart contract applications. The server-side component of the Bitcoin Computer">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.720571679604" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.728173002310" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.720571679604" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.728173002310" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.720571679604" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.728173002310" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.728173002310" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -51,7 +52,7 @@
                     <div class="flex items-center px-2 md:px-6">
                         <a id="docs-site-logo" href="../../" class="flex items-center leading-snug text-xl">
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Bitcoin Computer</span>
-                        </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">0.10.0</span>
+                        </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">0.13.0</span>
                     </div>
         
                     <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
@@ -172,7 +173,188 @@
         <span>Tutorial</span>
     </h1>
 </doc-anchor-target>
-<p>Have a look at the documentation on <a href="https://www.npmjs.com/package/@bitcoin-computer/node">Npm</a> or <a href="https://github.com/bitcoin-computer/monorepo/tree/main/packages/node">Github</a>. More coming soon.</p>
+<p>A Litecoin node optimized for smart contract applications. The server-side component of the <a href="http://bitcoincomputer.io/">Bitcoin Computer</a>.</p>
+<ul>
+<li>Includes a Litecoin node, a PostgreSQL database, and an API</li>
+<li>Trustless access to Litecoin transactions created with the <a href="https://www.npmjs.com/package/@bitcoin-computer/lib">Bitcoin Computer Library</a></li>
+<li>Index structures for retrieving UTXOs storing smart contract data</li>
+<li>Storage for off-chain data</li>
+<li>Docker integration for easy deployment</li>
+<li>Exposes an <a href="https://litecoin.info/index.php/Litecoin_API">RPC</a> to enable traditional Litecoin development</li>
+<li>Synchronizes in parallel for faster and more efficient performance</li>
+<li>Support for Bitcoin and Dogecoin coming soon</li>
+</ul>
+<doc-anchor-target id="installation">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#installation">#</doc-anchor-trigger>
+        <span>Installation</span>
+    </h2>
+</doc-anchor-target>
+<p>Clone the <a href="https://github.com/bitcoin-computer/monorepo.git">Bitcoin Computer Monorepo</a> from GitHub. Move to <code v-pre>monorepo/packages/node</code> and copy the file <code v-pre>.env.example</code> into a file <code v-pre>.env</code> in the root folder.</p>
+<p>You need to have <a href="https://www.docker.com/">Docker</a> and <a href="https://yarnpkg.com/">yarn</a> installed. You can install them manually or run the script <code v-pre>setup.sh</code> in the folder <code v-pre>scripts</code>.</p>
+<p>Then close and reopen the terminal window to make sure that the Docker daemon is running and run <code v-pre>yarn install</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">git clone https://github.com/bitcoin-computer/monorepo.git
+cd monorepo/packages/node
+cp .env.example .env
+./scripts/setup.sh
+yarn install</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="usage">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usage">#</doc-anchor-trigger>
+        <span>Usage</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="start-the-node">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#start-the-node">#</doc-anchor-trigger>
+        <span>Start the Node</span>
+    </h3>
+</doc-anchor-target>
+<p>To start the Bitcoin Computer Node on Litecoin (LTC) regtest run:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">yarn up</code></pre>
+</doc-codeblock></div>
+<p>You will see the logs of the services that make up the Bitcoin Computer Node: a Litecoin Node called <code v-pre>node</code>, a database called <code v-pre>db</code> and api server called <code v-pre>bcn</code>. Until the database is up and running, messages indicating connection attempts are be logged. The node will be ready when the logs stop running (this can take a few minutes).</p>
+<p>Use the <code v-pre>-t</code> option to start the node on testnet. Type <code v-pre>yarn up -h</code> to get the list of all configuration options. The node will start to download and sync to the Litecoin testnet blockchain.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">yarn up -t</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="fund-the-wallet">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fund-the-wallet">#</doc-anchor-trigger>
+        <span>Fund the Wallet</span>
+    </h3>
+</doc-anchor-target>
+<p>You need to fund the wallet before you can run the tests. On regtest you can run</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">yarn fund-ltc &lt;address1&gt; [&lt;address2&gt; ... &lt;addressN&gt;]</code></pre>
+</doc-codeblock></div>
+<p>On mainnet you need to send Litecoin to the address in question (you can find the address in the error message).</p>
+<doc-anchor-target id="run-the-tests">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#run-the-tests">#</doc-anchor-trigger>
+        <span>Run the Tests</span>
+    </h3>
+</doc-anchor-target>
+<p>To run the tests, execute</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">yarn test</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="stop-the-node">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#stop-the-node">#</doc-anchor-trigger>
+        <span>Stop the Node</span>
+    </h3>
+</doc-anchor-target>
+<p>To stop the Bitcoin Computer Node run</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">yarn down</code></pre>
+</doc-codeblock></div>
+<p>To stop the Bitcoin Computer Node, reset the database, delete all blockchain data, and stop all docker containers, run the following command</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">yarn reset</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="syncing-in-parallel">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#syncing-in-parallel">#</doc-anchor-trigger>
+        <span>Syncing in parallel</span>
+    </h3>
+</doc-anchor-target>
+<p>If your machine has more than 4 cores you can run the sync process in parallel to shorten the synchronization time. This is only required on testnet and mainnet.</p>
+<p>By default synchronization process is carried out in parallel by using all your available cores. Also, you can use a flag to indicate an specific number of dedicated cores.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">yarn up -t -cpus 16</code></pre>
+</doc-codeblock></div>
+<p>The synchronization process can be stopped at any time with the command <code v-pre>yarn down -t</code>. When you restart the process, it will continue from the last block processed.</p>
+<doc-anchor-target id="connect-to-bitcoin-computer-lib">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#connect-to-bitcoin-computer-lib">#</doc-anchor-trigger>
+        <span>Connect to Bitcoin Computer Lib</span>
+    </h3>
+</doc-anchor-target>
+<p>Have a look at the <a href="https://docs.bitcoincomputer.io/library/api/">documentation</a> for how to connect a Bitcoin Computer Lib instance to your Bitcoin Computer Node.</p>
+<doc-anchor-target id="server-costs">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#server-costs">#</doc-anchor-trigger>
+        <span>Server Costs</span>
+    </h2>
+</doc-anchor-target>
+<p>The following table shows the estimated times and costs for syncing to a Litecoin node on testnet. The costs are estimated using an AWS EC2 instance <a href="https://aws.amazon.com/ec2/pricing/on-demand/">prices</a>. All experiments were run using a 50GB SSD storage.</p>
+<div class="table-wrapper scrollbar overflow-hidden">
+<table class="comfortable">
+<thead>
+<tr>
+<th>CPUs</th>
+<th>RAM</th>
+<th>Sync Time</th>
+<th>Monthly Costs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>16GB</td>
+<td>28h</td>
+<td>66.82 USD</td>
+</tr>
+<tr>
+<td>4</td>
+<td>16GB</td>
+<td>10h 30m</td>
+<td>108.28 USD</td>
+</tr>
+<tr>
+<td>8</td>
+<td>32GB</td>
+<td>7h 10m</td>
+<td>239.62 USD</td>
+</tr>
+<tr>
+<td>16</td>
+<td>32GB</td>
+<td>4h 44m</td>
+<td>440.64 USD</td>
+</tr>
+</tbody>
+</table>
+</div>
+<doc-anchor-target id="price">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#price">#</doc-anchor-trigger>
+        <span>Price</span>
+    </h2>
+</doc-anchor-target>
+<p>It is free to develop and test a Bitcoin Computer application on testnet and regtest.</p>
+<p>On Mainnet the fees for using the Bitcoin Computer are on average the same as the transaction fees charged by miners fees. For example, if the miner transaction fee is one cent, then you  pay two cent in total: one cent to the miners, and one cent to support the development of the Bitcoin Computer.</p>
+<doc-anchor-target id="development-status">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#development-status">#</doc-anchor-trigger>
+        <span>Development Status</span>
+    </h2>
+</doc-anchor-target>
+<p>We are not aware of security vulnerabilities but there is the possibility of unknown security vulnerabilities. We have performed two internal audits and have fixed all issues that were discovered. Each time the application was refactored heavily. We will will perform one more internal audit before we recommend to use the Bitcoin Computer in production.</p>
+<doc-anchor-target id="documentation-and-help">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#documentation-and-help">#</doc-anchor-trigger>
+        <span>Documentation and Help</span>
+    </h2>
+</doc-anchor-target>
+<p>Have a look at the <a href="https://docs.bitcoincomputer.io/">Bitcoin Computer Docs</a>. If you have any questions, please let us know in our <a href="https://t.me/thebitcoincomputer">Telegram group</a>, on <a href="https://twitter.com/TheBitcoinToken">Twitter</a>, or by email <a href="mailto:clemens@bitcoincomputer.io">clemens@bitcoincomputer.io</a>.</p>
+<doc-anchor-target id="license">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#license">#</doc-anchor-trigger>
+        <span>License</span>
+    </h2>
+</doc-anchor-target>
+<p>This software is licensed under the <a href="https://creativecommons.org/licenses/by-nd/3.0/">Creative Commons Attribution-NoDerivs 3.0 Unported</a> license.</p>
+<p>You are free to: share, copy, and redistribute the material in any medium or format for any purpose, even commercially under the following terms:</p>
+<ul>
+<li>Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</li>
+<li>NoDerivatives — If you remix, transform, or build upon the material, you may not distribute the modified material.</li>
+</ul>
+<p>This is a human-readable summary of (and not a substitute for) the <a href="https://creativecommons.org/licenses/by-nd/3.0/legalcode">license</a>.</p>
 
                                 
                                 <!-- Required only on API pages -->
@@ -182,11 +364,11 @@
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../node/api/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../library/api/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Api</span>
+                                                <span class="block mt-1">API Reference</span>
                                             </span>
                                         </a>
                                     </div>
@@ -203,7 +385,7 @@
                                     <ul class="flex flex-wrap items-center text-sm">
                                     </ul>
                                 </div>
-                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2022. All rights reserved.</p></div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2023. All rights reserved.</p></div>
                             </footer>
                         </div>
                     </div>
@@ -232,6 +414,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "Tutorial", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "Tutorial", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>

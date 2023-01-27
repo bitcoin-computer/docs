@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.720571679604">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.728173002310">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>Start</title>
     <meta name="title" content="Start">
-    <meta name="description" content="The code consists of a client side library lib and server side library node." />
+    <meta name="description" content="The code consists of a client side library ( lib) and server side library ( node)." />
 
     <!-- Canonical -->
     <link rel="canonical" href="/start/" />
@@ -20,22 +20,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="/start/">
     <meta property="og:title" content="Start">
-    <meta property="og:description" content="The code consists of a client side library lib and server side library node.">
+    <meta property="og:description" content="The code consists of a client side library ( lib) and server side library ( node).">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/start/">
     <meta property="twitter:title" content="Start">
-    <meta property="twitter:description" content="The code consists of a client side library lib and server side library node.">
+    <meta property="twitter:description" content="The code consists of a client side library ( lib) and server side library ( node).">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=2.4.0.720571679604" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.728173002310" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.720571679604" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.728173002310" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.720571679604" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.720571679604" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.728173002310" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.728173002310" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -52,7 +52,7 @@
                     <div class="flex items-center px-2 md:px-6">
                         <a id="docs-site-logo" href="../" class="flex items-center leading-snug text-xl">
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Bitcoin Computer</span>
-                        </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">0.10.0</span>
+                        </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">0.13.0</span>
                     </div>
         
                     <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
@@ -173,7 +173,7 @@
         <span>Start</span>
     </h1>
 </doc-anchor-target>
-<p>The code consists of a client side library <a href="https://www.npmjs.com/package/@bitcoin-computer/lib">lib</a> and server side library <a href="https://www.npmjs.com/package/@bitcoin-computer/node">node</a>. By default lib connects to an instance of the node we are running but you can run your own node and point lib to it. You can find examples in the <a href="https://github.com/bitcoin-computer/monorepo">monorepo</a>.</p>
+<p>The code consists of a client side library (<a href="https://www.npmjs.com/package/@bitcoin-computer/lib">lib</a>) and server side library (<a href="https://www.npmjs.com/package/bitcoin-computer">node</a>). By default, lib connects to an instance of a node we are running but you can run your own node and point lib to it. You can find examples in the <a href="https://github.com/bitcoin-computer/monorepo">monorepo</a>.</p>
 <doc-anchor-target id="run-the-tests">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#run-the-tests">#</doc-anchor-trigger>
@@ -183,9 +183,7 @@
 <p>The easiest way to get started is to run the tests. If you get an error, have a look here.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-bash"><code v-pre class="language-bash">git clone https://github.com/bitcoin-computer/monorepo.git
-cd packages/lib
-yarn install
-yarn test</code></pre>
+lerna bootstrap</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="run-in-nodejs">
     <h2>
@@ -195,11 +193,12 @@ yarn test</code></pre>
 </doc-anchor-target>
 <p>Create the file <code v-pre>index.mjs</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from '@bitcoin-computer/lib'
+<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer, Contract } from '@bitcoin-computer/lib'
 
 // a smart contract
-class Counter {
+class Counter extends Contract {
   constructor() {
+    super()
     this.n = 0
   }
 
@@ -210,28 +209,32 @@ class Counter {
 
 // run the smart contract
 ;(async () =&gt; {
-  // create Bitcoin Computer wallet
-  const computer = new Computer({ seed: 'replace this seed' })
+  // create Litecoin or Bitcoin Computer wallet
+  const computer = new Computer({ mnemonic: 'replace this seed' })
 
   // deploy a smart object
   const counter = await computer.new(Counter)
 
   // update a smart object
   await counter.inc()
+
+  // log the state
   console.log(counter)
 })()</code></pre>
 </doc-codeblock></div>
 <p>Then, execute the following in the same directory.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">yarn add bitcoin-computer-lib
+<pre class="language-bash"><code v-pre class="language-bash">yarn init -y
+yarn add @bitcoin-computer/lib
 node index.mjs</code></pre>
 </doc-codeblock></div>
-<p>If you get an error <code v-pre>Insufficient balance</code>, you have to fund the wallet; have a look <a href="/troubleshoot.md">here</a>. If the wallet is funded, you will see:</p>
+<p>If you get an error <code v-pre>Insufficient balance</code>, you have to fund the wallet; have a look <doc-anchor-trigger to="#troubleshooting">here</doc-anchor-trigger>. If the wallet is funded, you will see:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">Counter {
   n: 1,
   _id: '83553f27c9e4651323f1ebb...',
-  _rev: '290923708ca56ea448dd67...'
+  _rev: '290923708ca56ea448dd67...',
+  _root: '8136e4bceaf528ef6a8ff...'
 }</code></pre>
 </doc-codeblock></div>
 <p>You can clone the <a href="bitcoin-computer/node-js-boilerplate">boilerplate</a> or watch the <a href="https://www.youtube.com/watch?v=51ZFe_8mSPw">video walkthrough</a>.</p>
@@ -243,10 +246,11 @@ node index.mjs</code></pre>
 </doc-anchor-target>
 <p>Create the file <code v-pre>index.js</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from '@bitcoin-computer/lib'
+<pre class="language-javascript"><code v-pre class="language-javascript">import { Computer, Contract } from &quot;https://unpkg.com/@bitcoin-computer/lib/dist/bc-lib.browser.min.mjs&quot;;
 
-class Counter {
+class Counter extends Contract {
   constructor() {
+    super()
     this.n = 0
   }
 
@@ -256,7 +260,7 @@ class Counter {
 }
 
 ;(async () =&gt; {
-  const computer = new Computer({ seed: 'replace this seed' })
+  const computer = new Computer({ mnemonic: 'replace this seed' })
 
   const counter = await computer.new(Counter)
   document.getElementById(&quot;el&quot;).innerHTML = `Counter is ${counter.n}`
@@ -274,13 +278,13 @@ class Counter {
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 </doc-codeblock></div>
-<p>Run the following in an empty directory, and open your browser at <a href="http://localhost:1234">http://localhost:1234</a>.</p>
+<p>Run the following in an empty directory and open your browser at the defaults <a href="http://localhost:8080">http://localhost:8080</a>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">yarn add bitcoin-computer-lib
-yarn global add parcel
-parcel index.html</code></pre>
+<pre class="language-bash"><code v-pre class="language-bash">npm init -y
+npm i http-server
+http-server</code></pre>
 </doc-codeblock></div>
-<p>More information in this <a href="https://www.youtube.com/watch?v=vcjzIFjt3VY">video</a>.</p>
+<p>See the readme file of the <a href="https://github.com/bitcoin-computer/monorepo">Bitcoin Computer Monorepo</a>.</p>
 <doc-anchor-target id="troubleshooting">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#troubleshooting">#</doc-anchor-trigger>
@@ -346,7 +350,7 @@ We recommend generating a new seed phrase through a BIP39 generator.</p>
                                     <ul class="flex flex-wrap items-center text-sm">
                                     </ul>
                                 </div>
-                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2022. All rights reserved.</p></div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2023. All rights reserved.</p></div>
                             </footer>
                         </div>
                     </div>

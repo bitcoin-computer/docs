@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.720571679604">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.728173002310">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -30,11 +30,11 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="resources/css/retype.css?v=2.4.0.720571679604" rel="stylesheet" />
+    <link href="resources/css/retype.css?v=2.4.0.728173002310" rel="stylesheet" />
 
-    <script type="text/javascript" src="resources/js/config.js?v=2.4.0.720571679604" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="resources/js/config.js?v=2.4.0.728173002310" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="resources/js/lunr.js?v=2.4.0.720571679604" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="resources/js/lunr.js?v=2.4.0.728173002310" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -51,7 +51,7 @@
                     <div class="flex items-center px-2 md:px-6">
                         <a id="docs-site-logo" href="" class="flex items-center leading-snug text-xl">
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Bitcoin Computer</span>
-                        </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">0.10.0</span>
+                        </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">0.13.0</span>
                     </div>
         
                     <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
@@ -179,24 +179,24 @@
         <span>Simple</span>
     </h2>
 </doc-anchor-target>
-<p>The Bitcoin Computer makes it possible to run smart contracts on UTXO based blockchains like Bitcoin, Litecoin, or Dogecoin. You can write smart contracts in Javascript and you can store instances of the smart contracts (called smart objects) on a UTXO based blockchain. Each smart object has one or more owners that can update the smart object through function calls. Each smart object also has an unique identifier and anyone can read the latest state of the smart object if they know the identifier.</p>
-<p>You can build  games, social networks, NFTs, fungible tokens, stable coins, exchanges, auctions, voting, decentralized key-value stores, office applications, artificial intelligence, every application you can think of. Building applications is simple because our smart contracts written in Javascript integrate seamlessly into web applications.</p>
+<p>The Bitcoin Computer makes it possible to run smart contracts on UTXO-based blockchains like Bitcoin, Litecoin, or Dogecoin. You can write smart contracts in JavaScript and store instances of the smart contracts (called smart objects) on a UTXO-based blockchain. Each smart object has one or more owners who can update the smart object through function calls. Each smart object also has a unique identifier and anyone can read the latest state of the smart object if they know the identifier.</p>
+<p>You can build games, social networks, NFTs, fungible tokens, stable coins, exchanges, auctions, voting systems, decentralized key-value stores, office applications, artificial intelligence, and any other application you can think of. Building applications is simple because our smart contracts, written in JavaScript, integrate seamlessly into web applications.</p>
 <doc-anchor-target id="efficient">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#efficient">#</doc-anchor-trigger>
         <span>Efficient</span>
     </h2>
 </doc-anchor-target>
-<p>On most smart contract systems fees are charged for every computational step and for every memory allocation or update. Bitcoin has always had smart contracts with free computation called colored coins. This is because smart contracts are evaluated by users client-side instead of by miners. Bitcoin Computer smart contracts lightweight as they do not impose any additional work on miners, node operators, or other users.</p>
-<p>The only fee that needs to be paid is the mining fee plus a Bitcoin Computer fee that is equal to the mining fee. The fixed fee makes it possible, for the first time, to run compute and memory intense programs as smart contracts.</p>
+<p>On most smart contract systems fees are charged for every computational step and for every memory allocation or update. Bitcoin has always had a free computation sub set of the general purpose smart contracts set, called colored coins. This free computation is due to the fact that smart contracts are evaluated by users client-side, instead of by miners. Bitcoin Computer smart contracts are lightweight as they do not impose any additional work on miners, node operators, or other users.</p>
+<p>The only fee that needs to be paid is the mining fee plus a Bitcoin Computer fee that is equal to the mining fee. The fixed fee makes it possible to run, compute and memory allocate intense programs as smart contracts.</p>
 <doc-anchor-target id="trustless">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#trustless">#</doc-anchor-trigger>
         <span>Trustless</span>
     </h2>
 </doc-anchor-target>
-<p>You can run your own <a href="https://www.npmjs.com/package/@bitcoin-computer/node">node</a> and direct our client side <a href="https://www.npmjs.com/package/@bitcoin-computer/lib">library</a> to it. The node gives you trustless access to the Bitcoin Computer. Nobody can revoke your access if you have a copy of the node and the lib. You can think of a node as a universal backend that can power any application.</p>
-<p>We are launching at the <a href="https://www.litecoin.net/summit">Litecoin Summit</a> on October 21st <span class="docs-emoji">&#x1F680;</span></p>
+<p>You can run your own <a href="https://www.npmjs.com/package/bitcoin-computer">node</a> and direct our client side <a href="https://www.npmjs.com/package/@bitcoin-computer/lib">library</a> to it. The node gives you trustless access to the Bitcoin Computer. Nobody can revoke your access if you have a copy of the node and the lib. You can think of a node as a universal backend that can power any application.</p>
+<p>We launched at the <a href="https://www.litecoin.net/summit">Litecoin Summit</a> on October 21st <span class="docs-emoji">&#x1F680;</span></p>
 <div class="flex mb-6">
     <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
     <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
@@ -230,7 +230,7 @@
                                     <ul class="flex flex-wrap items-center text-sm">
                                     </ul>
                                 </div>
-                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2022. All rights reserved.</p></div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2023. All rights reserved.</p></div>
                             </footer>
                         </div>
                     </div>
