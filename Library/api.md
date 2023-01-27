@@ -6,9 +6,11 @@ order: -40
 
 In this section, we will describe the API of the class ```Computer```. Objects of this class can create and synchronize to smart objects; it also provides the usual methods of a wallet.
 
+## Overview
+
 In the tables below we use the following abbreviations:
 
-```ts
+<pre>
 type Class = new (...args: any) => any
 type Transition = { exp: string, env?: { [s: string]: string }, mod?: string }
 type Location = { _id: string, _rev: string, _root: string }
@@ -22,10 +24,9 @@ type Query = {
     args?: ConstructorParameters<T>;
   }
 }
-```
-<br />
+</pre>
 
-## Smart Contract Interface
+### Smart Contract Interface
 
 The following functions are sufficient for most smart contract development. Start here.
 
@@ -56,9 +57,8 @@ The following functions are sufficient for most smart contract development. Star
     <td><pre style="font-size:12px">(query: Query&lt;T&gt;) => Promise&lt;string[]&gt;</pre></td>
   </tr>
 </table>
-<br />
 
-## Modules
+### Modules
 
 You can use modules to decompose your smart contracts.
 
@@ -82,9 +82,8 @@ You can use modules to decompose your smart contracts.
   </tr>
 
 </table>
-<br />
 
-## Advanced Smart Contract Interface
+### Advanced Smart Contract Interface
 
 If you want to use advanced features like off-chain signing or server side funding you can use the following functions.
 
@@ -120,9 +119,8 @@ If you want to use advanced features like off-chain signing or server side fundi
   </tr>
 
 </table>
-<br />
 
-## Wallet Interface
+### Wallet Interface
 
 An object of class ``Computer`` also provides the functionality of a wallet.
 
@@ -211,9 +209,8 @@ An object of class ``Computer`` also provides the functionality of a wallet.
     <td><pre style="font-size:12px">(tx: Bitcore.Transaction) => void</pre></td>
   </tr>
 </table>
-<br />
 
-## RPC interface
+### RPC interface
 
 An object of class ``Computer`` can also access the RPC interface of the connected node.
 
@@ -230,7 +227,6 @@ An object of class ``Computer`` can also access the RPC interface of the connect
     <td><pre style="font-size:12px">(method: string, params: string) => Promise&lt;any&gt;</pre></td>
   </tr>
 </table>
-<br />
 
 ## Details
 
