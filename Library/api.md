@@ -339,10 +339,10 @@ When a key is omitted, the condition is ignored. For example, if only ``class`` 
 
 ```js
 // Return all revisions of a class
-const revs1 = await computer.query({ contract: { class: 'A' }})
-const revs2 = await computer.query({ publicKey: '...', contract: { class: 'A' }})
-const revs3 = await computer.query({ limit: 10, contract: { class: 'A' }})
-const revs4 = await computer.query({ order: 'ASC', contract: { class: 'A' }})
+const revs1 = await computer.query({ contract: { class: A }})
+const revs2 = await computer.query({ publicKey: '...', contract: { class: A }})
+const revs3 = await computer.query({ limit: 10, contract: { class: A }})
+const revs4 = await computer.query({ order: 'ASC', contract: { class: A }})
 ```
 
  The ```query()``` function can be used to return the latest revision of the smart object with that id, or the latest revision of a smart object of a specific class.
@@ -354,7 +354,7 @@ const [rev] = await computer.query({ids:[a._id]})
 // If a is up to date the next line evaluates to true
 expect(rev).to.be(a._rev)
 
-const revs5 = await computer.query({ ids: [a._id], contract: { class: 'A' }})
+const revs5 = await computer.query({ ids: [a._id], contract: { class: A }})
 ```
 
 ### rpcCall()
