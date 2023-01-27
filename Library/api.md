@@ -30,13 +30,10 @@ Property   | Description | Type
 [import](#import) | Imports a smart contract from the blockchain | (name: string, rev: string) => Promise\<Class\>
 [new](#new) | Creates new smart objects | (constructor: T, args?: ConstructorParameters\<T\>, mod: string) => <br> Promise\<InstanceType\<T\> & Location\>
 [query](#query) | Returns an array containing the latest revisions that satisfy certain conditions | (query: Query<T>) => Promise<string[]>
-[read](#read) | Reads from smart objects | (rev: string) => Promise\<unknown\>
 [rpcCall](#rpccall) | Calls a Bitcoin RPC method  | (method: string, params: string) => Promise\<any\>
 [sync](#sync) | Returns the smart object stored at a given revision | (rev: string) => Promise\<unknown\>
 [send](#send) | Sends an amount of satoshis to an address | (amount: number, address: string) => Promise\<string\>
 [sign](#sign) | Signs a Bitcoin transaction | (tx: BitcoreTx) => void
-[write](#write) | Creates a Smart Object that encodes encodes an expression, environment, and module specifier. | (exp: string, env: { [s: string]: string }, mod: string) => Promise\<unknown\>
-
 
 Types used in the interface:
 
@@ -360,15 +357,6 @@ expect(rev).to.be(a._rev)
 const revs5 = await computer.query({ ids: [a._id], contract: { class: 'A' }})
 ```
 
-### read()
-
-Returns the smart object stored at a given revision.
-
-```js
-// Compute smart object from revision
-const aSmartObj = await computer.read(a._rev)
-```
-
 ### rpcCall()
 
 Calls a Bitcoin RPC method with the given parameters.
@@ -414,82 +402,3 @@ const synced = await computer.sync(a._rev)
 // Evaluates to true if "a" is a smart object
 expect(synced).to.deep.equal(a)
 ```
-
-### write()
-
-Creates a Smart Object that encodes encodes an expression, environment, and module specifier.
-
-```js
-
-// A smart contract
-class A extends Contract {
-  constructor(n) {
-    this.n = n
-  }
-}
-
-// Create a smart object
-const a = await computer.write({expr: 'new A(1)'})
-expect(a).to.deep.equal({
-  n: 1,
-  _id: '...',
-  _rev: '...',
-  _root: '...'
-})
-```
-
-<!--
-# Db
-
-The recommended way to create an instance of the Db class is to create an object of the Computer class and to access its property computer.db.
-
-```js
-const { computer } = new Computer({ seed, chain, network })
-const { db } = computer
-```
-
-## db.put()
-The ``db.put()`` method inputs an array of JSON objects and stores them in a transaction. Each element of the array is stored in a separate output. The method returns the array of locations of the outputs created.
-
-```js
-const data = [{a: 1}, {b: { c: 2 }}]
-const locs = await computer.db.put(data)
-// locs === ['0322...8dfe:0', '0322...8dfe:1']
-```
-
-## db.get()
-
-The ``db.get()`` method returns the JSON objects stored at a given array of locations.
-
-```js
-const locs = await computer.db.put(data)
-const fromChain = await computer.db.get(locs)
-// fromChain === data
-```
-
-## db.update()
-
-The ``db.update()`` method has two parameters: a list of locations and a list of JSON objects. It broadcasts a transaction that spends the locations and that has one output for each JSON object.
-
-```js
-const locs1 = await computer.db.put([{ n: 1 }])
-const locs2 = await computer.db.update(locs1, [{ n: 2 }])
-const fromChain = await computer.db.get(locs2)
-// fromChain === [{n: 2}]
-```
-
-You can use db.get() to inspect the smart contract protocol. Try to call db.get()with the ids or rev of a smart object to see the data on the blockchain. Remember to pass the id inside an array likedb.get([a._id]).
-
-
-# Wallet
-
-We recommend creating a Wallet instance by creating a Computer instance and accessing the nested wallet property.
-
-```js
-const { computer } = new Computer({ seed, chain, network })
-const { wallet } = computer.db
-```
-
-The wallet built into Bitcoin Computer is compatible with the widely used Bitcore library. This makes it easy to integrate Bitcoin Computer into existing apps.
-
--->
