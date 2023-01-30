@@ -91,7 +91,7 @@ This section outlines the API for the ``Computer`` class, which allows for the c
   </tr>
 
   <tr>
-    <td><a href="#rpc">rpc</a></td>
+    <td><a href="#rpcCall">rpcCall</a></td>
     <td>Calls an endpoint of the connected node's RPC interface</td>
   </tr>
 
@@ -553,13 +553,13 @@ const balance = await computer.send(satoshi, address)
 ```
 |||
 
-### rpc
+### rpcCall
 
 Calls a Bitcoin RPC method with the given parameters.
 
 ||| Example
 ```ts
-await computer.rpc('getBlockchainInfo', '')
+await computer.rpcCall('getBlockchainInfo', '')
 ```
 ||| Type
 ```ts
