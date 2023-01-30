@@ -4,7 +4,7 @@ order: -40
 
 # API Reference
 
-In this section, we will describe the API of the class ```Computer```. Objects of this class can create and synchronize to smart objects; it also provides the usual methods of a wallet.
+This section outlines the API for the ``Computer`` class, which allows for the creation and storage of smart objects on the blockchain. It also enables querying for the location of these objects and calculating their latest values. The ``Computer`` class serves as the primary interface for the Bitcoin Computer API.
 
 <table>
   <tr>
@@ -16,12 +16,12 @@ In this section, we will describe the API of the class ```Computer```. Objects o
   <tr>
     <td rowspan="4">Basic</td>
     <td><a href="#constructor">constructor</a></td>
-    <td>Creates a Computer object</td>
+    <td>Creates an object of class Computer</td>
   </tr>
 
   <tr>
     <td><a href="#new">new</a></td>
-    <td>Creates a new smart object</td>
+    <td>Creates a smart object from a smart contract</td>
   </tr>
 
   <tr>
@@ -38,24 +38,23 @@ In this section, we will describe the API of the class ```Computer```. Objects o
   <tr>
     <td rowspan="4">Advanced</td>
     <td><a href="#encode">encode</a></td>
-    <td>Encodes a JS expression in a transaction</td>
+    <td>Encodes a Javascript expression into a Bitcoin transaction</td>
   </tr>
 
   <tr>
     <td><a href="#decode">decode</a></td>
-    <td>Decodes a transaction into a JS expression</td>
+    <td>Decodes a Bitcoin transaction into a Javascript expression</td>
   </tr>
 
   <tr>
     <td><a href="#encodenew">encodeNew</a></td>
-    <td>Encodes a constructor call</td>
+    <td>Encodes a constructor call into a Bitcoin transaction</td>
   </tr>
 
   <tr>
     <td><a href="#encodecall">encodeCall</a></td>
-    <td>Encodes a function call</td>
+    <td>Encodes a function call into a Bitcoin transaction</td>
   </tr>
-
 
 
   <tr>
@@ -66,7 +65,7 @@ In this section, we will describe the API of the class ```Computer```. Objects o
 
   <tr>
     <td><a href="#import">import</a></td>
-    <td>Import a module from the blockchain</td>
+    <td>Imports a module from the blockchain</td>
   </tr>
 
 
@@ -92,8 +91,13 @@ In this section, we will describe the API of the class ```Computer```. Objects o
   </tr>
 
   <tr>
+    <td><a href="#rpc">rpc</a></td>
+    <td>Calls an endpoint of the connected node's RPC interface</td>
+  </tr>
+
+  <tr>
     <td><a href="#getaddress">getAddress</a></td>
-    <td>Returns a string encoding Bitcoin address</td>
+    <td>Returns the Bitcoin address of the wallet in the computer object</td>
   </tr>
 
   <tr>
@@ -103,17 +107,17 @@ In this section, we will describe the API of the class ```Computer```. Objects o
 
   <tr>
     <td><a href="#getchain">getChain</a></td>
-    <td>Returns the target blockchain</td>
-  </tr>
-
-  <tr>
-    <td><a href="#getmenmonic">getMnemonic</a></td>
-    <td>Returns a string encoding a BIP93 mnemonic sentence</td>
+    <td>Returns the target blockchain (BTC or LTC)</td>
   </tr>
 
   <tr>
     <td><a href="#getnetwork">getNetwork</a></td>
     <td>Returns the target network</td>
+  </tr>
+
+  <tr>
+    <td><a href="#getmenmonic">getMnemonic</a></td>
+    <td>Returns a BIP93 mnemonic sentence</td>
   </tr>
 
   <tr>
@@ -142,7 +146,7 @@ In this section, we will describe the API of the class ```Computer```. Objects o
 
 ### Constructor
 
-The constructor of the ```Computer``` class creates a new Bitcoin Computer wallet.
+The "Computer" class constructor creates objects capable of creating smart contract transactions as well as standard payments. Each such object is connected to a Bitcoin or Litecoin node and can broadcast transactions and access blockchain information. The constructor parameters are optional and can be used to specify the target blockchain, network, and wallet.
 
 ||| Example
 ```ts
@@ -181,11 +185,11 @@ new (params: {
 } = {}) => Computer
 ```
 |||
-<br />
+
 
 ### new()
 
-This method creates new smart objects. The inputs include a class and a list of arguments for the constructor of the class. The arguments can be of basic data type or smart objects.
+This method creates new smart objects. The parameters are a class, a list of arguments for the constructor of the class, and a module specifier. The arguments can be of basic data type or smart objects.
 
 ||| Example
 ```ts
@@ -213,19 +217,24 @@ expect(a).to.deep.equal({
   // A Javascript class
   constructor: T,
 
-  // Arguments to the constructor
+  // Arguments to the constructor of T
   args?: ConstructorParameters<T>,
 
   // A module specifier
-  mod: string
+  mod?: string
 ) => Promise<InstanceType<T> & Location>;
 ```
 |||
-<br />
+
+Here a ``Location`` is the type
+
+```ts
+type Location = { _id: string, _rev: string, _root: string }
+```
 
 ### query()
 
-Returns an array containing the latest revisions that satisfy certain conditions, as specified in the parameter. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
+Returns an array of strings, containing the latest revisions of smart objects that satisfy certain conditions. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
 
 When a key is omitted, the condition is ignored. For example, if only ``class`` is set in the ```contract```parameter, the call will return all revisions of that class regardless of the owners.
 
@@ -251,6 +260,9 @@ const revs5 = await computer.query({ ids: ['...'] })
 ||| Type
 ```ts
 (query: {
+  // Return the latest revision of smart objects with these ids
+  ids: string[]
+
   // Return only revisions currently owned by a public key
   publicKey?: string
 
@@ -271,7 +283,7 @@ const revs5 = await computer.query({ ids: ['...'] })
 }) => Promise<string[]>
 ```
 |||
-<br />
+
 
 ### sync()
 
@@ -292,15 +304,17 @@ expect(synced).to.deep.equal(a)
 ) => Promise<T>;
 ```
 |||
-<br />
+
 
 
 
 ## Advanced
 
+Most smart contracts can be implemented using the basic methods. However, the following methods can be used to implement more complex contracts that use for example off-chain signing or server-side funding.
+
 ### encode()
 
-Encodes an expression, an environment and a module specifier into a Bitcoin transaction that can be broadcast to the Bitcoin mining network. The ``transaction`` object that is returned is compatible with the [Bitcore Library](https://www.npmjs.com/package/bitcore-lib).
+Encodes an expression, an environment and a module specifier into a Bitcoin transaction of type [Transaction](https://github.com/bitpay/bitcore/blob/master/packages/bitcore-lib/docs/transaction.md) as in the [Bitcore Library](https://www.npmjs.com/package/bitcore-lib).
 
 ||| Example
 ```ts
@@ -450,16 +464,15 @@ const transaction = await computer.encode(transition)
 
 ### import
 
-Imports a smart contract from a module specifier.
+Imports a smart contract from a module specifier. Future versions of the library will support importing modules from within an expression. For now, you can import modules from the blockchain using the revision as described in the previous section.
 
 ||| Example
 ```ts
-class C extends Contract {}
-const module = `export ${C}`
-const computer = new Computer(confs.pop())
+class A extends Contract {}
+const module = `export ${A}`
 const rev = await computer.export(module)
-const { C: CI } = await computer.import(rev)
-expect(CI).to.equal(C)
+const { A: B } = await computer.import(rev)
+expect(B).to.equal(A)
 ```
 ||| Type
 ```ts
@@ -476,15 +489,9 @@ Funds a Bitcoin transaction with UTXOs from the wallet.
 ||| Example
 ```ts
 class C extends Contract {}
-const exp = `${C} new ${C.name}()`
-
-const tx: Mnemonic.bitcore.transaction = await computer.encode({ exp })
-expect(tx).not.to.be.undefined
-
+const transition = { exp: `${C} new ${C.name}()` }
+const tx = await computer.encode(transition)
 await computer.fund(tx)
-await computer.sign(tx)
-const hex = await computer.broadcast(tx)
-expect(hex).to.be.a('string')
 ```
 ||| Type
 ```ts
@@ -494,20 +501,15 @@ expect(hex).to.be.a('string')
 
 ### sign
 
-Signs a Bitcore transaction with the private key of the wallet.
+Signs a Bitcore transaction with the private key of the wallet. The transaction needs to be fully funded before it can be signed. If multiple parties are involved in the transaction, each party needs to sign the transaction before it can be broadcasted.
 
 ||| Example
 ```ts
 class C extends Contract {}
-const exp = `${C} new ${C.name}()`
-
-const tx: Mnemonic.bitcore.transaction = await computer.encode({ exp })
-expect(tx).not.to.be.undefined
-
+const transition = { exp: `${C} new ${C.name}()` }
+const tx = await computer.encode(transition)
 await computer.fund(tx)
-await computer.sign(tx)
-const hex = await computer.broadcast(tx)
-expect(hex).to.be.a('string')
+computer.sign(tx)
 ```
 ||| Type
 ```ts
@@ -522,15 +524,12 @@ Broadcasts a Bitcoin transaction to the Bitcoin mining network.
 ||| Example
 ```ts
 class C extends Contract {}
-const exp = `${C} new ${C.name}()`
-
-const tx: Mnemonic.bitcore.transaction = await computer.encode({ exp })
-expect(tx).not.to.be.undefined
-
+const transition = { exp: `${C} new ${C.name}()` }
+const tx = await computer.encode(transition)
 await computer.fund(tx)
-await computer.sign(tx)
-const hex = await computer.broadcast(tx)
-expect(hex).to.be.a('string')
+computer.sign(tx)
+const txId = await computer.broadcast(tx)
+expect(txId).to.be.a('string')
 ```
 ||| Type
 ```ts
@@ -546,7 +545,7 @@ Sends an amount of satoshis to an address.
 ```ts
 const satoshi = 100000
 const address = '1FFsHfDBEh57BB1nkeuKAk25H44U7mmMXd'
-const balance = await wallet.send(satoshi, address)
+const balance = await computer.send(satoshi, address)
 ```
 ||| Type
 ```ts
@@ -554,13 +553,13 @@ const balance = await wallet.send(satoshi, address)
 ```
 |||
 
-### rpcCall
+### rpc
 
 Calls a Bitcoin RPC method with the given parameters.
 
 ||| Example
 ```ts
-await computer.rpcCall('getBlockchainInfo', '')
+await computer.rpc('getBlockchainInfo', '')
 ```
 ||| Type
 ```ts
@@ -707,15 +706,3 @@ const utxos = await computer.getUtxos()
 () => Promise<Bitcore.Transaction.UnspentOutput[]>
 ```
 |||
-
-
-# Appendix
-
-## Overview
-
-In the tables below we use the following abbreviations:
-
-<pre>
-type Location = { _id: string, _rev: string, _root: string }
-</pre>
-<br />
