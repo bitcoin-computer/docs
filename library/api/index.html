@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.728173002310">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.728437243691">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>API Reference</title>
     <meta name="title" content="API Reference">
-    <meta name="description" content="In this section, we will describe the API of the class Computer." />
+    <meta name="description" content="This section outlines the API for the Computer class, which allows for the creation and storage of smart objects on the blockchain." />
 
     <!-- Canonical -->
     <link rel="canonical" href="/library/api/" />
@@ -20,22 +20,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="/library/api/">
     <meta property="og:title" content="API Reference">
-    <meta property="og:description" content="In this section, we will describe the API of the class Computer.">
+    <meta property="og:description" content="This section outlines the API for the Computer class, which allows for the creation and storage of smart objects on the blockchain.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/library/api/">
     <meta property="twitter:title" content="API Reference">
-    <meta property="twitter:description" content="In this section, we will describe the API of the class Computer.">
+    <meta property="twitter:description" content="This section outlines the API for the Computer class, which allows for the creation and storage of smart objects on the blockchain.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.728173002310" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.728437243691" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.728173002310" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.728437243691" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.728173002310" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.728173002310" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.728437243691" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.728437243691" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -173,223 +173,119 @@
         <span>API Reference</span>
     </h1>
 </doc-anchor-target>
-<p>In this section, we will describe the API of the class <code v-pre>Computer</code>. Objects of this class can create and synchronize to smart objects; it also provides the usual methods of a wallet.</p>
-<doc-anchor-target id="overview">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#overview">#</doc-anchor-trigger>
-        <span>Overview</span>
-    </h2>
-</doc-anchor-target>
-<p>In the tables below we use the following abbreviations:</p>
-<pre>
-type Class = new (...args: any) => any
-type Transition = { exp: string, env?: { [s: string]: string }, mod?: string }
-type Location = { _id: string, _rev: string, _root: string }
-type Query = {
-  publicKey?: string
-  limit?: number,
-  offset?: number,
-  order?: string,
-  contract?: {
-    class: T,
-    args?: ConstructorParameters<T>;
-  }
-}
-</pre>
-<doc-anchor-target id="smart-contract-interface">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#smart-contract-interface">#</doc-anchor-trigger>
-        <span>Smart Contract Interface</span>
-    </h3>
-</doc-anchor-target>
-<p>The following functions are sufficient for most smart contract development. Start here.</p>
+<p>This section outlines the API for the <code v-pre>Computer</code> class, which allows for the creation and storage of smart objects on the blockchain. It also enables querying for the location of these objects and calculating their latest values. The <code v-pre>Computer</code> class serves as the primary interface for the Bitcoin Computer API.</p>
 <table>
   <tr>
+    <th>&nbsp;</th>
     <th>Method</th>
     <th>Description</th>
-    <th>Type</th>
   </tr>
   <tr>
+    <td rowspan="4">Basic</td>
     <td><a href="#constructor">constructor</a></td>
-    <td>Creates a Computer object</td>
-    <td><pre style="font-size:12px">new (params: {<br>  mnemonic?: string,<br>  chain?: string,<br>  network?: string,<br>  path?: string, <br>  url?: string, <br>  passphrase?: string <br> }) => Computer</pre></td>
+    <td>Creates an object of class Computer</td>
   </tr>
   <tr>
     <td><a href="#new">new</a></td>
-    <td>Creates new smart objects</td>
-    <td><pre style="font-size:12px">(constructor: T, args?: ConstructorParameters&lt;T&gt;, mod: string) => <br> Promise&lt;InstanceType&lt;T&gt; & Location&gt;</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#sync">sync</a></td>
-    <td>Returns the smart object stored at a given revision</td>
-    <td><pre style="font-size:12px">(rev: string) => Promise&lt;unknown&gt;</pre></td>
+    <td>Creates a smart object from a smart contract</td>
   </tr>
   <tr>
     <td><a href="#query">query</a></td>
-    <td>Returns an array containing the latest revisions that satisfy certain conditions</td>
-    <td><pre style="font-size:12px">(query: Query&lt;T&gt;) => Promise&lt;string[]&gt;</pre></td>
-  </tr>
-</table>
-<doc-anchor-target id="modules">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#modules">#</doc-anchor-trigger>
-        <span>Modules</span>
-    </h3>
-</doc-anchor-target>
-<p>You can use modules to decompose your smart contracts.</p>
-<table>
-  <tr>
-    <th>Method</th>
-    <th>Description</th>
-    <th>Type</th>
+    <td>Find the latest revisions of smart objects with specific properties</td>
   </tr>
   <tr>
-    <td><a href="#deploy">deploy</a></td>
-    <td>Deploys an smart contract to the blockchain</td>
-    <td><pre style="font-size:12px">(module: string) => Promise&lt;string&gt;</pre></td>
+    <td><a href="#sync">sync</a></td>
+    <td>Compute the state of a smart object at a specific revision</td>
   </tr>
   <tr>
-    <td><a href="#import">import</a></td>
-    <td>Imports an ES6 module from the blockchain</td>
-    <td><pre style="font-size:12px">(name: string, rev: string) => Promise&lt;Class&gt;</pre></td>
-  </tr>
-</table>
-<doc-anchor-target id="advanced-smart-contract-interface">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#advanced-smart-contract-interface">#</doc-anchor-trigger>
-        <span>Advanced Smart Contract Interface</span>
-    </h3>
-</doc-anchor-target>
-<p>If you want to use advanced features like off-chain signing or server side funding you can use the following functions.</p>
-<table>
-  <tr>
-    <th>Method</th>
-    <th>Description</th>
-    <th>Type</th>
+    <td rowspan="4">Advanced</td>
+    <td><a href="#encode">encode</a></td>
+    <td>Encodes a Javascript expression into a Bitcoin transaction</td>
   </tr>
   <tr>
     <td><a href="#decode">decode</a></td>
-    <td>Converts a Bitcoin transaction into a transition object</td>
-    <td><pre style="font-size:12px">(tx: Bitcore.Transaction) => Promise&lt;Transition&gt;</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#encode">encode</a></td>
-    <td>Encodes an expression, an environment and a module specifier in a Bitcoin transaction</td>
-    <td><pre style="font-size:12px">(transition: Transition) => Promise&lt;Bitcore.Transaction&gt;</pre></td>
+    <td>Decodes a Bitcoin transaction into a Javascript expression</td>
   </tr>
   <tr>
     <td><a href="#encodenew">encodeNew</a></td>
-    <td>Encodes a constructor call in a Bitcoin transaction</td>
-    <td><pre style="font-size:12px">&lt;T extends Class&gt;({<br />  constructor: T,<br />  args?: ConstructorParameters&lt;T&gt;,<br />  mod?: string<br />}) => Promise&lt;Bitcore.Transaction&gt;</pre></td>
+    <td>Encodes a constructor call into a Bitcoin transaction</td>
   </tr>
   <tr>
     <td><a href="#encodecall">encodeCall</a></td>
     <td>Encodes a function call into a Bitcoin transaction</td>
-    <td><pre style="font-size:12px">({<br />  target: InstanceType&lt;T&gt; & Location,<br />  property: string,<br />  args: Parameters&lt;InstanceType&lt;T&gt;[K]&gt;,<br />  mod?: string<br />}) => Promise&lt;Bitcore.Transaction&gt;</pre></td>
-  </tr>
-</table>
-<doc-anchor-target id="wallet-interface">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#wallet-interface">#</doc-anchor-trigger>
-        <span>Wallet Interface</span>
-    </h3>
-</doc-anchor-target>
-<p>An object of class <code v-pre>Computer</code> also provides the functionality of a wallet.</p>
-<table>
-  <tr>
-    <th>Method</th>
-    <th>Description</th>
-    <th>Type</th>
   </tr>
   <tr>
-    <td><a href="#broadcast">broadcast</a></td>
-    <td>Broadcasts a Bitcoin transaction to the Bitcoin mining network</td>
-    <td><pre style="font-size:12px">(tx: Bitcore.Transaction) => Promise&lt;string&gt;</pre></td>
+    <td rowspan="2">Modules</td>
+    <td><a href="#export">export</a></td>
+    <td>Stores a module on the blockchain</td>
   </tr>
   <tr>
+    <td><a href="#import">import</a></td>
+    <td>Imports a module from the blockchain</td>
+  </tr>
+  <tr>
+    <td rowspan="14">Wallet</td>
     <td><a href="#fund">fund</a></td>
     <td>Funds a Bitcoin transaction</td>
-    <td><pre style="font-size:12px">(tx: Bitcore.Transaction) => Promise&lt;void&gt;</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#getaddress">getAddress</a></td>
-    <td>Returns a string encoding Bitcoin address</td>
-    <td><pre style="font-size:12px">() => string</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#getbalance">getBalance</a></td>
-    <td>Returns the current balance in satoshi</td>
-    <td><pre style="font-size:12px">() => Promise&lt;number&gt;</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#getchain">getChain</a></td>
-    <td>Returns the target blockchain</td>
-    <td><pre style="font-size:12px">() => string</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#getmenmonic">getMnemonic</a></td>
-    <td>Returns a string encoding a BIP93 mnemonic sentence</td>
-    <td><pre style="font-size:12px">() => string</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#getnetwork">getNetwork</a></td>
-    <td>Returns the target network</td>
-    <td><pre style="font-size:12px">() => string</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#getpassphrase">getPassphrase</a></td>
-    <td>Returns the passphrase associated to the wallet</td>
-    <td><pre style="font-size:12px">() => string</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#getprivatekey">getPrivateKey</a></td>
-    <td>Returns a string encoding a private key</td>
-    <td><pre style="font-size:12px">() => string</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#getpublickey">getPublicKey</a></td>
-    <td>Returns a string encoding a public key</td>
-    <td><pre style="font-size:12px">() => string</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#getUtxos">getUtxos</a></td>
-    <td>Returns an array of unspent transaction outputs</td>
-    <td><pre style="font-size:12px">() => Promise&lt;Bitcore.Transaction.UnspentOutput[]&gt;</pre></td>
-  </tr>
-  <tr>
-    <td><a href="#send">send</a></td>
-    <td>Sends an amount of satoshis to an address</td>
-    <td><pre style="font-size:12px">(amount: number, address: string) => Promise&lt;string&gt;</pre></td>
   </tr>
   <tr>
     <td><a href="#sign">sign</a></td>
     <td>Signs a Bitcoin transaction</td>
-    <td><pre style="font-size:12px">(tx: Bitcore.Transaction) => void</pre></td>
-  </tr>
-</table>
-<doc-anchor-target id="rpc-interface">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#rpc-interface">#</doc-anchor-trigger>
-        <span>RPC interface</span>
-    </h3>
-</doc-anchor-target>
-<p>An object of class <code v-pre>Computer</code> can also access the RPC interface of the connected node.</p>
-<table>
-  <tr>
-    <th>Method</th>
-    <th>Description</th>
-    <th>Type</th>
   </tr>
   <tr>
-    <td><a href="#rpccall">rpcCall</a></td>
-    <td>Calls a Bitcoin RPC method</td>
-    <td><pre style="font-size:12px">(method: string, params: string) => Promise&lt;any&gt;</pre></td>
+    <td><a href="#broadcast">broadcast</a></td>
+    <td>Broadcasts a Bitcoin transaction to the Bitcoin mining network</td>
+  </tr>
+  <tr>
+    <td><a href="#send">send</a></td>
+    <td>Sends an amount of satoshis to an address</td>
+  </tr>
+  <tr>
+    <td><a href="#rpcCall">rpcCall</a></td>
+    <td>Calls an endpoint of the connected node's RPC interface</td>
+  </tr>
+  <tr>
+    <td><a href="#getaddress">getAddress</a></td>
+    <td>Returns the Bitcoin address of the wallet in the computer object</td>
+  </tr>
+  <tr>
+    <td><a href="#getbalance">getBalance</a></td>
+    <td>Returns the current balance in satoshi</td>
+  </tr>
+  <tr>
+    <td><a href="#getchain">getChain</a></td>
+    <td>Returns the target blockchain (BTC or LTC)</td>
+  </tr>
+  <tr>
+    <td><a href="#getnetwork">getNetwork</a></td>
+    <td>Returns the target network</td>
+  </tr>
+  <tr>
+    <td><a href="#getmenmonic">getMnemonic</a></td>
+    <td>Returns a BIP93 mnemonic sentence</td>
+  </tr>
+  <tr>
+    <td><a href="#getpassphrase">getPassphrase</a></td>
+    <td>Returns the passphrase associated to the wallet</td>
+  </tr>
+  <tr>
+    <td><a href="#getprivatekey">getPrivateKey</a></td>
+    <td>Returns a string encoding a private key</td>
+  </tr>
+  <tr>
+    <td><a href="#getpublickey">getPublicKey</a></td>
+    <td>Returns a string encoding a public key</td>
+  </tr>
+  <tr>
+    <td><a href="#getUtxos">getUtxos</a></td>
+    <td>Returns an array of unspent transaction outputs</td>
   </tr>
 </table>
-<doc-anchor-target id="details">
+<br />
+<doc-anchor-target id="basic">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#details">#</doc-anchor-trigger>
-        <span>Details</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#basic">#</doc-anchor-trigger>
+        <span>Basic</span>
     </h2>
 </doc-anchor-target>
 <doc-anchor-target id="constructor">
@@ -398,287 +294,68 @@ type Query = {
         <span>Constructor</span>
     </h3>
 </doc-anchor-target>
-<p>The constructor of the <code v-pre>Computer</code> class creates a new Bitcoin Computer wallet.</p>
+<p>The &quot;Computer&quot; class constructor creates objects capable of creating smart contract transactions as well as standard payments. Each such object is connected to a Bitcoin or Litecoin node and can broadcast transactions and access blockchain information. The constructor parameters are optional and can be used to specify the target blockchain, network, and wallet.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">import { Computer } from '@bitcoin-computer/lib'
 
-const computer = new Computer({
-  // BIP39 mnemonic phrase, defaults to a random phrase
-  mnemonic?: string, //
-
+const computer1 = new Computer()
+const computer2 = new Computer({ chain: 'DOGE' })
+const computer3 = new Computer({
+  mnemonic: 'replace this seed'
+  chain: 'LTC'
+  network: 'regtest',
+  path: &quot;m/44'/0'/0'/0&quot;,
+  url: 'https://my-ltc-node.com',
+})</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">new (params: {
   // Target blockchain, defaults to 'LTC'
-  chain?: string,
+  chain?: 'LTC' | 'BTC' | 'DOGE',
 
-  // Network (one of 'mainnet', 'testnet', or 'regtest'),
-  // defaults to 'testnet'
-  network?: string,
+  // Network defaults to 'testnet'
+  network?: 'mainnet' | 'testnet' | 'regtest',
+
+  // BIP39 mnemonic phrase, defaults to a random phrase
+  mnemonic?: string,
 
   // BIP32 path, defaults to &quot;m/44'/0'/0'/0&quot;
   path?: string,
 
-  // Url of a Bitcoin Computer Node, defaults to
-  // https://node.bitcoincomputer.io
-  url?: string,
-
-  // The passphrase associated to the wallet, defaults to ''
+  // BIP32 passphrase, defaults to ''
   passphrase?: string
 
-})</code></pre>
+  // Url of a Bitcoin Computer Node, defaults to https://node.bitcoincomputer.io
+  url?: string,
+} = {}) =&gt; Computer</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="broadcast">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#broadcast">#</doc-anchor-trigger>
-        <span>broadcast()</span>
-    </h3>
-</doc-anchor-target>
-<p>Broadcasts a Bitcoin transaction to the Bitcoin mining network.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {}
-const exp = `${C} new ${C.name}()`
-
-const tx: Mnemonic.bitcore.transaction = await computer.encode({ exp })
-expect(tx).not.to.be.undefined
-
-await computer.fund(tx)
-await computer.sign(tx)
-const hex = await computer.broadcast(tx)
-expect(hex).to.be.a('string')</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="decode">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#decode">#</doc-anchor-trigger>
-        <span>decode()</span>
-    </h3>
-</doc-anchor-target>
-<p>Converts a Bitcore transaction into a transition object.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const tx = new Bitcore.Transaction(txHex)
-const transition = computer.decode(tx)</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="deploy">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#deploy">#</doc-anchor-trigger>
-        <span>deploy()</span>
-    </h3>
-</doc-anchor-target>
-<p>Deploys a smart contract to the blockchain, and returns the revision id.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">class Vehicle extends Contract {
-  constructor() {
-    super()
-  }
-  drive() {
-    return 'driving'
-  }
-  stop() {
-    return 'stopped'
-  }
-}
-
-class Car extends Vehicle {
-  constructor() {
-    super()
-  }
-
-  drive() {
-    return 'driving a car'
-  }
-}
-const revVehicle = await computer.deploy(`export ${Vehicle}`)
-const car = await computer.new(Car, [], revVehicle)
-expect(await car.drive()).eq('driving a car')
-expect(await car.stop()).eq('stopped')</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="encode">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#encode">#</doc-anchor-trigger>
-        <span>encode()</span>
-    </h3>
-</doc-anchor-target>
-<p>Encodes an expression, an environment and a module specifier into a Bitcoin transaction that can be broadcasted to the Bitcoin mining network.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {}
-const exp = `${C} new ${C.name}()`
-
-const tx: Mnemonic.bitcore.transaction = await computer.encode({ exp })
-await computer.wallet.fundTx(tx)
-computer.wallet.signTx(tx)
-const hex: string = tx.toString('hex')
-const tx2: Tx = await computer.txFromHex({ hex })
-expect(tx2.tx.toString('hex')).to.eq(hex)
-</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="encodenew">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#encodenew">#</doc-anchor-trigger>
-        <span>encodeNew()</span>
-    </h3>
-</doc-anchor-target>
-<p>Encodes a smart object creation into a Bitcoin transaction that can be broadcasted to the Bitcoin mining network.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {}
-const computer = new Computer()
-const encoded = await computer.encodeNew({constructor: C})
-const decoded = await computer.decode(encoded)
-expect(decoded).to.eq({ exp: `new ${C.name}()`, env: {}, mod: '' })</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="encodecall">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#encodecall">#</doc-anchor-trigger>
-        <span>encodeCall()</span>
-    </h3>
-</doc-anchor-target>
-<p>Encodes a smart object call into a Bitcoin transaction that can be broadcasted to the Bitcoin mining network.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {
-  constructor() {
-    super()
-  }
-  foo() {
-    return 'bar'
-  }
-}
-const computer = new Computer()
-const encoded = await computer.encodeCall({constructor: C, property: 'foo'})
-const decoded = await computer.decode(encoded)
-expect(decoded).to.eq({ exp: `new ${C.name}().foo()`, env: {}, mod: '' })</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="fund">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#fund">#</doc-anchor-trigger>
-        <span>fund()</span>
-    </h3>
-</doc-anchor-target>
-<p>Funds a Bitcoin transaction with UTXOs from the wallet.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {}
-const exp = `${C} new ${C.name}()`
-
-const tx: Mnemonic.bitcore.transaction = await computer.encode({ exp })
-expect(tx).not.to.be.undefined
-
-await computer.fund(tx)
-await computer.sign(tx)
-const hex = await computer.broadcast(tx)
-expect(hex).to.be.a('string')</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getaddress">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getaddress">#</doc-anchor-trigger>
-        <span>getAddress()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns a string encoding Bitcoin address.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const address = computer.getAddress()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getbalance">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getbalance">#</doc-anchor-trigger>
-        <span>getBalance()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns the current balance in satoshi.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const balance = await computer.getBalance()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getchain">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getchain">#</doc-anchor-trigger>
-        <span>getChain()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns the chain of the <code v-pre>computer</code> object.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const chain = computer.getChain()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getpublickey">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getpublickey">#</doc-anchor-trigger>
-        <span>getPublicKey()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns a string encoding a public key.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const publicKey = computer.getPublicKey()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getmenmonic">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getmenmonic">#</doc-anchor-trigger>
-        <span>getMenmonic()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns a string encoding a BIP32 mnemonic sentence of the <code v-pre>computer</code> object.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const mnemonic = computer.getMnemonic()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getnetwork">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getnetwork">#</doc-anchor-trigger>
-        <span>getNetwork()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns the network of the <code v-pre>computer</code> object.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const network = computer.getNetwork()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getpassphrase">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getpassphrase">#</doc-anchor-trigger>
-        <span>getPassphrase()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns the passphrase of the <code v-pre>computer</code> object.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const passphrase = computer.getPassphrase()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getprivatekey">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getprivatekey">#</doc-anchor-trigger>
-        <span>getPrivateKey()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns a string encoding a private key.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const privateKey = computer.getPrivateKey()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getpublickey-1">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getpublickey-1">#</doc-anchor-trigger>
-        <span>getPublicKey()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns a string encoding a public key.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const publicKey = computer.getPublicKey()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getutxos">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getutxos">#</doc-anchor-trigger>
-        <span>getUtxos()</span>
-    </h3>
-</doc-anchor-target>
-<p>Returns an array of UTXOs.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const utxos = await computer.getUtxos()</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="import">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#import">#</doc-anchor-trigger>
-        <span>import()</span>
-    </h3>
-</doc-anchor-target>
-<p>Imports a smart contract from a module specifier.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const fooClass = await computer.import('Foo','028e6db2f1c6eb0c449d89a4ce9a607029ede7d4')</code></pre>
-</doc-codeblock></div>
+    </div>
+</div>
 <doc-anchor-target id="new">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#new">#</doc-anchor-trigger>
         <span>new()</span>
     </h3>
 </doc-anchor-target>
-<p>This method creates new smart objects. The inputs include a class and a list of arguments for the constructor of the class. The arguments can be of basic data type or smart objects.</p>
+<p>This method creates new smart objects. The parameters are a class, a list of arguments for the constructor of the class, and a module specifier. The arguments can be of basic data type or smart objects.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">// A smart contract
 class A extends Contract {
@@ -698,91 +375,88 @@ expect(a).to.deep.equal({
   _root: '...'
 })</code></pre>
 </doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">&lt;T extends new (...args: any) =&gt; any&gt;(
+  // A Javascript class
+  constructor: T,
+
+  // Arguments to the constructor of T
+  args?: ConstructorParameters&lt;T&gt;,
+
+  // A module specifier
+  mod?: string
+) =&gt; Promise&lt;InstanceType&lt;T&gt; &amp; Location&gt;;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<p>Here a <code v-pre>Location</code> is the type</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">type Location = { _id: string, _rev: string, _root: string }</code></pre>
+</doc-codeblock></div>
 <doc-anchor-target id="query">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#query">#</doc-anchor-trigger>
         <span>query()</span>
     </h3>
 </doc-anchor-target>
-<p>Returns an array containing the latest revisions that satisfy certain conditions, as specified in the parameter. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.</p>
+<p>Returns an array of strings, containing the latest revisions of smart objects that satisfy certain conditions. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.</p>
+<p>When a key is omitted, the condition is ignored. For example, if only <code v-pre>class</code> is set in the <code v-pre>contract</code>parameter, the call will return all revisions of that class regardless of the owners.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Examples</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const revs = await computer.query({
-  // Return only revisions owned by a public key
-  publicKey: string,
+<pre class="language-typescript"><code v-pre class="language-typescript">class A extends Contract { ... }
+
+// Return all revisions of a class
+const revs1 = await computer.query({ contract: { class: A }})
+
+// Return all revisions of a class that are owned by public key
+const revs2 = await computer.query({ publicKey: '...', contract: { class: A }})
+
+// Return 10 revisions of class A
+const revs3 = await computer.query({ limit: 10, contract: { class: A }})
+
+// Return all revisions of class A sorted by age
+const revs4 = await computer.query({ order: 'ASC', contract: { class: A }})
+
+// Return the latest revision of smart object with a specific id
+const revs5 = await computer.query({ ids: ['...'] })</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">(query: {
+  // Return the latest revision of smart objects with these ids
+  ids: string[]
+
+  // Return only revisions currently owned by a public key
+  publicKey?: string
 
   // Return only revisions of smart object from a class
-  contract: { class: string, args: any[] },
+  contract?: &lt;T extends new (...args: any) =&gt; any&gt;{
+    class: T,
+    args?: ConstructorParameters&lt;T&gt;;
+  }
+
+  // Order results
+  order?: 'ASC' | 'DEC',
 
   // Return only limited number of revisions
-  limit: number,
+  limit?: number,
 
-  // Returns the results in ASC or DEC order
-  order: 'ASC' | 'DEC',
-
-  // Return only revisions with a specific id
-  ids: string[],
-
-})</code></pre>
+  // Return results starting from offset
+  offset?: number,
+}) =&gt; Promise&lt;string[]&gt;</code></pre>
 </doc-codeblock></div>
-<p>When a key is omitted, the condition is ignored. For example, if only <code v-pre>class</code> is set in the <code v-pre>contract</code>parameter, the call will return all revisions of that class regardless of the owners.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">// Return all revisions of a class
-const revs1 = await computer.query({ contract: { class: A }})
-const revs2 = await computer.query({ publicKey: '...', contract: { class: A }})
-const revs3 = await computer.query({ limit: 10, contract: { class: A }})
-const revs4 = await computer.query({ order: 'ASC', contract: { class: A }})</code></pre>
-</doc-codeblock></div>
-<p>The <code v-pre>query()</code> function can be used to return the latest revision of the smart object with that id, or the latest revision of a smart object of a specific class.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">// Get latest revision
-const [rev] = await computer.query({ids:[a._id]})
-
-// If a is up to date the next line evaluates to true
-expect(rev).to.be(a._rev)
-
-const revs5 = await computer.query({ ids: [a._id], contract: { class: A }})</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="rpccall">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#rpccall">#</doc-anchor-trigger>
-        <span>rpcCall()</span>
-    </h3>
-</doc-anchor-target>
-<p>Calls a Bitcoin RPC method with the given parameters.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">await computer.rpcCall('getBlockchainInfo', '')</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="send">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#send">#</doc-anchor-trigger>
-        <span>send()</span>
-    </h3>
-</doc-anchor-target>
-<p>Sends an amount of satoshis to an address.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const satoshi = 100000
-const address = '1FFsHfDBEh57BB1nkeuKAk25H44U7mmMXd'
-const balance = await wallet.send(satoshi, address)</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="sign">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#sign">#</doc-anchor-trigger>
-        <span>sign()</span>
-    </h3>
-</doc-anchor-target>
-<p>Signs a Bitcore transaction with the private key of the wallet.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {}
-const exp = `${C} new ${C.name}()`
-
-const tx: Mnemonic.bitcore.transaction = await computer.encode({ exp })
-expect(tx).not.to.be.undefined
-
-await computer.fund(tx)
-await computer.sign(tx)
-const hex = await computer.broadcast(tx)
-expect(hex).to.be.a('string')</code></pre>
-</doc-codeblock></div>
+    </div>
+</div>
 <doc-anchor-target id="sync">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#sync">#</doc-anchor-trigger>
@@ -790,6 +464,14 @@ expect(hex).to.be.a('string')</code></pre>
     </h3>
 </doc-anchor-target>
 <p>This returns the smart object stored at a given revision.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">// Compute smart object from revision
 const synced = await computer.sync(a._rev)
@@ -797,6 +479,655 @@ const synced = await computer.sync(a._rev)
 // Evaluates to true if &quot;a&quot; is a smart object
 expect(synced).to.deep.equal(a)</code></pre>
 </doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">&lt;T extends new (...args: any) =&gt; any&gt;(
+  rev: string
+) =&gt; Promise&lt;T&gt;;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="advanced">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#advanced">#</doc-anchor-trigger>
+        <span>Advanced</span>
+    </h2>
+</doc-anchor-target>
+<p>Most smart contracts can be implemented using the basic methods. However, the following methods can be used to implement more complex contracts that use for example off-chain signing or server-side funding.</p>
+<doc-anchor-target id="encode">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#encode">#</doc-anchor-trigger>
+        <span>encode()</span>
+    </h3>
+</doc-anchor-target>
+<p>Encodes an expression, an environment and a module specifier into a Bitcoin transaction of type <a href="https://github.com/bitpay/bitcore/blob/master/packages/bitcore-lib/docs/transaction.md">Transaction</a> as in the <a href="https://www.npmjs.com/package/bitcore-lib">Bitcore Library</a>.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {}
+const computer = new Computer()
+const transition = { exp: `${C} new ${C.name}()` }
+const transaction = await computer.encode(transition)
+expect(transaction).to.deep.equal({
+  inputs: [],
+  outputs: [Output, Output, Output],
+  version: 2,
+  nLockTime: 0,
+  _feePerKb: 10000
+})
+</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">(transition: {
+  exp: string,
+  env?: { [s: string]: string },
+  mod?: string
+}) =&gt; Promise&lt;Bitcore.Transaction&gt;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="decode">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#decode">#</doc-anchor-trigger>
+        <span>decode()</span>
+    </h3>
+</doc-anchor-target>
+<p>Converts a Bitcore transaction into a transition object. The inverse of <code v-pre>encode</code>.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {}
+const computer = new Computer()
+const transition = {
+  exp: `${C} new ${C.name}()`,
+  env: {},
+  mod: ''
+}
+const transaction = await computer.encode(transition)
+const decoded = await computer.decode(transaction)
+expect(decoded).to.deep.equal(transition)</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">(tx: Bitcore.Transaction) =&gt; Promise&lt;{
+  exp: string,
+  env?: { [s: string]: string },
+  mod?: string
+}&gt;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="encodenew">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#encodenew">#</doc-anchor-trigger>
+        <span>encodeNew()</span>
+    </h3>
+</doc-anchor-target>
+<p>Encodes a smart object creation into a Bitcoin transaction.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract { }
+const computer = new Computer()
+const transaction = await computer.encodeNew({ constructor: C })
+const decoded = await computer.decode(transaction)
+expect(decoded).to.deep.eq({
+  exp: `${C} new ${C.name}()`,
+  env: {},
+  mod: ''
+})</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">&lt;T extends new (...args: any) =&gt; any&gt;({
+  constructor: T,
+  args?: ConstructorParameters&lt;T&gt;,
+  mod?: string
+}) =&gt; Promise&lt;Bitcore.Transaction&gt;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="encodecall">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#encodecall">#</doc-anchor-trigger>
+        <span>encodeCall()</span>
+    </h3>
+</doc-anchor-target>
+<p>Encodes a smart object call into a Bitcoin transaction that can be broadcasted to the Bitcoin mining network.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">class Counter extends Contract {
+  n: number
+  constructor() {
+    super()
+    this.n = 0
+  }
+  inc(m) {
+    this.n += m
+  }
+}
+const computer = new Computer(confs.pop())
+const counter = await computer.new(Counter)
+const transaction = await computer.encodeCall({
+  target: counter,
+  property: 'inc',
+  args: [1]
+})
+const decoded = await computer.decode(transaction)
+expect(decoded).to.deep.eq({
+  exp: `__bc__.inc(1)`,
+  env: { __bc__: counter._rev },
+  mod: ''
+})</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">({
+  target: InstanceType&lt;T&gt; &amp; Location,
+  property: string,
+  args: Parameters&lt;InstanceType&lt;T&gt;[K]&gt;,
+  mod?: string
+}) =&gt; Promise&lt;Bitcore.Transaction&gt;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="modules">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#modules">#</doc-anchor-trigger>
+        <span>Modules</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="export">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#export">#</doc-anchor-trigger>
+        <span>export</span>
+    </h3>
+</doc-anchor-target>
+<p>To optimize blockchain storage and reduce transaction costs, consider exporting your modules. This separates the modules from your smart objects, enabling the code for a class to be stored just once. Later in the text, we&#x27;ll explain the process of funding, signing, and broadcasting the transaction.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const revA = await computer.export(
+  `export class A extends Contract {}`
+)
+
+const revB = await computer.export(`
+  import { A } from '${revA}'
+  export class B extends A {}
+`)
+
+const transition = { exp: `new B()`, mod: revB }
+const transaction = await computer.encode(transition)</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">(module: string) =&gt; Promise&lt;string&gt;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="import">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#import">#</doc-anchor-trigger>
+        <span>import</span>
+    </h3>
+</doc-anchor-target>
+<p>Imports a smart contract from a module specifier. Future versions of the library will support importing modules from within an expression. For now, you can import modules from the blockchain using the revision as described in the previous section.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">class A extends Contract {}
+const module = `export ${A}`
+const rev = await computer.export(module)
+const { A: B } = await computer.import(rev)
+expect(B).to.equal(A)</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">(name: string, rev: string) =&gt; Promise&lt;new (...args: any) =&gt; any&gt;;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="wallet">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#wallet">#</doc-anchor-trigger>
+        <span>Wallet</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="fund">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fund">#</doc-anchor-trigger>
+        <span>fund</span>
+    </h3>
+</doc-anchor-target>
+<p>Funds a Bitcoin transaction with UTXOs from the wallet.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {}
+const transition = { exp: `${C} new ${C.name}()` }
+const tx = await computer.encode(transition)
+await computer.fund(tx)</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">(tx: Mnemonic.bitcoin.Transaction): Promise&lt;void&gt;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="sign">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#sign">#</doc-anchor-trigger>
+        <span>sign</span>
+    </h3>
+</doc-anchor-target>
+<p>Signs a Bitcore transaction with the private key of the wallet. The transaction needs to be fully funded before it can be signed. If multiple parties are involved in the transaction, each party needs to sign the transaction before it can be broadcasted.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {}
+const transition = { exp: `${C} new ${C.name}()` }
+const tx = await computer.encode(transition)
+await computer.fund(tx)
+computer.sign(tx)</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">(tx: Bitcore.Transaction) =&gt; void</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="broadcast">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#broadcast">#</doc-anchor-trigger>
+        <span>broadcast</span>
+    </h3>
+</doc-anchor-target>
+<p>Broadcasts a Bitcoin transaction to the Bitcoin mining network.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {}
+const transition = { exp: `${C} new ${C.name}()` }
+const tx = await computer.encode(transition)
+await computer.fund(tx)
+computer.sign(tx)
+const txId = await computer.broadcast(tx)
+expect(txId).to.be.a('string')</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">(tx: Bitcore.Transaction) =&gt; Promise&lt;string&gt;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="send">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#send">#</doc-anchor-trigger>
+        <span>send</span>
+    </h3>
+</doc-anchor-target>
+<p>Sends an amount of satoshis to an address.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const satoshi = 100000
+const address = '1FFsHfDBEh57BB1nkeuKAk25H44U7mmMXd'
+const balance = await computer.send(satoshi, address)</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">(amount: number, address: string) =&gt; Promise&amp;lt;string&amp;gt;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="rpccall">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#rpccall">#</doc-anchor-trigger>
+        <span>rpcCall</span>
+    </h3>
+</doc-anchor-target>
+<p>Calls a Bitcoin RPC method with the given parameters.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">await computer.rpcCall('getBlockchainInfo', '')</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">(method: string, params: string) =&gt; Promise&lt;any&gt;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="getaddress">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getaddress">#</doc-anchor-trigger>
+        <span>getAddress</span>
+    </h3>
+</doc-anchor-target>
+<p>Returns a string encoding Bitcoin address.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const address = computer.getAddress()</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">() =&gt; string</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="getbalance">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getbalance">#</doc-anchor-trigger>
+        <span>getBalance</span>
+    </h3>
+</doc-anchor-target>
+<p>Returns the current balance in satoshi.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const balance = await computer.getBalance()</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">() =&gt; Promise&amp;lt;number&amp;gt;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="getpublickey">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getpublickey">#</doc-anchor-trigger>
+        <span>getPublicKey</span>
+    </h3>
+</doc-anchor-target>
+<p>Returns a string encoding a public key.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const publicKey = computer.getPublicKey()</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">() =&gt; string</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="getchain">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getchain">#</doc-anchor-trigger>
+        <span>getChain</span>
+    </h3>
+</doc-anchor-target>
+<p>Returns the chain of the <code v-pre>computer</code> object.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const chain = computer.getChain()</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">() =&gt; string</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="getnetwork">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getnetwork">#</doc-anchor-trigger>
+        <span>getNetwork</span>
+    </h3>
+</doc-anchor-target>
+<p>Returns the network of the <code v-pre>computer</code> object.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const network = computer.getNetwork()</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">() =&gt; string</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="getmenmonic">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getmenmonic">#</doc-anchor-trigger>
+        <span>getMenmonic</span>
+    </h3>
+</doc-anchor-target>
+<p>Returns a string encoding a BIP32 mnemonic sentence of the <code v-pre>computer</code> object.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Exmaple</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const mnemonic = computer.getMnemonic()</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">() =&gt; string</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="getpassphrase">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getpassphrase">#</doc-anchor-trigger>
+        <span>getPassphrase</span>
+    </h3>
+</doc-anchor-target>
+<p>Returns the passphrase of the <code v-pre>computer</code> object.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const passphrase = computer.getPassphrase()</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">() =&gt; string</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="getprivatekey">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getprivatekey">#</doc-anchor-trigger>
+        <span>getPrivateKey</span>
+    </h3>
+</doc-anchor-target>
+<p>Returns a string encoding a private key.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const privateKey = computer.getPrivateKey()</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">() =&gt; string</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="getpublickey-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getpublickey-1">#</doc-anchor-trigger>
+        <span>getPublicKey</span>
+    </h3>
+</doc-anchor-target>
+<p>Returns a string encoding a public key.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const publicKey = computer.getPublicKey()</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">() =&gt; string</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+<doc-anchor-target id="getutxos">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getutxos">#</doc-anchor-trigger>
+        <span>getUtxos</span>
+    </h3>
+</doc-anchor-target>
+<p>Returns an array of UTXOs.</p>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>Example</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Type</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const utxos = await computer.getUtxos()</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">() =&gt; Promise&lt;Bitcore.Transaction.UnspentOutput[]&gt;</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
 
                                 
                                 <!-- Required only on API pages -->
