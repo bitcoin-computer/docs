@@ -29,7 +29,7 @@ class Chat extends Contract {
 
 ## Create a Wallet
 
-The first step is to create an instance of the Bitcoin Computer library.
+Next, create a smart contract wallet from the Bitcoin Computer library.
 
 ```javascript
 import { Computer } from '@bitcoin-computer/lib'
