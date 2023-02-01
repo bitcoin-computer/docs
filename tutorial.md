@@ -48,22 +48,24 @@ The ``computer.new`` function can be used to create an object from a smart contr
 const a = await computer.new(Chat, ['hi'])
 ```
 
-When ``computer.new`` is called with these parameters a transaction is broadcast that contains the expression `` `${Chat} new Chat('hi')` `` to record that the constructor was called. The object ``a`` that is returned to the user has all the properties defined in the class, and three extra properties ``_id``, ``_rev``, ``_root``.
+When ``computer.new`` is called with these parameters a transaction containing the expression `` `${Chat} new Chat('hi')` `` is broadcast to record that the constructor was called. The object ``a`` that is returned to the user has all the properties defined in the class, and five extra properties ``_id``, ``_rev``, ``_root``, ``_owners`` and ``_amount``.
 
 ```js
 expect(a).to.deep.equal({
   messages: ['hi'],
   _id: '667c...2357/0',
   _rev: '667c...2357/0',
-  _root: '667c...2357/0'
+  _root: '667c...2357/0',
+  _owners: ['03...'],
+  _amount: 5820
 })
 ```
 
-All three properties are set to the same value: ``667c...2357/0``. We will explain these properties in detail later, for now it is sufficient to know that ``667c...2357`` is the transaction id of the transaction that contains the expression `` `${Chat} new Chat('hi')` ``.
+The properties ``_id``, ``_root`` and ``_rev`` are set to the same value: ``667c...2357/0``. We will explain these properties in detail later, for now it is sufficient to know that ``667c...2357`` is the transaction id of the transaction that contains the expression `` `${Chat} new Chat('hi')` ``. The property ``_owners`` is an array of public keys that are allowed to update the object. The property ``_amount`` is the amount of satoshis that are required to update the object.
 
 ## Read a Smart Object
 
-The ``computer.sync`` function can be used to parse the expressions of the blockchain back into Javascript object. For example, if we call ``computer.sync`` with the string ``667c...2357/0`` it will recover the original object:
+The ``computer.sync`` function can be used to parse the expressions of the blockchain back into Javascript objects. For example, if we call ``computer.sync`` with the string ``667c...2357/0`` it will recover the original object:
 
 ```js
 const b = await computer.sync('667c...2357/0')
@@ -74,7 +76,7 @@ We note that reading and writing can be performed to different users. The blockc
 
 ## Update a Smart Object
 
-A smart object can be updated through function calls. However as function calls are recorded in Bitcoin transactions as well it is necessary to await on function calls:
+A smart object can be updated through function calls. However, as function calls are recorded in Bitcoin transactions, it is necessary to await on function calls:
 
 ```js
 await a.post('yo')
@@ -82,7 +84,9 @@ expect(a).to.deep.equal({
   messages: ['hi', 'yo'],
   _id: '667c...2357/0',
   _rev: 'de43...818a/0',
-  _root: '667c...2357/0'
+  _root: '667c...2357/0',
+  _owners: ['03...'],
+  _amount: 5820
 })
 ```
 
@@ -109,13 +113,13 @@ const [rev] = await computer.query({ ids: ['667c...2357/0']})
 expect(rev).to.equal('de43...818a/0')
 ```
 
-A basic pattern is to identify smart objects by their id, look up their latest revision using ``computer.query`` and then to compute their latest state using ``computer.sync``. For example, in a chat, we might have the url for the chat contain the id of the chat object. We could then recover the latest state of the chat as follows:
+A basic pattern is to identify smart objects by their id, look up their latest revision using ``computer.query`` and then to compute their latest state using ``computer.sync``. For example, in a chat, we might have the url for the chat containing the id of the chat object. We could then recover the latest state of the chat as follows:
 
 ```js
 const url = window.location
 const parse = (url) => ... // extracts id from url
 const id = parse(url)
-const rev = await computer.query({ ids: [id] })
+const [rev] = await computer.query({ ids: [id] })
 const obj = await computer.sync(rev)
 ```
 
@@ -123,7 +127,7 @@ const obj = await computer.sync(rev)
 
 Every smart object has one or more owners and only the owners can update the object. The owners can be set by assigning string encoded public keys to the ``_owners`` property. If the ``_owners`` property is not assigned in a smart contract it defaults to the public key of the computer object that created the smart object.
 
-For example in our chat example the only owner will be the user that created the chat with ``computer.new``. Thus only that user will be able to post to the chat which is a little boring. So we can add a function to update the owners array to invite more guests to chat.
+For example, in our chat example the only owner will be the user that created the chat with ``computer.new``. Thus only that user will be able to post to the chat which is a little boring. So we can add a function to update the owners array to invite more guests to chat.
 
 ```js
 class Chat extends Contract {
@@ -137,7 +141,7 @@ class Chat extends Contract {
 
 ## Privacy
 
-By default, the state of all smart objects is publicly visible. However, smart objects have a property ``_readers`` that can be used to restrict read access to the object. If ``_readers`` is assigned to an array of public keys, the meta-data of the current revision is encrypted in a way that only the specified readers can decrypt it. If ``_readers`` is not set, it defaults to the public key of the "computer" object that created the object.
+By default, the state of all smart objects is publicly visible. However, you can restrict read access to the object by setting a property ``_readers``. If ``_readers`` is assigned to an array of public keys, the meta-data of the current revision is encrypted in a way that only the specified readers can decrypt it. 
 
 For example, if we want to ensure that only people invited to the chat can read the messages, we can update our example code as follows:
 
@@ -213,7 +217,7 @@ Generally, constructor and function calls with no parameters work in the same wa
 
 In the case of a constructor or function call with parameters we first check if the parameters contain enough funds to cover the amount in the parameters after the call and the amount(s) in the return value. If so, no additional fees from the "current" wallet is needed. If the amount in the parameters exceeds the amount specified in the smart object the funds are sent back to the "current" wallet.
 
-In the next step, ``A`` can send send ``payment._rev`` to user ``B``. To claim the funds user ``B`` can execute:
+For ``B``to claim the funds, in the next step ``A`` can send send ``payment._rev`` to user ``B``. Then, the user ``B`` can execute:
 
 ```js
 const computerB = new Computer({ seed: <B's seed phrase> })
