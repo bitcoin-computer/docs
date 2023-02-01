@@ -2,7 +2,7 @@
 order: -40
 ---
 
-# API Reference
+# API
 
 This section outlines the API for the ``Computer`` class, which allows for the creation and storage of smart objects on the blockchain. It also enables querying for the location of these objects and calculating their latest values. The ``Computer`` class serves as the primary interface for the Bitcoin Computer API.
 
