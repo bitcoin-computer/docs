@@ -6,7 +6,7 @@ order: -10
 # Start
 
 
-If you are trying out the Bitcoin Computer for the first time we recommend to follow the readme file of the Bitcoin Computer Library. If you want to integrate into a new or existing application you will also need the Bitcoin Computer Library.
+If you are trying out the Bitcoin Computer for the first time, or you want to integrate it into a new or existing application, we recommend to follow the readme file of the Bitcoin Computer Library.
 
 [!ref target="blank" text="Bitcoin Computer Library"](https://www.npmjs.com/package/@bitcoin-computer/lib)
 

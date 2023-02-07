@@ -2,9 +2,6 @@
 order: -20
 ---
 
-![](/static/imgs/bitcoin-computer%401x.png)
-
-
 # Tutorial
 
 
@@ -69,6 +66,7 @@ The ``computer.sync`` function can be used to parse the expressions on transacti
 
 ```js
 const b = await computer.sync('667c...2357/0')
+
 expect(b).to.deep.equal(a)
 ```
 
@@ -80,6 +78,7 @@ A smart object can be updated through function calls. Function calls are also re
 
 ```js
 await a.post('yo')
+
 expect(a).to.deep.equal({
   messages: ['hi', 'yo'],
   _id: '667c...2357/0',
@@ -92,7 +91,7 @@ expect(a).to.deep.equal({
 
 We can see that the messages array was updated as expected.
 
-We can also see that ``_rev`` has been update but that ``_id`` and ``_root`` stayed the same. Every time a smart object is updated a new *revision* is created and assigned to the ``_rev`` property. We will explain the ``_id`` and the ``_root`` property in detail later, for now we note that they remain fixed throughout the lifecycle of an object.
+Additionally, it can be observed that ``_rev`` has been updated, but ``_id`` and ``_root`` remains unchanged. Every time a smart object is updated a new *revision* is created and assigned to the ``_rev`` property. We will explain the ``_id`` and the ``_root`` property in detail later, for now we note that they remain fixed throughout the lifecycle of an object.
 
 Revisions allow you to reconstruct each historical state of an object:
 
@@ -125,9 +124,9 @@ const obj = await computer.sync(rev)
 
 ## Data Ownership
 
-Every smart object has one or more owners and only an owner can update the object. The owners can be set by assigning string encoded public keys to the ``_owners`` property of a smart object. If the ``_owners`` property is not assigned in a smart contract it defaults to the public key of the computer object that created the smart object.
+Every smart object has up to three owners and only an owner can update the object. The owners can be set by assigning string encoded public keys to the ``_owners`` property of a smart object. If the ``_owners`` property is not assigned in a smart contract it defaults to the public key of the computer object that created the smart object.
 
-For example, in our chat the initial owner will be the user that created the chat with ``computer.new``. Thus only that user will be able to post to the chat which is a little boring. So we can add a function to update the owners array to invite more guests to chat.
+For example, in our chat, the initial owner will be the user that created the chat with ``computer.new``. As a result, only that user will be able to post to the chat, which is a little boring. So we can add a function to update the owners array, to invite more participants to the chat.
 
 ```js
 class Chat extends Contract {
@@ -213,11 +212,11 @@ const payment = computerA.new(Payment, [<B's public key>, 210000])
 
 When the ``payment`` smart object is created, the wallet inside the ``computerA`` object funds the ``210000`` satoshi that are stored in the ``payment`` object.
 
-Generally, constructor and function calls with no parameters work in the same way: The ``computer`` object that either created or synced against the smart object has to cover the satoshis in a smart object without parameters.
+Generally, constructor and function calls with no parameters work in the same way: the ``computer`` object that either created or synced against the smart object has to cover the satoshis in a smart object without parameters.
 
-In the case of a constructor or function call with parameters we first check if the parameters contain enough funds to cover the amount in the parameters after the call and the amount(s) in the return value. If so, no additional fees from the "current" wallet is needed. If the amount in the parameters exceeds the amount specified in the smart object the funds are sent back to the "current" wallet.
+When a constructor or function is called with parameters, it is first evaluated if they hold sufficient funds to cover the cost of the call and the returned value. If they do, no additional fees are taken from the "current" wallet. If the amount in the parameters surpasses the amount specified in the smart object, the excess funds are returned to the "current" wallet.
 
-For ``B``to claim the funds, in the next step ``A`` can send send ``payment._rev`` to user ``B``. Then, the user ``B`` can execute:
+For ``B`` to claim the funds, in the next step ``A`` can send ``payment._rev`` to user ``B``. Then, the user ``B`` can execute:
 
 ```js
 const computerB = new Computer({ seed: <B's seed phrase> })

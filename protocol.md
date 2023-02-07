@@ -6,7 +6,7 @@ order: -30
 
 The Bitcoin Computer protocol enables the recording of Javascript program executions within Bitcoin transactions. This allows the state of Javascript objects, referred to as "smart objects," to be stored on the blockchain. The transactions contain Javascript expressions that encode changes to the smart objects' state, and the outputs correspond to the state of the objects after the update. Spent outputs represent the historical states while unspent outputs represent the current state. By evaluating the Javascript expressions in the transactions, both the past and current state of the smart objects can be determined, resulting in the creation of a global shared memory.
 
-Just like you can use a programming language without knowing how it is evaluated, you can use the Bitcoin Computer without understanding it's protocol. The vast majority of smart contracts can be built with the [basic interface](api/#basic). This document explains at a high level how the basic interface is implemented using the [advanced interface](api/#advanced).
+Just as you can use any library function without a deep understanding of how it is evaluated, the vast majority of smart contracts can be built with the Bitcoin Computer using the [basic interface](api/#basic). To gain a better understanding of the protocol, this document explains at a high level how the basic interface is implemented using the [advanced interface](api/#advanced).
 
 ## The Global Shared Memory
 
@@ -30,11 +30,11 @@ A *revision* is an output that encodes either a memory allocation or update. The
 
 ## Keyword Properties
 
-In addition to the propertied defined in the class that a smart object is created from, it has the following properties:
+In addition to the properties defined in the class that a smart object is created from, it has the following properties:
 
 * ``_id``: Refers to the transaction output that allocated the memory cell that stores the smart object. This id remains constant, even if the object is updated.
 * ``_rev``: Refers to the last transaction output that updated the smart object. It is updated every time the object is updated.
-* ``_root``: For an object created using computer.new, the root is equal to its id. If an object is created within a function call, the root of the new object is the root of the object on which the function was called.
+* ``_root``: For an object created using ``computer.new``, the _root is equal to its _id. If an object is created within a function call, the _root of the new object is the _root of the object on which the function was called.
 * ``_amount``: Indicates the amount of cryptocurrency (in satoshi) stored in the smart object.
 * ``_owners``: An array of string-encoded public keys representing the owners of the object. Only the owners can update a smart object by calling one of its functions.
 
@@ -44,7 +44,7 @@ To allocate a memory cell and to store a new smart object in it, a transaction t
 
 ![](/static/nft-create@1x.png)
 
-The function ``computer.sync`` computes Javascript objects from outputs as shown in the figure. Note that ``_id``, ``_rev``, and ``root`` are all set to the same output.
+The function ``computer.sync`` computes Javascript objects from outputs as shown in the figure. Note that ``_id``, ``_rev``, and ``_root`` are all set to the same output.
 
 ## Calling Functions
 
