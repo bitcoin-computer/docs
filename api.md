@@ -187,7 +187,7 @@ new (params: {
 |||
 
 
-### new()
+### new
 
 This method creates new smart objects. The parameters are a class, a list of arguments for the constructor of the class, and a module specifier. The arguments can be of basic data type or smart objects.
 
@@ -232,7 +232,7 @@ Here a ``Location`` is the type
 type Location = { _id: string, _rev: string, _root: string }
 ```
 
-### query()
+### query
 
 Returns an array of strings, containing the latest revisions of smart objects that satisfy certain conditions. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
 
@@ -285,7 +285,7 @@ const revs5 = await computer.query({ ids: ['...'] })
 |||
 
 
-### sync()
+### sync
 
 This returns the smart object stored at a given revision.
 
@@ -312,7 +312,7 @@ expect(synced).to.deep.equal(a)
 
 Most smart contracts can be implemented using the basic methods. However, the following methods can be used to implement more complex contracts that use for example off-chain signing or server-side funding.
 
-### encode()
+### encode
 
 Encodes an expression, an environment and a module specifier into a Bitcoin transaction of type [Transaction](https://github.com/bitpay/bitcore/blob/master/packages/bitcore-lib/docs/transaction.md) as in the [Bitcore Library](https://www.npmjs.com/package/bitcore-lib).
 
@@ -341,7 +341,7 @@ expect(transaction).to.deep.equal({
 ```
 |||
 
-### decode()
+### decode
 
 Converts a Bitcore transaction into a transition object. The inverse of ``encode``.
 
@@ -368,7 +368,7 @@ expect(decoded).to.deep.equal(transition)
 ```
 |||
 
-### encodeNew()
+### encodeNew
 
 Encodes a smart object creation into a Bitcoin transaction.
 
@@ -394,7 +394,7 @@ expect(decoded).to.deep.eq({
 ```
 |||
 
-### encodeCall()
+### encodeCall
 
 Encodes a smart object call into a Bitcoin transaction that can be broadcasted to the Bitcoin mining network.
 
