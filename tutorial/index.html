@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.728598852347">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.729207637042">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -30,12 +30,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=2.4.0.728598852347" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.729207637042" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.728598852347" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.729207637042" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.728598852347" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.728598852347" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.729207637042" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.729207637042" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -167,11 +167,6 @@
                                 <div id="docs-sidebar-right-toggle"></div>
                 
                                 <!-- Page content  -->
-<p><figure class="content-center">
-    <img src="/static/imgs/bitcoin-computer401x.png" alt="" />
-    <figcaption class="caption"></figcaption>
-</figure>
-</p>
 <doc-anchor-target id="tutorial" class="break-words">
     <h1>
         <doc-anchor-trigger class="header-anchor-trigger" to="#tutorial">#</doc-anchor-trigger>
@@ -205,25 +200,25 @@ class Chat extends Contract {
         <span>Create a Wallet</span>
     </h2>
 </doc-anchor-target>
-<p>Next, create a smart contract wallet from the Bitcoin Computer library.</p>
+<p>You can create a smart contract wallet from the Bitcoin Computer library.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">import { Computer } from '@bitcoin-computer/lib'
 
 const mnemonic = 'replace this seed'
 const computer = new Computer({ mnemonic })</code></pre>
 </doc-codeblock></div>
-<p>You can pass in a <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a> mnemonic to initialize the wallet. You can generate a mnemonic <a href="https://iancoleman.io/bip39/">here</a>. See <a href="https://docs.bitcoincomputer.io/library/api/#constructor">here</a> for more configuration options.</p>
+<p>You can pass in a <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a> mnemonic to initialize the wallet. To generate a fresh mnemonic click <a href="https://iancoleman.io/bip39/">here</a>. You can find more wallet configuration options <a href="https://docs.bitcoincomputer.io/library/api/#constructor">here</a>.</p>
 <doc-anchor-target id="create-a-smart-object">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#create-a-smart-object">#</doc-anchor-trigger>
         <span>Create a Smart Object</span>
     </h2>
 </doc-anchor-target>
-<p>The <code v-pre>computer.new</code> function can be used to create an object from a smart contract and to store it on the blockchain. For example</p>
+<p>The <code v-pre>computer.new</code> function can be used to create a smart object from a smart contract. For example</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const a = await computer.new(Chat, ['hi'])</code></pre>
 </doc-codeblock></div>
-<p>When <code v-pre>computer.new</code> is called with these parameters a transaction containing the expression <code v-pre>`${Chat} new Chat('hi')`</code> is broadcast to record that the constructor was called. The object <code v-pre>a</code> that is returned to the user has all the properties defined in the class, and five extra properties <code v-pre>_id</code>, <code v-pre>_rev</code>, <code v-pre>_root</code>, <code v-pre>_owners</code> and <code v-pre>_amount</code>.</p>
+<p>When this call is executed, a transaction containing the expression <code v-pre>`${Chat} new Chat('hi')`</code> is broadcast. The object <code v-pre>a</code> that is returned has all the properties defined in the class, and five extra properties <code v-pre>_id</code>, <code v-pre>_rev</code>, <code v-pre>_root</code>, <code v-pre>_owners</code> and <code v-pre>_amount</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">expect(a).to.deep.equal({
   messages: ['hi'],
@@ -234,28 +229,30 @@ const computer = new Computer({ mnemonic })</code></pre>
   _amount: 5820
 })</code></pre>
 </doc-codeblock></div>
-<p>The properties <code v-pre>_id</code>, <code v-pre>_root</code> and <code v-pre>_rev</code> are set to the same value: <code v-pre>667c...2357/0</code>. We will explain these properties in detail later, for now it is sufficient to know that <code v-pre>667c...2357</code> is the transaction id of the transaction that contains the expression <code v-pre>`${Chat} new Chat('hi')`</code>. The property <code v-pre>_owners</code> is an array of public keys that are allowed to update the object. The property <code v-pre>_amount</code> is the amount of satoshis that are required to update the object.</p>
+<p>The properties <code v-pre>_id</code>, <code v-pre>_root</code> and <code v-pre>_rev</code> are set to the same value: <code v-pre>667c...2357/0</code>. We will explain these properties in detail later, for now it is sufficient to know that <code v-pre>667c...2357</code> is the transaction id of the transaction that contains the expression <code v-pre>`${Chat} new Chat('hi')`</code>. The property <code v-pre>_owners</code> is an array of public keys that are allowed to update the object. The property <code v-pre>_amount</code> is the amount of satoshis that are stored in the object.</p>
 <doc-anchor-target id="read-a-smart-object">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#read-a-smart-object">#</doc-anchor-trigger>
         <span>Read a Smart Object</span>
     </h2>
 </doc-anchor-target>
-<p>The <code v-pre>computer.sync</code> function can be used to parse the expressions of the blockchain back into Javascript objects. For example, if we call <code v-pre>computer.sync</code> with the string <code v-pre>667c...2357/0</code> it will recover the original object:</p>
+<p>The <code v-pre>computer.sync</code> function can be used to parse the expressions on transactions back into Javascript objects. For example, if we call <code v-pre>computer.sync</code> with the string <code v-pre>667c...2357/0</code> it will recover the original object:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const b = await computer.sync('667c...2357/0')
+
 expect(b).to.deep.equal(a)</code></pre>
 </doc-codeblock></div>
-<p>We note that reading and writing can be performed to different users. The blockchain allows them to obtain consensus over the state of smart objects. This makes it possible to build decentralized applications.</p>
+<p>Reading and writing can be performed to different users. The blockchain allows them to obtain consensus over the state of smart objects. This makes it possible to build decentralized applications.</p>
 <doc-anchor-target id="update-a-smart-object">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#update-a-smart-object">#</doc-anchor-trigger>
         <span>Update a Smart Object</span>
     </h2>
 </doc-anchor-target>
-<p>A smart object can be updated through function calls. However, as function calls are recorded in Bitcoin transactions, it is necessary to await on function calls:</p>
+<p>A smart object can be updated through function calls. Function calls are also recorded in transactions. Therefore it is necessary to <code v-pre>await</code> on function calls:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">await a.post('yo')
+
 expect(a).to.deep.equal({
   messages: ['hi', 'yo'],
   _id: '667c...2357/0',
@@ -266,8 +263,8 @@ expect(a).to.deep.equal({
 })</code></pre>
 </doc-codeblock></div>
 <p>We can see that the messages array was updated as expected.</p>
-<p>We can also see that <code v-pre>_rev</code> has been update but that <code v-pre>_id</code> and <code v-pre>_root</code> stayed the same. Every time a smart object is updated a new <em>revision</em> is created and assigned to the <code v-pre>_rev</code> property. We will explain the <code v-pre>_id</code> and the <code v-pre>_root</code> property in detail later, for now we note that they remain fixed throughout the lifecycle of an object.</p>
-<p>Revisions allow you to query each historical state of an object:</p>
+<p>Additionally, it can be observed that <code v-pre>_rev</code> has been updated, but <code v-pre>_id</code> and <code v-pre>_root</code> remains unchanged. Every time a smart object is updated a new <em>revision</em> is created and assigned to the <code v-pre>_rev</code> property. We will explain the <code v-pre>_id</code> and the <code v-pre>_root</code> property in detail later, for now we note that they remain fixed throughout the lifecycle of an object.</p>
+<p>Revisions allow you to reconstruct each historical state of an object:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const oldChat = await computer.sync('667c...2357/0')
 expect(oldChat.messages).to.deep.equal(['hi'])
@@ -281,12 +278,12 @@ expect(newChat.messages).to.deep.equal(['hi', 'yo'])</code></pre>
         <span>Find Smart Objects</span>
     </h2>
 </doc-anchor-target>
-<p>The <code v-pre>computer.query</code> function provides a simple way of finding the latest revisions of smart objects.</p>
+<p>The <code v-pre>computer.query</code> function provides a simple way of finding the latest revision of a smart object.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const [rev] = await computer.query({ ids: ['667c...2357/0']})
 expect(rev).to.equal('de43...818a/0')</code></pre>
 </doc-codeblock></div>
-<p>A basic pattern is to identify smart objects by their id, look up their latest revision using <code v-pre>computer.query</code> and then to compute their latest state using <code v-pre>computer.sync</code>. For example, in a chat, we might have the url for the chat containing the id of the chat object. We could then recover the latest state of the chat as follows:</p>
+<p>A basic pattern is to identify smart objects by their id, look up their latest revision using <code v-pre>computer.query</code> and then to compute their current state using <code v-pre>computer.sync</code>. For example, in a chat, we might have the url for the chat containing the id of the chat object. We could then recover the latest state of the chat as follows:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const url = window.location
 const parse = (url) =&gt; ... // extracts id from url
@@ -300,8 +297,8 @@ const obj = await computer.sync(rev)</code></pre>
         <span>Data Ownership</span>
     </h2>
 </doc-anchor-target>
-<p>Every smart object has one or more owners and only the owners can update the object. The owners can be set by assigning string encoded public keys to the <code v-pre>_owners</code> property. If the <code v-pre>_owners</code> property is not assigned in a smart contract it defaults to the public key of the computer object that created the smart object.</p>
-<p>For example, in our chat example the only owner will be the user that created the chat with <code v-pre>computer.new</code>. Thus only that user will be able to post to the chat which is a little boring. So we can add a function to update the owners array to invite more guests to chat.</p>
+<p>Every smart object has up to three owners and only an owner can update the object. The owners can be set by assigning string encoded public keys to the <code v-pre>_owners</code> property of a smart object. If the <code v-pre>_owners</code> property is not assigned in a smart contract it defaults to the public key of the computer object that created the smart object.</p>
+<p>For example, in our chat, the initial owner will be the user that created the chat with <code v-pre>computer.new</code>. As a result, only that user will be able to post to the chat, which is a little boring. So we can add a function to update the owners array, to invite more participants to the chat.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class Chat extends Contract {
   ... // from above
@@ -382,9 +379,9 @@ const obj = await computer.sync(rev)</code></pre>
 const payment = computerA.new(Payment, [&lt;B's public key&gt;, 210000])</code></pre>
 </doc-codeblock></div>
 <p>When the <code v-pre>payment</code> smart object is created, the wallet inside the <code v-pre>computerA</code> object funds the <code v-pre>210000</code> satoshi that are stored in the <code v-pre>payment</code> object.</p>
-<p>Generally, constructor and function calls with no parameters work in the same way: The <code v-pre>computer</code> object that either created or synced against the smart object has to cover the satoshis in a smart object without parameters.</p>
-<p>In the case of a constructor or function call with parameters we first check if the parameters contain enough funds to cover the amount in the parameters after the call and the amount(s) in the return value. If so, no additional fees from the &quot;current&quot; wallet is needed. If the amount in the parameters exceeds the amount specified in the smart object the funds are sent back to the &quot;current&quot; wallet.</p>
-<p>For <code v-pre>B</code>to claim the funds, in the next step <code v-pre>A</code> can send send <code v-pre>payment._rev</code> to user <code v-pre>B</code>. Then, the user <code v-pre>B</code> can execute:</p>
+<p>Generally, constructor and function calls with no parameters work in the same way: the <code v-pre>computer</code> object that either created or synced against the smart object has to cover the satoshis in a smart object without parameters.</p>
+<p>When a constructor or function is called with parameters, it is first evaluated if they hold sufficient funds to cover the cost of the call and the returned value. If they do, no additional fees are taken from the &quot;current&quot; wallet. If the amount in the parameters surpasses the amount specified in the smart object, the excess funds are returned to the &quot;current&quot; wallet.</p>
+<p>For <code v-pre>B</code> to claim the funds, in the next step <code v-pre>A</code> can send <code v-pre>payment._rev</code> to user <code v-pre>B</code>. Then, the user <code v-pre>B</code> can execute:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const computerB = new Computer({ seed: &lt;B's seed phrase&gt; })
 const paymentB = await computerB.sync(payment._rev)
@@ -410,10 +407,10 @@ await paymentB.cashOut()</code></pre>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../api/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../protocol/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">API</span>
+                                                <span class="block mt-1">Protocol</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>

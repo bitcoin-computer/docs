@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.728598852347">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.729207637042">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -30,12 +30,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=2.4.0.728598852347" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.729207637042" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.728598852347" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.729207637042" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.728598852347" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.728598852347" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.729207637042" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.729207637042" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -262,7 +262,7 @@
   </tr>
   <tr>
     <td><a href="#getmenmonic">getMnemonic</a></td>
-    <td>Returns a BIP93 mnemonic sentence</td>
+    <td>Returns a BIP39 mnemonic sentence</td>
   </tr>
   <tr>
     <td><a href="#getpassphrase">getPassphrase</a></td>
@@ -344,10 +344,10 @@ const computer3 = new Computer({
 <doc-anchor-target id="new">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#new">#</doc-anchor-trigger>
-        <span>new()</span>
+        <span>new</span>
     </h3>
 </doc-anchor-target>
-<p>This method creates new smart objects. The parameters are a class, a list of arguments for the constructor of the class, and a module specifier. The arguments can be of basic data type or smart objects.</p>
+<p>This method creates new smart objects. The parameters are a class, a list of arguments for the constructor of the class and a module specifier. The arguments can be of basic data type or smart objects.</p>
 <div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
     <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
         <span>Example</span>
@@ -372,7 +372,9 @@ expect(a).to.deep.equal({
   n: 1,
   _id: '...',
   _rev: '...',
-  _root: '...'
+  _root: '...',
+  _amount: &lt;some-amount&gt;,
+  _owner: &lt;some-publicKey&gt;,
 })</code></pre>
 </doc-codeblock></div>
     </div>
@@ -398,11 +400,11 @@ expect(a).to.deep.equal({
 <doc-anchor-target id="query">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#query">#</doc-anchor-trigger>
-        <span>query()</span>
+        <span>query</span>
     </h3>
 </doc-anchor-target>
 <p>Returns an array of strings, containing the latest revisions of smart objects that satisfy certain conditions. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.</p>
-<p>When a key is omitted, the condition is ignored. For example, if only <code v-pre>class</code> is set in the <code v-pre>contract</code>parameter, the call will return all revisions of that class regardless of the owners.</p>
+<p>When a key is omitted, the condition is ignored. For example, if only <code v-pre>class</code> is set in the <code v-pre>contract</code> parameter, the call will return all revisions of that class regardless of the owners.</p>
 <div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
     <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
         <span>Examples</span>
@@ -460,7 +462,7 @@ const revs5 = await computer.query({ ids: ['...'] })</code></pre>
 <doc-anchor-target id="sync">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#sync">#</doc-anchor-trigger>
-        <span>sync()</span>
+        <span>sync</span>
     </h3>
 </doc-anchor-target>
 <p>This returns the smart object stored at a given revision.</p>
@@ -498,7 +500,7 @@ expect(synced).to.deep.equal(a)</code></pre>
 <doc-anchor-target id="encode">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#encode">#</doc-anchor-trigger>
-        <span>encode()</span>
+        <span>encode</span>
     </h3>
 </doc-anchor-target>
 <p>Encodes an expression, an environment and a module specifier into a Bitcoin transaction of type <a href="https://github.com/bitpay/bitcore/blob/master/packages/bitcore-lib/docs/transaction.md">Transaction</a> as in the <a href="https://www.npmjs.com/package/bitcore-lib">Bitcore Library</a>.</p>
@@ -515,6 +517,7 @@ expect(synced).to.deep.equal(a)</code></pre>
 const computer = new Computer()
 const transition = { exp: `${C} new ${C.name}()` }
 const transaction = await computer.encode(transition)
+
 expect(transaction).to.deep.equal({
   inputs: [],
   outputs: [Output, Output, Output],
@@ -538,7 +541,7 @@ expect(transaction).to.deep.equal({
 <doc-anchor-target id="decode">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#decode">#</doc-anchor-trigger>
-        <span>decode()</span>
+        <span>decode</span>
     </h3>
 </doc-anchor-target>
 <p>Converts a Bitcore transaction into a transition object. The inverse of <code v-pre>encode</code>.</p>
@@ -560,6 +563,7 @@ const transition = {
 }
 const transaction = await computer.encode(transition)
 const decoded = await computer.decode(transaction)
+
 expect(decoded).to.deep.equal(transition)</code></pre>
 </doc-codeblock></div>
     </div>
@@ -576,7 +580,7 @@ expect(decoded).to.deep.equal(transition)</code></pre>
 <doc-anchor-target id="encodenew">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#encodenew">#</doc-anchor-trigger>
-        <span>encodeNew()</span>
+        <span>encodeNew</span>
     </h3>
 </doc-anchor-target>
 <p>Encodes a smart object creation into a Bitcoin transaction.</p>
@@ -593,6 +597,7 @@ expect(decoded).to.deep.equal(transition)</code></pre>
 const computer = new Computer()
 const transaction = await computer.encodeNew({ constructor: C })
 const decoded = await computer.decode(transaction)
+
 expect(decoded).to.deep.eq({
   exp: `${C} new ${C.name}()`,
   env: {},
@@ -613,10 +618,10 @@ expect(decoded).to.deep.eq({
 <doc-anchor-target id="encodecall">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#encodecall">#</doc-anchor-trigger>
-        <span>encodeCall()</span>
+        <span>encodeCall</span>
     </h3>
 </doc-anchor-target>
-<p>Encodes a smart object call into a Bitcoin transaction that can be broadcasted to the Bitcoin mining network.</p>
+<p>Encodes a smart object call into a Bitcoin transaction that can be broadcast to the Bitcoin mining network.</p>
 <div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
     <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
         <span>Example</span>
@@ -644,6 +649,7 @@ const transaction = await computer.encodeCall({
   args: [1]
 })
 const decoded = await computer.decode(transaction)
+
 expect(decoded).to.deep.eq({
   exp: `__bc__.inc(1)`,
   env: { __bc__: counter._rev },
@@ -674,7 +680,7 @@ expect(decoded).to.deep.eq({
         <span>export</span>
     </h3>
 </doc-anchor-target>
-<p>To optimize blockchain storage and reduce transaction costs, consider exporting your modules. This separates the modules from your smart objects, enabling the code for a class to be stored just once. Later in the text, we&#x27;ll explain the process of funding, signing, and broadcasting the transaction.</p>
+<p>To optimize blockchain storage and reduce transaction costs, consider exporting your modules. This separates the modules from your smart objects, enabling the code for a class to be stored just once. The process of funding, signing, and broadcasting a transaction will be explained later in the text.</p>
 <div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
     <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
         <span>Example</span>
@@ -723,6 +729,7 @@ const transaction = await computer.encode(transition)</code></pre>
 const module = `export ${A}`
 const rev = await computer.export(module)
 const { A: B } = await computer.import(rev)
+
 expect(B).to.equal(A)</code></pre>
 </doc-codeblock></div>
     </div>
@@ -817,6 +824,7 @@ const tx = await computer.encode(transition)
 await computer.fund(tx)
 computer.sign(tx)
 const txId = await computer.broadcast(tx)
+
 expect(txId).to.be.a('string')</code></pre>
 </doc-codeblock></div>
     </div>
@@ -849,7 +857,7 @@ const balance = await computer.send(satoshi, address)</code></pre>
     </div>
     <div class="docs-columns-code docs-columns-content">
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">(amount: number, address: string) =&gt; Promise&amp;lt;string&amp;gt;</code></pre>
+<pre class="language-typescript"><code v-pre class="language-typescript">(amount: number, address: string) =&gt; Promise&lt;string&gt;;</code></pre>
 </doc-codeblock></div>
     </div>
 </div>
@@ -1137,11 +1145,11 @@ const balance = await computer.send(satoshi, address)</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../tutorial/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../protocol/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Tutorial</span>
+                                                <span class="block mt-1">Protocol</span>
                                             </span>
                                         </a>
                                     </div>
