@@ -6,38 +6,26 @@ description: This is a custom description for this page
 ![](/static/bitcoin-computer@1x.png)
 # Bitcoin Computer
 
-The Bitcoin Computer is a powerful on-chain L2 smart contract system that is designed specifically for UTXO-based blockchains.
-
-Some of the key features include:
-
+A smart contract system for UTXO-based blockchains. Key features include:
 * Low fees through client-side validation
-* The ability to write smart contracts in popular programming languages such as Javascript and Typescript
-* Seamless integration into web applications
-* Built-in privacy features such as off-chain storage and encryption
-* Support for non-custodial applications
-* Trustless and censorship-resistant design
-* Compliance with ES6 module system
-* Compatibility with both browser and node.js environments
-* Support for Litecoin, with support for Bitcoin and Dogecoin coming soon
+* Cost independent of time and space complexity
+* Smart contract programming in Javascript and Typescript
+* Access to all historical states
+* Built-in privacy through encryption
+* Efficient block space usage with off-chain storage
+* ES6 module system
+* Pure and secure, no need for a side-chain
+* Support for Litecoin with support for Bitcoin and Dogecoin coming soon.
 
-With the Bitcoin Computer, you can build a wide range of decentralized applications, such as fungible and non-fungible tokens, exchanges, games, office applications, social networks, messengers, AI-based applications, and much more.
+With these features, you can build a variety of decentralized applications, such as tokens, exchanges, games, social networks, and more.
 
-## Getting Started
+## Get Started
 
-The best way to get started is to clone this repository and run one of the examples.
-
-```bash
-# download the code
-git clone git@github.com:bitcoin-computer/monorepo.git
-
-# install dependencies
-cd monorepo
-lerna bootstrap
-```
+[!ref](/start.md)
 
 ## Examples
 
-The examples are in the `packages` folder. To run an example have a look at the `README.md` file in the corresponding folder.
+To run an example have a look at the `README.md` file in the corresponding folder.
 
 ### Applications
 

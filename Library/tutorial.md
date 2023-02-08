@@ -4,17 +4,6 @@ order: -30
 
 # Tutorial
 
-```mermaid
-flowchart LR
-    a1-->a2
-    subgraph one["new C()"]
-    a1["{n:0}"]
-    end
-    subgraph two["inc()"]
-    a2["{n:1}"]
-    end
-```
-
 
 This tutorial explains how to build a decentralized chat on Bitcoin.
 ## Create a Bitcoin Computer Object

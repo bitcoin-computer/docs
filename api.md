@@ -117,7 +117,7 @@ This section outlines the API for the ``Computer`` class, which allows for the c
 
   <tr>
     <td><a href="#getmenmonic">getMnemonic</a></td>
-    <td>Returns a BIP93 mnemonic sentence</td>
+    <td>Returns a BIP39 mnemonic sentence</td>
   </tr>
 
   <tr>
@@ -187,9 +187,9 @@ new (params: {
 |||
 
 
-### new()
+### new
 
-This method creates new smart objects. The parameters are a class, a list of arguments for the constructor of the class, and a module specifier. The arguments can be of basic data type or smart objects.
+This method creates new smart objects. The parameters are a class, a list of arguments for the constructor of the class and a module specifier. The arguments can be of basic data type or smart objects.
 
 ||| Example
 ```ts
@@ -208,7 +208,9 @@ expect(a).to.deep.equal({
   n: 1,
   _id: '...',
   _rev: '...',
-  _root: '...'
+  _root: '...',
+  _amount: <some-amount>,
+  _owner: <some-publicKey>,
 })
 ```
 ||| Type
@@ -232,11 +234,11 @@ Here a ``Location`` is the type
 type Location = { _id: string, _rev: string, _root: string }
 ```
 
-### query()
+### query
 
 Returns an array of strings, containing the latest revisions of smart objects that satisfy certain conditions. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
 
-When a key is omitted, the condition is ignored. For example, if only ``class`` is set in the ```contract```parameter, the call will return all revisions of that class regardless of the owners.
+When a key is omitted, the condition is ignored. For example, if only ``class`` is set in the ```contract``` parameter, the call will return all revisions of that class regardless of the owners.
 
 ||| Examples
 ```ts
@@ -285,7 +287,7 @@ const revs5 = await computer.query({ ids: ['...'] })
 |||
 
 
-### sync()
+### sync
 
 This returns the smart object stored at a given revision.
 
@@ -312,7 +314,7 @@ expect(synced).to.deep.equal(a)
 
 Most smart contracts can be implemented using the basic methods. However, the following methods can be used to implement more complex contracts that use for example off-chain signing or server-side funding.
 
-### encode()
+### encode
 
 Encodes an expression, an environment and a module specifier into a Bitcoin transaction of type [Transaction](https://github.com/bitpay/bitcore/blob/master/packages/bitcore-lib/docs/transaction.md) as in the [Bitcore Library](https://www.npmjs.com/package/bitcore-lib).
 
@@ -322,6 +324,7 @@ class C extends Contract {}
 const computer = new Computer()
 const transition = { exp: `${C} new ${C.name}()` }
 const transaction = await computer.encode(transition)
+
 expect(transaction).to.deep.equal({
   inputs: [],
   outputs: [Output, Output, Output],
@@ -341,7 +344,7 @@ expect(transaction).to.deep.equal({
 ```
 |||
 
-### decode()
+### decode
 
 Converts a Bitcore transaction into a transition object. The inverse of ``encode``.
 
@@ -356,6 +359,7 @@ const transition = {
 }
 const transaction = await computer.encode(transition)
 const decoded = await computer.decode(transaction)
+
 expect(decoded).to.deep.equal(transition)
 ```
 ||| Type
@@ -368,7 +372,7 @@ expect(decoded).to.deep.equal(transition)
 ```
 |||
 
-### encodeNew()
+### encodeNew
 
 Encodes a smart object creation into a Bitcoin transaction.
 
@@ -378,6 +382,7 @@ class C extends Contract { }
 const computer = new Computer()
 const transaction = await computer.encodeNew({ constructor: C })
 const decoded = await computer.decode(transaction)
+
 expect(decoded).to.deep.eq({
   exp: `${C} new ${C.name}()`,
   env: {},
@@ -394,9 +399,9 @@ expect(decoded).to.deep.eq({
 ```
 |||
 
-### encodeCall()
+### encodeCall
 
-Encodes a smart object call into a Bitcoin transaction that can be broadcasted to the Bitcoin mining network.
+Encodes a smart object call into a Bitcoin transaction that can be broadcast to the Bitcoin mining network.
 
 ||| Example
 ```ts
@@ -418,6 +423,7 @@ const transaction = await computer.encodeCall({
   args: [1]
 })
 const decoded = await computer.decode(transaction)
+
 expect(decoded).to.deep.eq({
   exp: `__bc__.inc(1)`,
   env: { __bc__: counter._rev },
@@ -440,7 +446,7 @@ expect(decoded).to.deep.eq({
 
 ### export
 
-To optimize blockchain storage and reduce transaction costs, consider exporting your modules. This separates the modules from your smart objects, enabling the code for a class to be stored just once. Later in the text, we'll explain the process of funding, signing, and broadcasting the transaction.
+To optimize blockchain storage and reduce transaction costs, consider exporting your modules. This separates the modules from your smart objects, enabling the code for a class to be stored just once. The process of funding, signing, and broadcasting a transaction will be explained later in the text.
 
 ||| Example
 ```ts
@@ -472,6 +478,7 @@ class A extends Contract {}
 const module = `export ${A}`
 const rev = await computer.export(module)
 const { A: B } = await computer.import(rev)
+
 expect(B).to.equal(A)
 ```
 ||| Type
@@ -529,6 +536,7 @@ const tx = await computer.encode(transition)
 await computer.fund(tx)
 computer.sign(tx)
 const txId = await computer.broadcast(tx)
+
 expect(txId).to.be.a('string')
 ```
 ||| Type
@@ -549,7 +557,7 @@ const balance = await computer.send(satoshi, address)
 ```
 ||| Type
 ```ts
-(amount: number, address: string) => Promise&lt;string&gt;
+(amount: number, address: string) => Promise<string>;
 ```
 |||
 
