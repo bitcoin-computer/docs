@@ -4,6 +4,6 @@ url: # Add your website address here
 branding:
   title: Bitcoin Computer
   label: 0.13.4
-links:
+favicon: static/favicon.ico
 footer:
   copyright: "&copy; Copyright BCDB Inc. {{ year }}. All rights reserved."
