@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.729208603645">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.729729889265">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>Protocol</title>
     <meta name="title" content="Protocol">
-    <meta name="description" content="The Bitcoin Computer protocol enables the recording of Javascript program executions within Bitcoin transactions." />
+    <meta name="description" content="The Bitcoin Computer protocol records the execution of Javascript programs in Bitcoin transactions." />
 
     <!-- Canonical -->
     <link rel="canonical" href="/protocol/" />
@@ -20,22 +20,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="/protocol/">
     <meta property="og:title" content="Protocol">
-    <meta property="og:description" content="The Bitcoin Computer protocol enables the recording of Javascript program executions within Bitcoin transactions.">
+    <meta property="og:description" content="The Bitcoin Computer protocol records the execution of Javascript programs in Bitcoin transactions.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/protocol/">
     <meta property="twitter:title" content="Protocol">
-    <meta property="twitter:description" content="The Bitcoin Computer protocol enables the recording of Javascript program executions within Bitcoin transactions.">
+    <meta property="twitter:description" content="The Bitcoin Computer protocol records the execution of Javascript programs in Bitcoin transactions.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="../static/favicon.ico" rel="icon" />
-    <link href="../resources/css/retype.css?v=2.4.0.729208603645" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.729729889265" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.729208603645" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.729729889265" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.729208603645" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.729729889265" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -159,8 +159,8 @@
         <span>Protocol</span>
     </h1>
 </doc-anchor-target>
-<p>The Bitcoin Computer protocol enables the recording of Javascript program executions within Bitcoin transactions. This allows the state of Javascript objects, referred to as &quot;smart objects,&quot; to be stored on the blockchain. The transactions contain Javascript expressions that encode changes to the smart objects&#x27; state, and the outputs correspond to the state of the objects after the update. Spent outputs represent the historical states while unspent outputs represent the current state. By evaluating the Javascript expressions in the transactions, both the past and current state of the smart objects can be determined, resulting in the creation of a global shared memory.</p>
-<p>Just as you can use any library function without a deep understanding of how it is evaluated, the vast majority of smart contracts can be built with the Bitcoin Computer using the <a href="../api/#basic">basic interface</a>. To gain a better understanding of the protocol, this document explains at a high level how the basic interface is implemented using the <a href="../api/#advanced">advanced interface</a>.</p>
+<p>The Bitcoin Computer protocol records the execution of Javascript programs in Bitcoin transactions. The objects created by these programs can be associated with the outputs of the transactions with spent outputs representing historical states and unspent outputs representing the current state. Both the historical and current states of the smart objects can be computed from the metadata on the blockchain. This way all users can gain consensus over the states of these objects resulting in the creation of a global shared memory.</p>
+<p>Just like you can use a programming language without knowing in detail how it is evaluated, you can use the Bitcoin Computer without understanding it&#x27;s protocol. However if you are interested in how smart contracts work on Bitcoin, you can find more information below.</p>
 <doc-anchor-target id="the-global-shared-memory">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#the-global-shared-memory">#</doc-anchor-trigger>
@@ -172,24 +172,33 @@
     <figcaption class="caption caption-float"></figcaption>
 </figure>
 </p>
-<p>A Bitcoin Computer Transaction is a Bitcoin transaction that contains the following metadata:</p>
-<ol>
-<li>A Javascript expression, such as <code v-pre>new Counter()</code> or <code v-pre>counter.inc()</code>, which may contain free variables like <code v-pre>counter</code>.</li>
-<li>A blockchain environment object that associates the free variables in the expression to the inputs of the transaction.</li>
-<li>An optional module specifier, which points to a transaction output storing a module.</li>
-</ol>
+<p>Allocation and de-allocation in the global shared memory can be encoded as follows:</p>
+<p>The <em>n</em>-th output of a transaction with <em>m</em> inputs is called</p>
+<ul>
+<li>a memory update if <em>n &lt;= m</em></li>
+<li>a memory allocation if <em>m &lt; n</em></li>
+</ul>
+<p>A <em>memory de-allocation</em> is an input at index <em>n</em> in a transaction with <em>m &lt; n</em> outputs</p>
 <p><figure class="content-right">
-    <img src="../static/memory1x.png" alt="We show corresponding input-output paris vertically aligned." />
-    <figcaption class="caption caption-float">We show corresponding input-output paris vertically aligned.</figcaption>
+    <img src="../static/memory1x.png" alt="" />
+    <figcaption class="caption caption-float"></figcaption>
 </figure>
 </p>
-<p>Assume that some one-to-one mapping between the inputs and outputs called <em>correspondence</em> can be computed from the transaction. Allocation and de-allocation in the global shared memory can be encoded as follows:</p>
-<ul>
-<li>An output that does not have a corresponding input is a memory allocation</li>
-<li>An an output that has a corresponding input is a memory update</li>
-<li>An input that does not have a corresponding input is a de-allocation</li>
-</ul>
-<p>A <em>revision</em> is an output that encodes either a memory allocation or update. The <code v-pre>computer.sync</code> function computes a Javascript object from each revision. These objects are called <em>smart objects</em>.</p>
+<p>We can assign two names, &quot;revisions&quot; and &quot;ids&quot;, to all outputs: The <em>revision</em> of an output is the concatenation of its transaction id and output number. The <em>id</em> of an output is it&#x27;s revision if the output is a memory allocation. If an output <em>o</em> is a memory update then the transaction contains an input <em>i</em> with the same index of <em>o</em>. In this case <em>o</em>&#x27;s revision is the revision of the output being spent by <em>i</em>.</p>
+<doc-anchor-target id="smart-contracts">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#smart-contracts">#</doc-anchor-trigger>
+        <span>Smart Contracts</span>
+    </h2>
+</doc-anchor-target>
+<p>Smart contracts can be build on top of the shared global memory using the Bitcoin Computer protocol.
+A <em>Bitcoin Computer Transaction</em> is a Bitcoin transaction that contains the following metadata:</p>
+<ol>
+<li>A Javascript expression, such as <code v-pre>new Counter()</code> or <code v-pre>counter.inc()</code>, which may contain free variables like <code v-pre>counter</code>.</li>
+<li>A <em>blockchain environment</em> object that associates the free variables in the expression with the inputs of the transaction.</li>
+<li>An optional <em>module specifier</em>, which identifies a transaction output storing a module.</li>
+</ol>
+<p>The <code v-pre>computer.sync</code> function computes an Javascript object for each output of a Bitcoin Computer transaction. The object is annotated with the id and revision of the cell in global memory that stores the object. Such an object is called a <em>smart object</em>.</p>
 <doc-anchor-target id="keyword-properties">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#keyword-properties">#</doc-anchor-trigger>

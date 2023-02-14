@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.729208603645">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.729729889265">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>Tutorial</title>
     <meta name="title" content="Tutorial">
-    <meta name="description" content="Every Javascript (ES6) class that extends from Contract is a smart contract. For example, a smart contract for a chat could be:" />
+    <meta name="description" content="Smart contracts are Javascript classes that extend from Contract. For example, a smart contract for a chat could be:" />
 
     <!-- Canonical -->
     <link rel="canonical" href="/tutorial/" />
@@ -20,23 +20,23 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="/tutorial/">
     <meta property="og:title" content="Tutorial">
-    <meta property="og:description" content="Every Javascript (ES6) class that extends from Contract is a smart contract. For example, a smart contract for a chat could be:">
+    <meta property="og:description" content="Smart contracts are Javascript classes that extend from Contract. For example, a smart contract for a chat could be:">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="/tutorial/">
     <meta property="twitter:title" content="Tutorial">
-    <meta property="twitter:description" content="Every Javascript (ES6) class that extends from Contract is a smart contract. For example, a smart contract for a chat could be:">
+    <meta property="twitter:description" content="Smart contracts are Javascript classes that extend from Contract. For example, a smart contract for a chat could be:">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="../static/favicon.ico" rel="icon" />
-    <link href="../resources/css/retype.css?v=2.4.0.729208603645" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.729729889265" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.729208603645" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.729729889265" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.729208603645" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.729208603645" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.729729889265" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.729729889265" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -166,14 +166,13 @@
         <span>Write a Smart Contract</span>
     </h2>
 </doc-anchor-target>
-<p>Every Javascript (ES6) class that extends from <code v-pre>Contract</code> is a smart contract. For example, a smart contract for a chat could be:</p>
+<p>Smart contracts are Javascript classes that extend from <code v-pre>Contract</code>. For example, a smart contract for a chat could be:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">import { Contract } from '@bitcoin-computer/lib'
 
 class Chat extends Contract {
   constructor(message) {
-    super()
-    this.messages = [message]
+    super({ messages: [message] })
   }
 
   post(message) {
@@ -181,6 +180,7 @@ class Chat extends Contract {
   }
 }</code></pre>
 </doc-codeblock></div>
+<p>Smart contracts are mostly just Javascript classes. One distiction is that it is not possible to assign to <code v-pre>this</code> in constructors. Instead you can initialize a smart object by passing an argument into <code v-pre>super</code> as shown above.</p>
 <doc-anchor-target id="create-a-wallet">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#create-a-wallet">#</doc-anchor-trigger>
@@ -203,12 +203,12 @@ const computer = new Computer({ mnemonic })</code></pre>
 </doc-anchor-target>
 <p>The <code v-pre>computer.new</code> function can be used to create a smart object from a smart contract. For example</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const a = await computer.new(Chat, ['hi'])</code></pre>
+<pre class="language-javascript"><code v-pre class="language-javascript">const a = await computer.new(Chat, ['hello'])</code></pre>
 </doc-codeblock></div>
-<p>When this call is executed, a transaction containing the expression <code v-pre>`${Chat} new Chat('hi')`</code> is broadcast. The object <code v-pre>a</code> that is returned has all the properties defined in the class, and five extra properties <code v-pre>_id</code>, <code v-pre>_rev</code>, <code v-pre>_root</code>, <code v-pre>_owners</code> and <code v-pre>_amount</code>.</p>
+<p>When this call is executed, a transaction is broadcast that contains both the source code of <code v-pre>Chat</code> as well as the expression <code v-pre>new Chat('hello')</code>. The object <code v-pre>a</code> that is returned has all the properties defined in the class, and five extra properties <code v-pre>_id</code>, <code v-pre>_rev</code>, <code v-pre>_root</code>, <code v-pre>_owners</code> and <code v-pre>_amount</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">expect(a).to.deep.equal({
-  messages: ['hi'],
+  messages: ['hello'],
   _id: '667c...2357/0',
   _rev: '667c...2357/0',
   _root: '667c...2357/0',
@@ -216,32 +216,32 @@ const computer = new Computer({ mnemonic })</code></pre>
   _amount: 5820
 })</code></pre>
 </doc-codeblock></div>
-<p>The properties <code v-pre>_id</code>, <code v-pre>_root</code> and <code v-pre>_rev</code> are set to the same value: <code v-pre>667c...2357/0</code>. We will explain these properties in detail later, for now it is sufficient to know that <code v-pre>667c...2357</code> is the transaction id of the transaction that contains the expression <code v-pre>`${Chat} new Chat('hi')`</code>. The property <code v-pre>_owners</code> is an array of public keys that are allowed to update the object. The property <code v-pre>_amount</code> is the amount of satoshis that are stored in the object.</p>
+<p>The additional properties are explained in detail in the <a href="../protocol/#keyword-properties">Protocol</a>. For now it is sufficient to know that <code v-pre>667c...2357</code> is the transaction id of the transaction that contains the expression <code v-pre>`${Chat} new Chat('hello')`</code>. The property <code v-pre>_owners</code> is an array of public keys that are allowed to update the object. The property <code v-pre>_amount</code> is the amount of satoshis that are stored in the object.</p>
 <doc-anchor-target id="read-a-smart-object">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#read-a-smart-object">#</doc-anchor-trigger>
         <span>Read a Smart Object</span>
     </h2>
 </doc-anchor-target>
-<p>The <code v-pre>computer.sync</code> function can be used to parse the expressions on transactions back into Javascript objects. For example, if we call <code v-pre>computer.sync</code> with the string <code v-pre>667c...2357/0</code> it will recover the original object:</p>
+<p>The <code v-pre>computer.sync</code> function computes the state of smart object from the metadata on the blockchain. For example, synchronizing to <code v-pre>667c...2357/0</code> it will return an object with the same value as <code v-pre>a</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const b = await computer.sync('667c...2357/0')
 
 expect(b).to.deep.equal(a)</code></pre>
 </doc-codeblock></div>
-<p>Reading and writing can be performed to different users. The blockchain allows them to obtain consensus over the state of smart objects. This makes it possible to build decentralized applications.</p>
+<p>Reading and writing can be performed to different users. The blockchain allows any two users to obtain consensus over the state of smart objects. This makes it possible to build decentralized applications.</p>
 <doc-anchor-target id="update-a-smart-object">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#update-a-smart-object">#</doc-anchor-trigger>
         <span>Update a Smart Object</span>
     </h2>
 </doc-anchor-target>
-<p>A smart object can be updated through function calls. Function calls are also recorded in transactions. Therefore it is necessary to <code v-pre>await</code> on function calls:</p>
+<p>Smart objects can only be updated through function calls. As function calls are recorded in Bitcoin transactions it is necessary to <code v-pre>await</code> on function calls.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">await a.post('yo')
+<pre class="language-javascript"><code v-pre class="language-javascript">await a.post('world')
 
 expect(a).to.deep.equal({
-  messages: ['hi', 'yo'],
+  messages: ['hello', 'world'],
   _id: '667c...2357/0',
   _rev: 'de43...818a/0',
   _root: '667c...2357/0',
@@ -249,28 +249,26 @@ expect(a).to.deep.equal({
   _amount: 5820
 })</code></pre>
 </doc-codeblock></div>
-<p>We can see that the messages array was updated as expected.</p>
-<p>Additionally, it can be observed that <code v-pre>_rev</code> has been updated, but <code v-pre>_id</code> and <code v-pre>_root</code> remains unchanged. Every time a smart object is updated a new <em>revision</em> is created and assigned to the <code v-pre>_rev</code> property. We will explain the <code v-pre>_id</code> and the <code v-pre>_root</code> property in detail later, for now we note that they remain fixed throughout the lifecycle of an object.</p>
-<p>Revisions allow you to reconstruct each historical state of an object:</p>
+<p>Note that <code v-pre>_rev</code> has been update but that <code v-pre>_id</code> and <code v-pre>_root</code> stayed the same. Every time a smart object is updated a new <em>revision</em> is created and assigned to the <code v-pre>_rev</code> property. Revisions allow you to reconstruct each historical state of an object.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const oldChat = await computer.sync('667c...2357/0')
-expect(oldChat.messages).to.deep.equal(['hi'])
+expect(oldChat.messages).to.deep.equal(['hello'])
 
 const newChat = await computer.sync('de43...818a/0')
-expect(newChat.messages).to.deep.equal(['hi', 'yo'])</code></pre>
+expect(newChat.messages).to.deep.equal(['hello', 'world'])</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="find-smart-objects">
+<doc-anchor-target id="find-a-smart-object">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#find-smart-objects">#</doc-anchor-trigger>
-        <span>Find Smart Objects</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#find-a-smart-object">#</doc-anchor-trigger>
+        <span>Find a Smart Object</span>
     </h2>
 </doc-anchor-target>
-<p>The <code v-pre>computer.query</code> function provides a simple way of finding the latest revision of a smart object.</p>
+<p>The <code v-pre>computer.query</code> function provides several ways of finding the latest revision of a smart object.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const [rev] = await computer.query({ ids: ['667c...2357/0']})
 expect(rev).to.equal('de43...818a/0')</code></pre>
 </doc-codeblock></div>
-<p>A basic pattern is to identify smart objects by their id, look up their latest revision using <code v-pre>computer.query</code> and then to compute their current state using <code v-pre>computer.sync</code>. For example, in a chat, we might have the url for the chat containing the id of the chat object. We could then recover the latest state of the chat as follows:</p>
+<p>A basic pattern for many applications is to identify smart objects by their id, look up their latest revision using <code v-pre>computer.query</code> and then to compute their current state using <code v-pre>computer.sync</code>. For example, in a chat, we might have the url for the chat containing the id of the chat object. We could then recover the latest state of the chat as follows:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const url = window.location
 const parse = (url) =&gt; ... // extracts id from url
@@ -284,11 +282,11 @@ const obj = await computer.sync(rev)</code></pre>
         <span>Data Ownership</span>
     </h2>
 </doc-anchor-target>
-<p>Every smart object has up to three owners and only an owner can update the object. The owners can be set by assigning string encoded public keys to the <code v-pre>_owners</code> property of a smart object. If the <code v-pre>_owners</code> property is not assigned in a smart contract it defaults to the public key of the computer object that created the smart object.</p>
-<p>For example, in our chat, the initial owner will be the user that created the chat with <code v-pre>computer.new</code>. As a result, only that user will be able to post to the chat, which is a little boring. So we can add a function to update the owners array, to invite more participants to the chat.</p>
+<p>Every smart object can have up to three owners. Only an owner can update the object. The owners can be set by assigning string encoded public keys to the <code v-pre>_owners</code> property of a smart object. If the <code v-pre>_owners</code> property is not assigned in a smart contract it defaults to the public key of the computer object that created the smart object.</p>
+<p>In the chat example the initial owner is the user that created the chat with <code v-pre>computer.new</code>. Thus only this user will be able to post to the chat. We can add a function to update the owners array to invite more guests to chat.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class Chat extends Contract {
-  ... // from above
+  ... // like above
 
   invite(pubKeyString) {
     this._owners.push(pubKeyString)
@@ -301,7 +299,7 @@ const obj = await computer.sync(rev)</code></pre>
         <span>Privacy</span>
     </h2>
 </doc-anchor-target>
-<p>By default, the state of all smart objects is publicly visible. However, you can restrict read access to the object by setting a property <code v-pre>_readers</code>. If <code v-pre>_readers</code> is assigned to an array of public keys, the meta-data of the current revision is encrypted in a way that only the specified readers can decrypt it.</p>
+<p>By default, the state of all smart objects is public. However, you can restrict read access to an object by setting a property <code v-pre>_readers</code>. If <code v-pre>_readers</code> is assigned to an array of public keys, the meta-data of the current revision is encrypted in a way that only the specified readers can decrypt it.</p>
 <p>For example, if we want to ensure that only people invited to the chat can read the messages, we can update our example code as follows:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class Chat extends Contract {
@@ -313,7 +311,7 @@ const obj = await computer.sync(rev)</code></pre>
   }
 }</code></pre>
 </doc-codeblock></div>
-<p>A user can (only) read the state of a smart object if they have read access to the current and all previous versions of the object. It is, therefore, not possible to revoke access that has already been granted from smart objects. However, it is possible to remove a user&#x27;s ability to read the state of a smart object from a point in time forwards.</p>
+<p>A user can (only) read the state of a smart object if they have read access to the current and all previous versions of the object. It is, therefore, not possible to revoke access to a revision. However, it is possible to remove a user&#x27;s ability to read the state of a smart object from a point in time forwards.</p>
 <p>Both encryption and decryption happen securely in users&#x27; browsers. We note that while all smart contract data is encrypted, flows of money are not obfuscated in order not to hinder anti-money laundering efforts.</p>
 <doc-anchor-target id="saving-block-space">
     <h2>
@@ -321,8 +319,8 @@ const obj = await computer.sync(rev)</code></pre>
         <span>Saving Block Space</span>
     </h2>
 </doc-anchor-target>
-<p>It is sometimes not the best choice to store data on the blockchain. For example, if there&#x27;s a large amount of data, it might be too expensive. Other data, like personal data, should never be stored on chain, not even encrypted, in order to comply with privacy regulations, such as CCPA and GDPR.</p>
-<p>The property <code v-pre>_url</code> of each smart object can be used to specify the URL of a Bitcoin Computer Node. When this property is set, the meta data that encodes an update is not recorded on the blockchain, but instead is stored on the specified Bitcoin Computer Node. The blockchain only contains a hash of the meta data and a link to where it can be retrieved.</p>
+<p>Not all data needs to be stored on the blockchain. For example, personal data should never be stored on chain, not even encrypted.</p>
+<p>When the property <code v-pre>_url</code> of a smart object is set to the URL of a Bitcoin Computer Node, the corresponding metadata is stored on the specified Bitcoin Computer Node. The blockchain only contains a hash of the meta data and a link to where it can be retrieved.</p>
 <p>For example, if we want to allow users to send images that are too large to be stored on chain to the chat, we can make use of the off-chain solution:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class Chat extends Contract {
@@ -345,8 +343,7 @@ const obj = await computer.sync(rev)</code></pre>
         <span>Cryptocurrency</span>
     </h2>
 </doc-anchor-target>
-<p>Each smart object can store an amount of cryptocurrency. By default a smart object stores a minimal (non-dust) amount. The smart contract developer can set an amount by assigning an integer to a property <code v-pre>_amount</code> of a smart object.</p>
-<p>For example, consider the class <code v-pre>Payment</code> below.</p>
+<p>Each smart object can store an amount of satoshi. By default a smart object stores a minimal (non-dust) amount. If the <code v-pre>_amount</code> property of a smart object is set to a number, the output storing that smart object will contain that number of satoshis. For example, consider the class <code v-pre>Payment</code> below.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">class Payment extends Contract {
   constructor(to: string, amount: number) {
@@ -356,25 +353,21 @@ const obj = await computer.sync(rev)</code></pre>
   }
 
   cashOut() {
-    this._amount = 10000
+    this._amount = 546 // min non dust amount
   }
 }</code></pre>
 </doc-codeblock></div>
-<p>If a user <code v-pre>A</code> wants to send 210000 satoshis to a user <code v-pre>B</code>, the user <code v-pre>A</code> can setup the payment as follows:</p>
+<p>If a user <code v-pre>A</code> wants to send 210.000 satoshis to a user <code v-pre>B</code>, the user <code v-pre>A</code> can setup the payment as follows:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const computerA = new Computer({ mnemonic: &lt;A's seed phrase&gt; })
 const payment = computerA.new(Payment, [&lt;B's public key&gt;, 210000])</code></pre>
 </doc-codeblock></div>
-<p>When the <code v-pre>payment</code> smart object is created, the wallet inside the <code v-pre>computerA</code> object funds the <code v-pre>210000</code> satoshi that are stored in the <code v-pre>payment</code> object.</p>
-<p>Generally, constructor and function calls with no parameters work in the same way: the <code v-pre>computer</code> object that either created or synced against the smart object has to cover the satoshis in a smart object without parameters.</p>
-<p>When a constructor or function is called with parameters, it is first evaluated if they hold sufficient funds to cover the cost of the call and the returned value. If they do, no additional fees are taken from the &quot;current&quot; wallet. If the amount in the parameters surpasses the amount specified in the smart object, the excess funds are returned to the &quot;current&quot; wallet.</p>
-<p>For <code v-pre>B</code> to claim the funds, in the next step <code v-pre>A</code> can send <code v-pre>payment._rev</code> to user <code v-pre>B</code>. Then, the user <code v-pre>B</code> can execute:</p>
+<p>When the <code v-pre>payment</code> smart object is created, the wallet inside the <code v-pre>computerA</code> object funds the <code v-pre>210.000</code> satoshi that are stored in the <code v-pre>payment</code> object. Once <code v-pre>B</code> becomes aware of the payment, he can withdraw by syncing against the object and calling the <code v-pre>cashOut</code> function.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">const computerB = new Computer({ seed: &lt;B's seed phrase&gt; })
 const paymentB = await computerB.sync(payment._rev)
 await paymentB.cashOut()</code></pre>
 </doc-codeblock></div>
-<p>At the end of the process 210000-10000=200000 many additional satoshis will be in the wallet with seed <code v-pre>&lt;B's seed phrase&gt;</code>.</p>
 
                                 
                                 <!-- Required only on API pages -->
