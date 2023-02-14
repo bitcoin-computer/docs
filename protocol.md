@@ -10,23 +10,30 @@ Just like you can use a programming language without knowing how it is evaluated
 
 ## The Global Shared Memory
 
+
+Allocation and de-allocation in the global shared memory can be encoded as follows:
+
+![](/static/memory@1x.png)-
+
+The *n*-th output of a transaction with *m* inputs is called
+* a memory update if *n <= m*
+* a memory allocation if *m < n*
+
+A *memory de-allocation* is an input at index *n* in a transaction with *m < n* outputs
+
+We can assign two names, "revisions" and "ids", to all outputs: The *revision* of an output is the concatenation of its transaction id and output number. The *id* of an output is it's revision if the output is a memory allocation. If an output *o* is a memory update then the transaction contains an input *i* with the same index of *o*. In this case *o*'s revision is the revision of the output being spent by *i*.
+
+## Smart Contracts
+
 ![](/static/legend@1x.png)-
 
+Smart contracts can be build on top of the shared global memory using the Bitcoin Computer protocol.
 A *Bitcoin Computer Transaction* is a Bitcoin transaction that contains the following metadata:
 1. A Javascript expression, such as ``new Counter()`` or ``counter.inc()``, which may contain free variables like ``counter``.
 2. A *blockchain environment* object that associates the free variables in the expression with the inputs of the transaction.
 3. An optional *module specifier*, which identifies a transaction output storing a module.
 
-![We show corresponding input-output paris vertically aligned.](/static/memory@1x.png)-
-
-
-Assume that some one-to-one mapping called *correspondence* between inputs and outputs can be computed from a transaction. Allocation and de-allocation in the global shared memory can be encoded as follows:
-
-* An output that does not have a corresponding input is a memory allocation
-* An an output that has a corresponding input is a memory update
-* An input that does not have a corresponding input is a de-allocation
-
-A *revision* is an output that encodes either a memory allocation or update. The ``computer.sync`` function computes a Javascript object from each revision. These objects are called *smart objects*.
+The ``computer.sync`` function computes an Javascript object for each output of a Bitcoin Computer transaction. The object is annotated with the id and revision of the cell in global memory that stores the object. Such an object is called a *smart object*.
 
 ## Keyword Properties
 

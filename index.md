@@ -6,7 +6,7 @@ description: This is a custom description for this page
 ![](/static/bitcoin-computer@1x.png)
 # Bitcoin Computer
 
-A smart contract system for ordinals and other assets on UTXO-based blockchains. Key features include:
+A smart contract system for UTXO-based blockchains. Key features include:
 * Low fees through client-side validation
 * Cost independent of time and space complexity
 * Smart contract programming in Javascript and Typescript
