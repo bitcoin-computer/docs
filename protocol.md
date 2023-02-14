@@ -30,11 +30,11 @@ A *revision* is an output that encodes either a memory allocation or update. The
 
 ## Keyword Properties
 
-In addition to the propertied defined in the class that a smart object is created from, it has the following properties:
+In addition to the properties defined in the class that a smart object is created from, it has the following properties:
 
 * ``_id``: Refers to the transaction output that allocated the memory cell that stores the smart object. This id remains constant, even if the object is updated.
 * ``_rev``: Refers to the last transaction output that updated the smart object. It is updated every time the object is updated.
-* ``_root``: For an object created using computer.new, the root is equal to its id. If an object is created within a function call, the root of the new object is the root of the object on which the function was called.
+* ``_root``: For an object created using ``computer.new``, the _root is equal to its _id. If an object is created within a function call, the _root of the new object is the _root of the object on which the function was called.
 * ``_amount``: Indicates the amount of cryptocurrency (in satoshi) stored in the smart object.
 * ``_owners``: An array of string-encoded public keys representing the owners of the object. Only the owners can update a smart object by calling one of its functions.
 
@@ -44,7 +44,7 @@ To allocate a memory cell and to store a new smart object in it, a transaction t
 
 ![](/static/nft-create@1x.png)
 
-The function ``computer.sync`` computes Javascript objects from outputs as shown in the figure. Note that ``_id``, ``_rev``, and ``root`` are all set to the same output.
+The function ``computer.sync`` computes Javascript objects from outputs as shown in the figure. Note that ``_id``, ``_rev``, and ``_root`` are all set to the same output.
 
 ## Calling Functions
 
