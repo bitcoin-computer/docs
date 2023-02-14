@@ -2,9 +2,6 @@
 order: -20
 ---
 
-![](/static/imgs/bitcoin-computer%401x.png)
-
-
 # Tutorial
 
 
@@ -70,6 +67,7 @@ The ``computer.sync`` function computes the state of smart object from the metad
 
 ```js
 const b = await computer.sync('667c...2357/0')
+
 expect(b).to.deep.equal(a)
 ```
 
@@ -81,6 +79,7 @@ Smart objects can only be updated through function calls. As function calls are 
 
 ```js
 await a.post('yooo')
+
 expect(a).to.deep.equal({
   messages: ['hi', 'yooo'],
   _id: '667c...2357/0',
@@ -124,7 +123,7 @@ const obj = await computer.sync(rev)
 
 Every smart object can have up to three owners. Only an owner can update the object. The owners can be set by assigning string encoded public keys to the ``_owners`` property of a smart object. If the ``_owners`` property is not assigned in a smart contract it defaults to the public key of the computer object that created the smart object.
 
-In our chat example the initial owner is the user that created the chat with ``computer.new``. Thus only this user will be able to post to the chat. We can add a function to update the owners array to invite more guests to chat.
+In the chat example the initial owner is the user that created the chat with ``computer.new``. Thus only this user will be able to post to the chat. We can add a function to update the owners array to invite more guests to chat.
 
 ```js
 class Chat extends Contract {
@@ -207,6 +206,7 @@ const payment = computerA.new(Payment, [<B's public key>, 210000])
 ```
 
 When the ``payment`` smart object is created, the wallet inside the ``computerA`` object funds the ``210.000`` satoshi that are stored in the ``payment`` object. Once ``B`` becomes aware of the payment, he can withdraw by syncing against the object and calling the ``cashOut`` function.
+
 
 ```js
 const computerB = new Computer({ seed: <B's seed phrase> })
