@@ -4,23 +4,23 @@ order: -30
 
 # Protocol
 
-The Bitcoin Computer protocol enables the recording of Javascript program executions within Bitcoin transactions. This allows the state of Javascript objects, referred to as "smart objects," to be stored on the blockchain. The transactions contain Javascript expressions that encode changes to the smart objects' state, and the outputs correspond to the state of the objects after the update. Spent outputs represent the historical states while unspent outputs represent the current state. By evaluating the Javascript expressions in the transactions, both the past and current state of the smart objects can be determined, resulting in the creation of a global shared memory.
+The Bitcoin Computer protocol records the execution of Javascript programs in Bitcoin transactions. The objects created by these programs can be associated with the outputs of the transactions with spent outputs representing historical states and unspent outputs representing the current state. Both the historical and current states of the smart objects can be computed from the metadata on the blockchain. This way all users can gain consensus over the states of these objects resulting in the creation of a global shared memory.
 
-Just like you can use a programming language without knowing how it is evaluated, you can use the Bitcoin Computer without understanding it's protocol. The vast majority of smart contracts can be built with the [basic interface](api/#basic). This document explains at a high level how the basic interface is implemented using the [advanced interface](api/#advanced).
+Just like you can use a programming language without knowing how it is evaluated, you can use the Bitcoin Computer without understanding it's protocol. However if you are interested in how smart contracts work on Bitcoin, you can find more information below.
 
 ## The Global Shared Memory
 
 ![](/static/legend@1x.png)-
 
-A Bitcoin Computer Transaction is a Bitcoin transaction that contains the following metadata:
+A *Bitcoin Computer Transaction* is a Bitcoin transaction that contains the following metadata:
 1. A Javascript expression, such as ``new Counter()`` or ``counter.inc()``, which may contain free variables like ``counter``.
-2. A blockchain environment object that associates the free variables in the expression to the inputs of the transaction.
-3. An optional module specifier, which points to a transaction output storing a module.
+2. A *blockchain environment* object that associates the free variables in the expression with the inputs of the transaction.
+3. An optional *module specifier*, which identifies a transaction output storing a module.
 
 ![We show corresponding input-output paris vertically aligned.](/static/memory@1x.png)-
 
 
-Assume that some one-to-one mapping between the inputs and outputs called *correspondence* can be computed from the transaction. Allocation and de-allocation in the global shared memory can be encoded as follows:
+Assume that some one-to-one mapping called *correspondence* between inputs and outputs can be computed from a transaction. Allocation and de-allocation in the global shared memory can be encoded as follows:
 
 * An output that does not have a corresponding input is a memory allocation
 * An an output that has a corresponding input is a memory update
