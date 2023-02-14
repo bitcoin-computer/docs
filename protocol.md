@@ -11,9 +11,9 @@ Just like you can use a programming language without knowing how it is evaluated
 ## The Global Shared Memory
 
 
-Allocation and de-allocation in the global shared memory can be encoded as follows:
+![](/static/legend@1x.png)-
 
-![](/static/memory@1x.png)-
+Allocation and de-allocation in the global shared memory can be encoded as follows:
 
 The *n*-th output of a transaction with *m* inputs is called
 * a memory update if *n <= m*
@@ -21,11 +21,12 @@ The *n*-th output of a transaction with *m* inputs is called
 
 A *memory de-allocation* is an input at index *n* in a transaction with *m < n* outputs
 
+![](/static/memory@1x.png)-
+
 We can assign two names, "revisions" and "ids", to all outputs: The *revision* of an output is the concatenation of its transaction id and output number. The *id* of an output is it's revision if the output is a memory allocation. If an output *o* is a memory update then the transaction contains an input *i* with the same index of *o*. In this case *o*'s revision is the revision of the output being spent by *i*.
 
 ## Smart Contracts
 
-![](/static/legend@1x.png)-
 
 Smart contracts can be build on top of the shared global memory using the Bitcoin Computer protocol.
 A *Bitcoin Computer Transaction* is a Bitcoin transaction that contains the following metadata:
