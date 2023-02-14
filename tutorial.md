@@ -193,7 +193,7 @@ class Payment extends Contract {
   }
 
   cashOut() {
-    this._amount = 0
+    this._amount = 546 // min non dust amount
   }
 }
 ```
