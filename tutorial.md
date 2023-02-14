@@ -43,14 +43,14 @@ You can pass in a [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.m
 The ``computer.new`` function can be used to create a smart object from a smart contract. For example
 
 ```js
-const a = await computer.new(Chat, ['hi'])
+const a = await computer.new(Chat, ['hello'])
 ```
 
-When this call is executed, a transaction is broadcast that contains both the source code of ``Chat`` as well as the expression ``new Chat('hi')``. The object ``a`` that is returned has all the properties defined in the class, and five extra properties ``_id``, ``_rev``, ``_root``, ``_owners`` and ``_amount``.
+When this call is executed, a transaction is broadcast that contains both the source code of ``Chat`` as well as the expression ``new Chat('hello')``. The object ``a`` that is returned has all the properties defined in the class, and five extra properties ``_id``, ``_rev``, ``_root``, ``_owners`` and ``_amount``.
 
 ```js
 expect(a).to.deep.equal({
-  messages: ['hi'],
+  messages: ['hello'],
   _id: '667c...2357/0',
   _rev: '667c...2357/0',
   _root: '667c...2357/0',
@@ -59,7 +59,7 @@ expect(a).to.deep.equal({
 })
 ```
 
-The additional properties are explained in detail in the [Protocol](/protocol#keyword-properties). For now it is sufficient to know that ``667c...2357`` is the transaction id of the transaction that contains the expression `` `${Chat} new Chat('hi')` ``. The property ``_owners`` is an array of public keys that are allowed to update the object. The property ``_amount`` is the amount of satoshis that are stored in the object.
+The additional properties are explained in detail in the [Protocol](/protocol#keyword-properties). For now it is sufficient to know that ``667c...2357`` is the transaction id of the transaction that contains the expression `` `${Chat} new Chat('hello')` ``. The property ``_owners`` is an array of public keys that are allowed to update the object. The property ``_amount`` is the amount of satoshis that are stored in the object.
 
 ## Read a Smart Object
 
@@ -78,10 +78,10 @@ Reading and writing can be performed to different users. The blockchain allows a
 Smart objects can only be updated through function calls. As function calls are recorded in Bitcoin transactions it is necessary to ``await`` on function calls.
 
 ```js
-await a.post('yooo')
+await a.post('world')
 
 expect(a).to.deep.equal({
-  messages: ['hi', 'yooo'],
+  messages: ['hello', 'world'],
   _id: '667c...2357/0',
   _rev: 'de43...818a/0',
   _root: '667c...2357/0',
@@ -94,10 +94,10 @@ Note that ``_rev`` has been update but that ``_id`` and ``_root`` stayed the sam
 
 ```js
 const oldChat = await computer.sync('667c...2357/0')
-expect(oldChat.messages).to.deep.equal(['hi'])
+expect(oldChat.messages).to.deep.equal(['hello'])
 
 const newChat = await computer.sync('de43...818a/0')
-expect(newChat.messages).to.deep.equal(['hi', 'yo'])
+expect(newChat.messages).to.deep.equal(['hello', 'world'])
 ```
 
 ## Find a Smart Object
