@@ -6,7 +6,7 @@ order: -30
 
 The Bitcoin Computer protocol records the execution of Javascript programs in Bitcoin transactions. The objects created by these programs can be associated with the outputs of the transactions with spent outputs representing historical states and unspent outputs representing the current state. Both the historical and current states of the smart objects can be computed from the metadata on the blockchain. This way all users can gain consensus over the states of these objects resulting in the creation of a global shared memory.
 
-Just like you can use a programming language without knowing how it is evaluated, you can use the Bitcoin Computer without understanding it's protocol. However if you are interested in how smart contracts work on Bitcoin, you can find more information below.
+Just like you can use a programming language without knowing in detail how it is evaluated, you can use the Bitcoin Computer without understanding it's protocol. However if you are interested in how smart contracts work on Bitcoin, you can find more information below.
 
 ## The Global Shared Memory
 
