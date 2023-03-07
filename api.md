@@ -623,9 +623,42 @@ await computer.fund(tx)
 ```
 ||| Type
 ```ts
-(tx: BitcoinLib.Transaction): Promise<void>
+(tx: BitcoinLib.Transaction, opts?: Fee & FundOptions): Promise<void>
 ```
 |||
+
+An optional object can be passed as parameter to ```include``` or ```exclude``` certain UTXOs. When using ``include``, the transaction will be funded with the UTXOs specified as the first inputs. 
+
+||| Example
+```ts
+class C extends Contract {}
+const transition = { exp: `${C} new ${C.name}()` }
+const tx = await computer.encode(transition)
+
+const utxos = await computer.wallet.getUtxos()
+await computer.fund(tx, { include: [utxos[0]] })
+
+expect(tx.inputs.length).to.eq(1)
+expect(tx.inputs[0].prevTxId.toString('hex')).to.eq(utxo.txId)
+
+```
+|||
+
+When using ``exclude``, the transaction will be funded with the UTXOs except the ones specified.
+
+||| Example
+```ts
+class C extends Contract {}
+const transition = { exp: `${C} new ${C.name}()` }
+const tx = await computer.encode(transition)
+
+const utxos = await computer.wallet.getUtxos()
+await computer.fund(tx, { exclude: [utxos[0]] })
+      
+expect(tx.inputs.some((input) => input.prevTxId.toString('hex') === utxo.txId)).to.be.false
+```
+|||
+
 
 ### sign
 
