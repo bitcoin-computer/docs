@@ -345,6 +345,9 @@ expect(rev5).to.equal(a._rev)
 
   // Return results starting from offset
   offset?: number,
+
+  // Return only revisions created with a module specifier
+  mod?: string,
 }) => Promise<string[]>
 ```
 |||
