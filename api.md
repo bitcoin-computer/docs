@@ -258,6 +258,9 @@ const revs4 = await computer.query({ order: 'ASC', contract: { class: A }})
 
 // Return the latest revision of smart object with a specific id
 const revs5 = await computer.query({ ids: ['...'] })
+
+// Return all revisions of smart objects created with a module specifier
+const revs6 = await computer.query({{ mod: '...' }})
 ```
 ||| Type
 ```ts
@@ -282,6 +285,9 @@ const revs5 = await computer.query({ ids: ['...'] })
 
   // Return results starting from offset
   offset?: number,
+
+  // Return only revisions created with a module specifier
+  mod?: string,
 }) => Promise<string[]>
 ```
 |||
