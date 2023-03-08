@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.729729889265">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.731610452357">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="../static/favicon.ico" rel="icon" />
-    <link href="../resources/css/retype.css?v=2.4.0.729729889265" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.731610452357" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.729729889265" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.731610452357" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.729729889265" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.729729889265" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.731610452357" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.731610452357" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -209,9 +209,9 @@ const computer = new Computer({ mnemonic })</code></pre>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-javascript"><code v-pre class="language-javascript">expect(a).to.deep.equal({
   messages: ['hello'],
-  _id: '667c...2357/0',
-  _rev: '667c...2357/0',
-  _root: '667c...2357/0',
+  _id: '667c...2357:0',
+  _rev: '667c...2357:0',
+  _root: '667c...2357:0',
   _owners: ['03...'],
   _amount: 5820
 })</code></pre>
@@ -223,9 +223,9 @@ const computer = new Computer({ mnemonic })</code></pre>
         <span>Read a Smart Object</span>
     </h2>
 </doc-anchor-target>
-<p>The <code v-pre>computer.sync</code> function computes the state of smart object from the metadata on the blockchain. For example, synchronizing to <code v-pre>667c...2357/0</code> it will return an object with the same value as <code v-pre>a</code>.</p>
+<p>The <code v-pre>computer.sync</code> function computes the state of smart object from the metadata on the blockchain. For example, synchronizing to <code v-pre>667c...2357:0</code> it will return an object with the same value as <code v-pre>a</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const b = await computer.sync('667c...2357/0')
+<pre class="language-javascript"><code v-pre class="language-javascript">const b = await computer.sync('667c...2357:0')
 
 expect(b).to.deep.equal(a)</code></pre>
 </doc-codeblock></div>
@@ -242,19 +242,19 @@ expect(b).to.deep.equal(a)</code></pre>
 
 expect(a).to.deep.equal({
   messages: ['hello', 'world'],
-  _id: '667c...2357/0',
-  _rev: 'de43...818a/0',
-  _root: '667c...2357/0',
+  _id: '667c...2357:0',
+  _rev: 'de43...818a:0',
+  _root: '667c...2357:0',
   _owners: ['03...'],
   _amount: 5820
 })</code></pre>
 </doc-codeblock></div>
 <p>Note that <code v-pre>_rev</code> has been update but that <code v-pre>_id</code> and <code v-pre>_root</code> stayed the same. Every time a smart object is updated a new <em>revision</em> is created and assigned to the <code v-pre>_rev</code> property. Revisions allow you to reconstruct each historical state of an object.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const oldChat = await computer.sync('667c...2357/0')
+<pre class="language-javascript"><code v-pre class="language-javascript">const oldChat = await computer.sync('667c...2357:0')
 expect(oldChat.messages).to.deep.equal(['hello'])
 
-const newChat = await computer.sync('de43...818a/0')
+const newChat = await computer.sync('de43...818a:0')
 expect(newChat.messages).to.deep.equal(['hello', 'world'])</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="find-a-smart-object">
@@ -265,8 +265,8 @@ expect(newChat.messages).to.deep.equal(['hello', 'world'])</code></pre>
 </doc-anchor-target>
 <p>The <code v-pre>computer.query</code> function provides several ways of finding the latest revision of a smart object.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-javascript"><code v-pre class="language-javascript">const [rev] = await computer.query({ ids: ['667c...2357/0']})
-expect(rev).to.equal('de43...818a/0')</code></pre>
+<pre class="language-javascript"><code v-pre class="language-javascript">const [rev] = await computer.query({ ids: ['667c...2357:0']})
+expect(rev).to.equal('de43...818a:0')</code></pre>
 </doc-codeblock></div>
 <p>A basic pattern for many applications is to identify smart objects by their id, look up their latest revision using <code v-pre>computer.query</code> and then to compute their current state using <code v-pre>computer.sync</code>. For example, in a chat, we might have the url for the chat containing the id of the chat object. We could then recover the latest state of the chat as follows:</p>
 <div class="codeblock-wrapper"><doc-codeblock>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.729729889265">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.731610452357">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="../static/favicon.ico" rel="icon" />
-    <link href="../resources/css/retype.css?v=2.4.0.729729889265" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.731610452357" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.729729889265" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.731610452357" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.729729889265" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.729729889265" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.731610452357" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../resources/js/prism.js?v=2.4.0.731610452357" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -294,7 +294,9 @@
 <pre class="language-typescript"><code v-pre class="language-typescript">import { Computer } from '@bitcoin-computer/lib'
 
 const computer1 = new Computer()
-const computer2 = new Computer({ chain: 'DOGE' })
+const computer2 = new Computer({
+  chain: 'BTC'
+})
 const computer3 = new Computer({
   mnemonic: 'replace this seed'
   chain: 'LTC'
@@ -384,6 +386,7 @@ expect(a).to.deep.equal({
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">type Location = { _id: string, _rev: string, _root: string }</code></pre>
 </doc-codeblock></div>
+<p>If you call a function of a smart object, the call is recorded in a transaction. The transaction is signed by the wallet associated to the computer object and broadcast to Bitcoin Computer Node. The call returns a promise that resolves to the result of the function call. See the <a href="../tutorial/#update-a-smart-object">Tutorial</a> for an example.</p>
 <doc-anchor-target id="query">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#query">#</doc-anchor-trigger>
@@ -403,36 +406,62 @@ expect(a).to.deep.equal({
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">class A extends Contract { ... }
 
-// Return all revisions of a class
-const revs1 = await computer.query({ contract: { class: A }})
+a = await computer.new(A)
+const [rev1] = await computer.query({
+  contract: { class: A }
+})
+expect(rev1).to.equal(a._rev)
 
-// Return all revisions of a class that are owned by public key
-const revs2 = await computer.query({ publicKey: '...', contract: { class: A }})
+const [rev2] = await computer.query({
+  ids: [a._id]
+})
+expect(rev2).to.equal(a._rev)
 
-// Return 10 revisions of class A
-const revs3 = await computer.query({ limit: 10, contract: { class: A }})
+const [rev3] = await computer.query({
+  publicKey: computer.getPublicKey(),
+})
+expect(rev3).to.equal(a._rev)
 
-// Return all revisions of class A sorted by age
-const revs4 = await computer.query({ order: 'ASC', contract: { class: A }})
+const mod = await computer.export(`export ${A}`)
+const b = await computer.new(A, [], mod)
+const [rev4] = await computer.query({ mod })
+expect(rev4).to.equal(b._rev)
 
-// Return the latest revision of smart object with a specific id
-const revs5 = await computer.query({ ids: ['...'] })</code></pre>
+const revs4 = await computer.query({
+  limit: 10,
+  contract: { class: A }
+})
+
+const revs4 = await computer.query({
+  order: 'ASC',
+  contract: { class: A }
+})</code></pre>
 </doc-codeblock></div>
     </div>
     <div class="docs-columns-code docs-columns-content">
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">(query: {
-  // Return the latest revision of smart objects with these ids
-  ids: string[]
-
-  // Return only revisions currently owned by a public key
-  publicKey?: string
-
-  // Return only revisions of smart object from a class
+  // Return all unspent revisions of
+  // smart objects from a class
   contract?: &lt;T extends new (...args: any) =&gt; any&gt;{
     class: T,
     args?: ConstructorParameters&lt;T&gt;;
   }
+
+  // Return all unspent revision of
+  // smart objects with these ids in
+  // order
+  ids: string[]
+
+  // Return all unspent revisions
+  // currently owned by a public key
+  publicKey?: string
+
+
+  // Return the latest revision of smart
+  // objects created with this module
+  // specifier
+  mod: string[]
 
   // Order results
   order?: 'ASC' | 'DEC',
@@ -502,10 +531,12 @@ expect(synced).to.deep.equal(a)</code></pre>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract {}
 const computer = new Computer()
-const transition = { exp: `${C} new ${C.name}()` }
-const transaction = await computer.encode(transition)
+const transition = {
+  exp: `${C} new ${C.name}()`
+}
+const tx = await computer.encode(transition)
 
-expect(transaction).to.deep.equal({
+expect(tx).to.deep.equal({
   inputs: [],
   outputs: [Output, Output, Output],
   version: 2,
@@ -548,8 +579,8 @@ const transition = {
   env: {},
   mod: ''
 }
-const transaction = await computer.encode(transition)
-const decoded = await computer.decode(transaction)
+const tx = await computer.encode(transition)
+const decoded = await computer.decode(tx)
 
 expect(decoded).to.deep.equal(transition)</code></pre>
 </doc-codeblock></div>
@@ -582,8 +613,10 @@ expect(decoded).to.deep.equal(transition)</code></pre>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">class C extends Contract { }
 const computer = new Computer()
-const transaction = await computer.encodeNew({ constructor: C })
-const decoded = await computer.decode(transaction)
+const tx = await computer.encodeNew({
+  constructor: C
+})
+const decoded = await computer.decode(tx)
 
 expect(decoded).to.deep.eq({
   exp: `${C} new ${C.name}()`,
@@ -630,12 +663,12 @@ expect(decoded).to.deep.eq({
 }
 const computer = new Computer(confs.pop())
 const counter = await computer.new(Counter)
-const transaction = await computer.encodeCall({
+const tx = await computer.encodeCall({
   target: counter,
   property: 'inc',
   args: [1]
 })
-const decoded = await computer.decode(transaction)
+const decoded = await computer.decode(tx)
 
 expect(decoded).to.deep.eq({
   exp: `__bc__.inc(1)`,
@@ -687,7 +720,7 @@ const revB = await computer.export(`
 `)
 
 const transition = { exp: `new B()`, mod: revB }
-const transaction = await computer.encode(transition)</code></pre>
+const tx = await computer.encode(transition)</code></pre>
 </doc-codeblock></div>
     </div>
     <div class="docs-columns-code docs-columns-content">
