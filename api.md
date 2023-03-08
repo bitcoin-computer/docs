@@ -153,7 +153,9 @@ The "Computer" class constructor creates objects capable of creating smart contr
 import { Computer } from '@bitcoin-computer/lib'
 
 const computer1 = new Computer()
-const computer2 = new Computer({ chain: 'DOGE' })
+const computer2 = new Computer({
+  chain: 'BTC'
+})
 const computer3 = new Computer({
   mnemonic: 'replace this seed'
   chain: 'LTC'
@@ -234,6 +236,8 @@ Here a ``Location`` is the type
 type Location = { _id: string, _rev: string, _root: string }
 ```
 
+If you call a function of a smart object, the call is recorded in a transaction. The transaction is signed by the wallet associated to the computer object and broadcast to Bitcoin Computer Node. The call returns a promise that resolves to the result of the function call. See the [Tutorial](./tutorial.md#update-a-smart-object) for an example.
+
 ### query
 
 Returns an array of strings, containing the latest revisions of smart objects that satisfy certain conditions. For example, one can obtain all revisions owned by a public key or all revisions of a specific smart contract.
@@ -244,38 +248,61 @@ When a key is omitted, the condition is ignored. For example, if only ``class`` 
 ```ts
 class A extends Contract { ... }
 
-// Return all revisions of a class
-const revs1 = await computer.query({ contract: { class: A }})
+a = await computer.new(A)
+const [rev1] = await computer.query({
+  contract: { class: A }
+})
+expect(rev1).to.equal(a._rev)
 
-// Return all revisions of a class that are owned by public key
-const revs2 = await computer.query({ publicKey: '...', contract: { class: A }})
+const [rev2] = await computer.query({
+  ids: [a._id]
+})
+expect(rev2).to.equal(a._rev)
 
-// Return 10 revisions of class A
-const revs3 = await computer.query({ limit: 10, contract: { class: A }})
+const [rev3] = await computer.query({
+  publicKey: computer.getPublicKey(),
+})
+expect(rev3).to.equal(a._rev)
 
-// Return all revisions of class A sorted by age
-const revs4 = await computer.query({ order: 'ASC', contract: { class: A }})
+const mod = await computer.export(`export ${A}`)
+const b = await computer.new(A, [], mod)
+const [rev4] = await computer.query({ mod })
+expect(rev4).to.equal(b._rev)
 
-// Return the latest revision of smart object with a specific id
-const revs5 = await computer.query({ ids: ['...'] })
+const revs4 = await computer.query({
+  limit: 10,
+  contract: { class: A }
+})
 
-// Return all revisions of smart objects created with this module specifier
-const revs6 = await computer.query({{ mod: '...' }})
+const revs5 = await computer.query({
+  order: 'ASC',
+  contract: { class: A }
+})
 ```
 ||| Type
 ```ts
 (query: {
-  // Return the latest revision of smart objects with these ids
-  ids: string[]
-
-  // Return only revisions currently owned by a public key
-  publicKey?: string
-
-  // Return only revisions of smart object from a class
+  // Return all unspent revisions of
+  // smart objects from a class
   contract?: <T extends new (...args: any) => any>{
     class: T,
     args?: ConstructorParameters<T>;
   }
+
+  // Return all unspent revision of
+  // smart objects with these ids in
+  // order
+  ids: string[]
+
+  // Return all unspent revisions
+  // currently owned by a public key
+  publicKey?: string
+
+
+  // Return the latest revision of smart
+  // objects created with this module
+  // specifier
+  mod: string[]
 
   // Order results
   order?: 'ASC' | 'DEC',
@@ -314,8 +341,6 @@ expect(synced).to.deep.equal(a)
 |||
 
 
-
-
 ## Advanced
 
 Most smart contracts can be implemented using the basic methods. However, the following methods can be used to implement more complex contracts that use for example off-chain signing or server-side funding.
@@ -328,10 +353,12 @@ Encodes an expression, an environment and a module specifier into a Bitcoin tran
 ```ts
 class C extends Contract {}
 const computer = new Computer()
-const transition = { exp: `${C} new ${C.name}()` }
-const transaction = await computer.encode(transition)
+const transition = {
+  exp: `${C} new ${C.name}()`
+}
+const tx = await computer.encode(transition)
 
-expect(transaction).to.deep.equal({
+expect(tx).to.deep.equal({
   inputs: [],
   outputs: [Output, Output, Output],
   version: 2,
@@ -363,8 +390,8 @@ const transition = {
   env: {},
   mod: ''
 }
-const transaction = await computer.encode(transition)
-const decoded = await computer.decode(transaction)
+const tx = await computer.encode(transition)
+const decoded = await computer.decode(tx)
 
 expect(decoded).to.deep.equal(transition)
 ```
@@ -386,8 +413,10 @@ Encodes a smart object creation into a Bitcoin transaction.
 ```ts
 class C extends Contract { }
 const computer = new Computer()
-const transaction = await computer.encodeNew({ constructor: C })
-const decoded = await computer.decode(transaction)
+const tx = await computer.encodeNew({
+  constructor: C
+})
+const decoded = await computer.decode(tx)
 
 expect(decoded).to.deep.eq({
   exp: `${C} new ${C.name}()`,
@@ -423,12 +452,12 @@ class Counter extends Contract {
 }
 const computer = new Computer(confs.pop())
 const counter = await computer.new(Counter)
-const transaction = await computer.encodeCall({
+const tx = await computer.encodeCall({
   target: counter,
   property: 'inc',
   args: [1]
 })
-const decoded = await computer.decode(transaction)
+const decoded = await computer.decode(tx)
 
 expect(decoded).to.deep.eq({
   exp: `__bc__.inc(1)`,
@@ -466,7 +495,7 @@ const revB = await computer.export(`
 `)
 
 const transition = { exp: `new B()`, mod: revB }
-const transaction = await computer.encode(transition)
+const tx = await computer.encode(transition)
 ```
 ||| Type
 ```ts
