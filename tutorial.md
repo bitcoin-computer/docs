@@ -51,9 +51,9 @@ When this call is executed, a transaction is broadcast that contains both the so
 ```js
 expect(a).to.deep.equal({
   messages: ['hello'],
-  _id: '667c...2357/0',
-  _rev: '667c...2357/0',
-  _root: '667c...2357/0',
+  _id: '667c...2357:0',
+  _rev: '667c...2357:0',
+  _root: '667c...2357:0',
   _owners: ['03...'],
   _amount: 5820
 })
@@ -63,10 +63,10 @@ The additional properties are explained in detail in the [Protocol](/protocol#ke
 
 ## Read a Smart Object
 
-The ``computer.sync`` function computes the state of smart object from the metadata on the blockchain. For example, synchronizing to ``667c...2357/0`` it will return an object with the same value as ``a``.
+The ``computer.sync`` function computes the state of smart object from the metadata on the blockchain. For example, synchronizing to ``667c...2357:0`` it will return an object with the same value as ``a``.
 
 ```js
-const b = await computer.sync('667c...2357/0')
+const b = await computer.sync('667c...2357:0')
 
 expect(b).to.deep.equal(a)
 ```
@@ -82,9 +82,9 @@ await a.post('world')
 
 expect(a).to.deep.equal({
   messages: ['hello', 'world'],
-  _id: '667c...2357/0',
-  _rev: 'de43...818a/0',
-  _root: '667c...2357/0',
+  _id: '667c...2357:0',
+  _rev: 'de43...818a:0',
+  _root: '667c...2357:0',
   _owners: ['03...'],
   _amount: 5820
 })
@@ -93,10 +93,10 @@ expect(a).to.deep.equal({
 Note that ``_rev`` has been update but that ``_id`` and ``_root`` stayed the same. Every time a smart object is updated a new *revision* is created and assigned to the ``_rev`` property. Revisions allow you to reconstruct each historical state of an object.
 
 ```js
-const oldChat = await computer.sync('667c...2357/0')
+const oldChat = await computer.sync('667c...2357:0')
 expect(oldChat.messages).to.deep.equal(['hello'])
 
-const newChat = await computer.sync('de43...818a/0')
+const newChat = await computer.sync('de43...818a:0')
 expect(newChat.messages).to.deep.equal(['hello', 'world'])
 ```
 
@@ -105,8 +105,8 @@ expect(newChat.messages).to.deep.equal(['hello', 'world'])
 The ``computer.query`` function provides several ways of finding the latest revision of a smart object.
 
 ```js
-const [rev] = await computer.query({ ids: ['667c...2357/0']})
-expect(rev).to.equal('de43...818a/0')
+const [rev] = await computer.query({ ids: ['667c...2357:0']})
+expect(rev).to.equal('de43...818a:0')
 ```
 
 A basic pattern for many applications is to identify smart objects by their id, look up their latest revision using ``computer.query`` and then to compute their current state using ``computer.sync``. For example, in a chat, we might have the url for the chat containing the id of the chat object. We could then recover the latest state of the chat as follows:
