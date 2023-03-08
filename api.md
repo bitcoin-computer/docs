@@ -259,7 +259,7 @@ const revs4 = await computer.query({ order: 'ASC', contract: { class: A }})
 // Return the latest revision of smart object with a specific id
 const revs5 = await computer.query({ ids: ['...'] })
 
-// Return all revisions of smart objects created with a module specifier
+// Return all revisions of smart objects created with this module specifier
 const revs6 = await computer.query({{ mod: '...' }})
 ```
 ||| Type
@@ -509,13 +509,13 @@ await computer.fund(tx)
 ||| Type
 ```ts
 (tx: Mnemonic.bitcoin.Transaction, Partial<{
-  include: UnspentOutput[]
-  exclude: UnspentOutput[]
+  include: string[]
+  exclude: string[]
 }>): Promise<void>
 ```
 |||
 
-An optional object can be passed as parameter to ```include``` or ```exclude``` certain UTXOs. When using ``include``, the transaction will be funded with the UTXOs specified as the first inputs. 
+An optional object can be passed as parameter to ```include``` or ```exclude``` certain revisions. When using ``include``, the transaction will be funded with the UTXOs specified as the first inputs. 
 
 ||| Example
 ```ts
@@ -523,11 +523,12 @@ class C extends Contract {}
 const transition = { exp: `${C} new ${C.name}()` }
 const tx = await computer.encode(transition)
 
-const utxos = await computer.wallet.getUtxos()
+const utxos = await computer.getUtxos()
 await computer.fund(tx, { include: [utxos[0]] })
-
 expect(tx.inputs.length).to.eq(1)
-expect(tx.inputs[0].prevTxId.toString('hex')).to.eq(utxo.txId)
+
+const { txId, outputIndex } = computer.parseRev(utxos[0])
+expect(tx.inputs[0].prevTxId.toString('hex')).to.eq(txId)
 
 ```
 |||
@@ -542,8 +543,9 @@ const tx = await computer.encode(transition)
 
 const utxos = await computer.wallet.getUtxos()
 await computer.fund(tx, { exclude: [utxos[0]] })
-      
-expect(tx.inputs.some((input) => input.prevTxId.toString('hex') === utxo.txId)).to.be.false
+
+const { txId, outputIndex } = computer.parseRev(utxos[0])
+expect(tx.inputs.some((input) => input.prevTxId.toString('hex') === txId)).to.be.false
 ```
 |||
 
