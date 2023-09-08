@@ -361,11 +361,11 @@ The ``encode`` function evaluates a Javascript expression on a blockchain. It re
 type EncodeResult = { tx: BitcoinLib.Transaction, effect: Effect }
 type Effect = { res: unknown, env: unknown }
 ```
-The object of type ``Effect`` captures the changes induced by evaluating the expression: It contains the result of the evaluation (property ``res``) and the side effects of the evaluation (property ``env``). The object of type ``Effect`` can be used to determine if the evaluation had the desired effect. If so the transaction can be broadcast to commit the update to the blockchain. If the transaction is not broadcast the state on the blockchain does not change. The transaction can be broadcast at an arbitrarily long delay after calling ``encode``. If in the time between calling ``encode`` and broadcasting the transaction the blockchain has been updated in any way that could affect the evaluation, the miners will reject the transaction. If the transaction is included by the miners it is guaranteed to have the effect indicated by the object of type ``Effect``.
+The object of type ``Effect`` captures the changes induced by evaluating the expression: It contains the result of the evaluation (property ``res``) and the side effects of the evaluation (property ``env``). The object of type ``Effect`` can be used to determine if the evaluation had the desired effect. If it did, the transaction can be broadcast to commit the update to the blockchain. If the transaction is not broadcast, the state on the blockchain does not change. The transaction can be broadcast at an arbitrarily long delay after calling ``encode``. If during the time between calling ``encode`` and broadcasting the transaction the blockchain undergoes any updates that could affect the evaluation, the miners will reject the transaction. However, if the transaction is accepted by the miners, it is guaranteed to have the effect indicated by object of type ``Effect``.
 
-If the expression contains free variables (for example the variable ``x`` in the expression ``x.f()``) an environment has to be passed in that defines where the free variables are defined. Specifically, an environment is a JSON object that maps variables to revisions.
+If the expression contains free variables (for example the variable ``x`` in the expression ``x.f()``) an environment must be passed in to define where the free variables are defined. Specifically, an environment is a JSON object that maps variables to their respective revisions.
 
-When a [module specifier](#modules) can be passed in the exports of that module imported when the expression is evaluated. The module specifier can also be used to [query](#query) for all objects that were created in expressions that imported that module specifier.
+If a [module specifier](#modules) is provided, the exports of that module are imported when the expression is evaluated. The module specifier can also be used to [query](#query) for all objects that were created in expressions that imported that module specifier.
 
 Other options can customize the funding and signing process.
 
@@ -452,7 +452,7 @@ expect(synced).deep.eq(effect)
 
 ### decode
 
-Converts a Bitcoin transaction into a transition object. The inverse of ``encode`` if only ``exp``, ``env``, and ``mod`` are passed in.
+Converts a Bitcoin transaction into a transition object. The inverse of ``encode`` if only ``exp``, ``env``, and ``mod`` are provided.
 
 ||| Example
 ```ts
@@ -557,9 +557,9 @@ expect(decoded).to.deep.eq({
 
 ### deploy
 
-The ``deploy`` function broadcasts a transaction containing an ES6 module. The return value is a string encoding the location where the object is stored. Modules can import other modules that have been deployed to the blockchain previously (see example below).
+The ``deploy`` function broadcasts a transaction containing an ES6 module. The return value is a string encoding the location where the object is stored. Modules can also import other modules that have been deployed to the blockchain previously (see example below).
 
-Deploying your code has the advantage that many objects can import the same module. This saves transaction fees as large pieces of code can be deployed once and then used to create or update many smart objects.
+Deploying your code has the advantage that many objects can import the same module. This saves on transaction fees, as large pieces of code can be deployed once and then used to create or update many smart objects.
 
 ||| Example
 ```ts
@@ -583,7 +583,7 @@ const tx = await computer.encode(transition)
 
 Please note that modules are currently not encrypted, even if objects that use them have the ``_readers`` property set.
 
-Previously this function was called ``export`` but this name is deprecated now.
+Previously this function was called ``export`` but this name is deprecated since version 0.16.0.
 
 ### load
 
@@ -604,7 +604,7 @@ expect(AA).to.equal(A)
 ```
 |||
 
-Previously this function was called ``import`` but this name is deprecated now.
+Previously this function was called ``import`` but this name is deprecated since version 0.16.0.
 
 ## Wallet
 
@@ -646,9 +646,9 @@ computer.sign(tx)
 (
   tx: BitcoinLib.Transaction,
   opts: {
-    index?: number
+    inputIndex?: number
     sighashType?: number
-    script?: Buffer
+    inputScript?: Buffer
   }
 ) => void
 ```
