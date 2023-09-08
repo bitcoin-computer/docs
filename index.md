@@ -7,17 +7,18 @@ description: This is a custom description for this page
 # Bitcoin Computer
 
 A smart contract system for UTXO-based blockchains. Key features include:
-* Low fees through client-side validation
-* Cost independent of time and space complexity
-* Smart contract programming in Javascript and Typescript
+* Clients validate instead of trusting the operator 
+* Transaction fee are low and independent of time and space complexity
+* Smart contract are written in Javascript or Typescript
 * Access to all historical states
 * Built-in privacy through encryption
 * Efficient block space usage with off-chain storage
-* ES6 module system
-* Pure and secure, no need for a side-chain
+* ES6 module system based on inscriptions
+* No side-chain
+* No extra token
 * Support for Litecoin with support for Bitcoin and Dogecoin coming soon.
 
-With these features, you can build a variety of decentralized applications, such as tokens, exchanges, games, social networks, and more.
+You can build decentralized applications, such as tokens, exchanges, games, social networks, and more.
 
 ## Get Started
 
