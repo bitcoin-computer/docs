@@ -1,5 +1,6 @@
 ---
 order: -50
+visibility: hidden
 ---
 
 # Ordinals
