@@ -559,7 +559,7 @@ expect(decoded).to.deep.eq({
 
 The ``deploy`` function broadcasts a transaction containing an ES6 module. The return value is a string encoding the location where the object is stored. Modules can also import other modules that have been deployed to the blockchain previously (see example below).
 
-Deploying your code has the advantage that many objects can import the same module. This saves on transaction fees, as large pieces of code can be deployed once and then used to create or update many smart objects.
+Deploying your code has the advantage that many objects can import the same module. This saves transaction fees, as large pieces of code can be deployed once and then used to create or update many smart objects.
 
 ||| Example
 ```ts
