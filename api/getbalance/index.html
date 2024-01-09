@@ -3,39 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.3.0.747526104198">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.758123675370">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 3.3.0">
+    <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Protocol</title>
-    <meta name="title" content="Protocol">
-    <meta name="description" content="The Bitcoin Computer protocol records the execution of Javascript programs in Bitcoin transactions that contain meta data.">
+    <title>getBalance</title>
+    <meta name="title" content="getBalance">
+    <meta name="description" content="Returns the current balance in satoshi.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="/protocol/">
+    <link rel="canonical" href="/api/getbalance/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/protocol/">
-    <meta property="og:title" content="Protocol">
-    <meta property="og:description" content="The Bitcoin Computer protocol records the execution of Javascript programs in Bitcoin transactions that contain meta data.">
+    <meta property="og:url" content="/api/getbalance/">
+    <meta property="og:title" content="getBalance">
+    <meta property="og:description" content="Returns the current balance in satoshi.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/protocol/">
-    <meta property="twitter:title" content="Protocol">
-    <meta property="twitter:description" content="The Bitcoin Computer protocol records the execution of Javascript programs in Bitcoin transactions that contain meta data.">
+    <meta property="twitter:url" content="/api/getbalance/">
+    <meta property="twitter:title" content="getBalance">
+    <meta property="twitter:description" content="Returns the current balance in satoshi.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../static/favicon.ico" rel="icon">
-    <link href="../resources/css/retype.css?v=3.3.0.747526104198" rel="stylesheet">
+    <link href="../../static/favicon.ico" rel="icon">
+    <link href="../../resources/css/retype.css?v=3.5.0.758123675370" rel="stylesheet">
 
-    <script data-cfasync="false" src="../resources/js/config.js?v=3.3.0.747526104198" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../resources/js/retype.js?v=3.3.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.3.0.747526104198" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.758123675370" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.758123675370" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.758123675370" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,7 +51,7 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../" class="flex items-center leading-snug text-xl">
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Bitcoin Computer</span>
                         </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">0.16.0</span>
                     </div>
@@ -150,116 +151,47 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="protocol" class="break-words">
+<doc-anchor-target id="getbalance" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#protocol">#</doc-anchor-trigger>
-        <span>Protocol</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getbalance">#</doc-anchor-trigger>
+        <span>getBalance</span>
     </h1>
 </doc-anchor-target>
-<p>The Bitcoin Computer protocol records the execution of Javascript programs in Bitcoin transactions that contain meta data. The objects created by these programs can be associated with the outputs of Bitcoin transactions. Spent outputs represent historical states and unspent outputs (UTXOs) represent the current state. Both the current and all historical states of a smart object can be computed from the metadata on the blockchain.</p>
-<p>Just like you can use a programming language without knowing in detail how it is evaluated, you can use the Bitcoin Computer without understanding it&#x27;s protocol. However if you are interested in how smart contracts work on Bitcoin, you can find more information below.</p>
-<doc-anchor-target id="the-global-shared-memory">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#the-global-shared-memory">#</doc-anchor-trigger>
-        <span>The Global Shared Memory</span>
-    </h2>
+<p>Returns the current balance in satoshi.</p>
+<doc-anchor-target id="syntax">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#syntax">#</doc-anchor-trigger>
+        <span>Syntax</span>
+    </h3>
 </doc-anchor-target>
-<p><figure class="content-right">
-    <img src="../static/legend1x.png" alt="">
-    <figcaption class="caption caption-float"></figcaption>
-</figure>
-</p>
-<p>The Global Shared Memory is a low level abstraction that makes smart contracts possible on Bitcoin. It is comparable to the ordinals protocol in that is assigns names to outputs, thereby connecting outputs with the same name.</p>
-<p>Allocation and de-allocation in the global shared memory can be encoded as follows:</p>
-<p>The <em>n</em>-th output of a transaction with <em>m</em> inputs is called</p>
-<ul>
-<li>a memory update if <em>n &lt;= m</em></li>
-<li>a memory allocation if <em>m &lt; n</em></li>
-</ul>
-<p>A <em>memory de-allocation</em> is an input at index <em>n</em> in a transaction with <em>m &lt; n</em> outputs</p>
-<p><figure class="content-right">
-    <img src="../static/memory1x.png" alt="">
-    <figcaption class="caption caption-float"></figcaption>
-</figure>
-</p>
-<p>We can assign two names, &quot;revisions&quot; and &quot;ids&quot;, to all outputs: The <em>revision</em> of an output is the concatenation of its transaction id and output number. The <em>id</em> of an output is it&#x27;s revision if the output is a memory allocation. If an output <em>o</em> is a memory update then the transaction contains an input <em>i</em> with the same index of <em>o</em>. In this case <em>o</em>&#x27;s revision is the revision of the output being spent by <em>i</em>.</p>
-<doc-anchor-target id="smart-contracts">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#smart-contracts">#</doc-anchor-trigger>
-        <span>Smart Contracts</span>
-    </h2>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">const balance = await computer.getBalance()</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="type">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#type">#</doc-anchor-trigger>
+        <span>Type</span>
+    </h3>
 </doc-anchor-target>
-<p>Smart contracts can be build on top of the shared global memory using the Bitcoin Computer protocol.
-A <em>Bitcoin Computer Transaction</em> is a Bitcoin transaction that contains the following metadata:</p>
-<ol>
-<li>A Javascript expression, such as <code v-pre>new Counter()</code> or <code v-pre>counter.inc()</code>, which may contain free variables like <code v-pre>counter</code>.</li>
-<li>A <em>blockchain environment</em> object that associates the free variables in the expression with the inputs of the transaction.</li>
-<li>An optional <em>module specifier</em>, which identifies a transaction output storing a module.</li>
-</ol>
-<p>The <code v-pre>computer.sync</code> function computes an Javascript object for each output of a Bitcoin Computer transaction. The object is annotated with the id and revision of the cell in global memory that stores the object. Such an object is called a <em>smart object</em>.</p>
-<doc-anchor-target id="keyword-properties">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#keyword-properties">#</doc-anchor-trigger>
-        <span>Keyword Properties</span>
-    </h2>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">() =&gt; string</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="return-value">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#return-value">#</doc-anchor-trigger>
+        <span>Return value</span>
+    </h3>
 </doc-anchor-target>
-<p>In addition to the properties defined in the class that a smart object is created from, it has the following properties:</p>
-<ul>
-<li><code v-pre>_id</code>: Refers to the transaction output that allocated the memory cell that stores the smart object. This id remains constant, even if the object is updated.</li>
-<li><code v-pre>_rev</code>: Refers to the last transaction output that updated the smart object. It is updated every time the object is updated.</li>
-<li><code v-pre>_root</code>: For an object created using <code v-pre>computer.new</code>, the _root is equal to its _id. If an object is created within a function call, the _root of the new object is the _root of the object on which the function was called.</li>
-<li><code v-pre>_amount</code>: Indicates the amount of cryptocurrency (in satoshi) stored in the smart object.</li>
-<li><code v-pre>_owners</code>: An array of string-encoded public keys representing the owners of the object. Only the owners can update a smart object by calling one of its functions.</li>
-</ul>
-<doc-anchor-target id="calling-constructors">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#calling-constructors">#</doc-anchor-trigger>
-        <span>Calling Constructors</span>
-    </h2>
+<p>Returns the current balance in satoshi.</p>
+<doc-anchor-target id="examples">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#examples">#</doc-anchor-trigger>
+        <span>Examples</span>
+    </h3>
 </doc-anchor-target>
-<p>To allocate a memory cell and to store a new smart object in it, a transaction that contains a Javascript expression <code>e<sub>1</sub>; e<sub>2</sub> ... e<sub>n</sub></code> where <code>e<sub>n</sub></code> is of the form <code v-pre>new C(...)</code> must be broadcast. The class <code v-pre>C</code> can be defined in the expression or it can be passed in from a module.</p>
-<p><figure class="content-center">
-    <img src="../static/nft-create1x.png" alt="">
-    <figcaption class="caption"></figcaption>
-</figure>
-</p>
-<p>The function <code v-pre>computer.sync</code> computes Javascript objects from outputs as shown in the figure. Note that <code v-pre>_id</code>, <code v-pre>_rev</code>, and <code v-pre>_root</code> are all set to the same output.</p>
-<doc-anchor-target id="calling-functions">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#calling-functions">#</doc-anchor-trigger>
-        <span>Calling Functions</span>
-    </h2>
-</doc-anchor-target>
-<p>To update a smart object stored in the shared global memory, a Bitcoin transaction must be broadcast that includes a Javascript expression of the form of <code v-pre>x.f(...)</code>. To determine which memory cell the free variable <code v-pre>x</code> is stored in, the blockchain environment must associate <code v-pre>x</code> with an input. In the example this input is shown as <code v-pre>nft</code>.</p>
-<p><figure class="content-center">
-    <img src="../static/nft-update1x.png" alt="">
-    <figcaption class="caption"></figcaption>
-</figure>
-</p>
-<p>The transaction will create corresponding outputs to these inputs, which represent the updated state of the memory cells. These outputs are called the <em>revisions</em> of a smart object, and the most recent revision is stored in the <code v-pre>_rev</code> property of the smart object.</p>
-<p>The <code v-pre>computer.sync</code> function can be called with each revision of a smart object. This provides access to all historical states of a smart object.</p>
-<doc-anchor-target id="returning-objects">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#returning-objects">#</doc-anchor-trigger>
-        <span>Returning Objects</span>
-    </h2>
-</doc-anchor-target>
-<p>When a function call on a smart object returns a value of type object, a new memory cell is allocated to store the returned value.</p>
-<p>The figure below illustrates the minting and sending of 100 fungible tokens. The blue user, with public key 03a1d..., mints the tokens in the first transaction, producing one output that represents the 100 newly minted tokens. The second transaction represents the distribution of tokens after the blue user sends 3 tokens to the green user, with public key 03f0b....</p>
-<p><figure class="content-center">
-    <img src="../static/ft-create1x.png" alt="">
-    <figcaption class="caption"></figcaption>
-</figure>
-</p>
-<p>The blue output of the second transaction represents the 97 tokens that the blue user still holds, while the green output represents the three tokens now owned by the green user. The _root property of both outputs in the second transaction is linked to the output of the first transaction, as the memory cell for the three tokens was allocated within a function call.</p>
-<p>This setup prevents forgery, as any two tokens with the same root can be traced back to the same mint. To mint a second token with the same root, one would have to broadcast a transaction with the transaction id of the first transaction, which is impossible.</p>
-<!-- ## Passing Objects as Arguments
-
-Swap
-
-## Creating Sub Objects
-
-Game -->
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const balance = await computer.getBalance()</code></pre>
+</doc-codeblock></div>
 
                                 
                                 <!-- Required only on API pages -->
@@ -269,16 +201,23 @@ Game -->
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../api/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../api/getaddress/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">API</span>
+                                                <span class="block mt-1">get​Address</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../api/getchain/">
+                                            <span>
+                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                                                <span class="block mt-1">get​Chain</span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                        </a>
                                     </div>
                                 </nav>
                             </footer>
@@ -290,7 +229,7 @@ Game -->
                                     <ul class="flex flex-wrap items-center text-sm">
                                     </ul>
                                 </div>
-                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright BCDB Inc. 2023. All rights reserved.</p></div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright BCDB Inc. 2024. All rights reserved.</p></div>
                             </footer>
                         </div>
                     </div>
@@ -319,6 +258,6 @@ Game -->
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Protocol", level: 1, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "getBalance", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
