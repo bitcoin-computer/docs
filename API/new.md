@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # new
 
 Creates a new smart object. The parameters are a smart contract (a Javascript class inheriting from ``Contract``), a list of arguments for the constructor of the class and an optional module specifier. The arguments of the constructor can be of basic data type or smart objects. The ``new`` function builds a transaction that records the creation of a new smart object, signs it and broadcasts it. Smart objects can be updated by calling their functions, see [here](/tutorial.md#update-a-smart-object).
@@ -13,7 +9,7 @@ Creates a new smart object. The parameters are a smart contract (a Javascript cl
 const obj = await computer.new(A, [10], '9128ab1232...18ba:0')
 ```
 
-### Types
+### Type
 ```ts
 <T extends new (...args: any) => any>(
   constructor: T,

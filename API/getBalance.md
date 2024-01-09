@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # getBalance
 
 Returns the current balance in satoshi.
@@ -11,7 +7,7 @@ Returns the current balance in satoshi.
 const balance = await computer.getBalance()
 ```
 
-### Types
+### Type
 ```ts
 () => string
 ```

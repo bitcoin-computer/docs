@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # getAddress
 
 Returns a string encoding Bitcoin address.
@@ -11,7 +7,7 @@ Returns a string encoding Bitcoin address.
 const address = computer.getAddress()
 ```
 
-### Types
+### Type
 ```ts
 () => string
 ```

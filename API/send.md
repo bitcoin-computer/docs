@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # send
 
 Sends a payment.
@@ -11,7 +7,7 @@ Sends a payment.
 const txId = await computer.send(satoshis, address)
 ```
 
-### Types
+### Type
 ```ts
 (amount: number, address: string) => Promise<string>
 ```

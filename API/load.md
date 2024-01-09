@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # load
 
 Imports a ES6 module from a module specifier.
@@ -11,7 +7,7 @@ Imports a ES6 module from a module specifier.
 const { A } = await computer.load(rev, computer.wallet)
 ```
 
-### Types
+### Type
 ```ts
 (rev: string, wallet: Wallet) => Promise<new (...args: any) => any>;
 ```

@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # getPassphrase
 
 Returns the BIP39 passphrase.
@@ -11,7 +7,7 @@ Returns the BIP39 passphrase.
 const passphrase = computer.getPassphrase()
 ```
 
-### Types
+### Type
 ```ts
 () => string
 ```

@@ -1,19 +1,9 @@
----
-order: 100
----
-
 # decode
 
-The functions ``encode`` and ``decode`` provide the core functionality of the Bitcoin Computer: recording Javascript expressions on the blockchain and computing their values. The basic interface is syntactic sugar on top of the basic interface. The advanced interface is a more efficient than the basic interface and it provides access to advanced features.
+Parses a Bitcoin transaction to determine if it is a Bitcoin Computer transaction. If so it returns an expression `exp`, a blockchain environment `env`, and a module specifier `mod`. The inverse of ``encode`` when the latter was invoked providing ``exp``, ``env``, and ``mod``.
 
-The ``decode`` function converts a Bitcoin transaction into a transition object. Can be considered the inverse of ``encode`` when the latter was invoked providing ``exp``, ``env``, and ``mod``.
 
-### Syntax
-```js
-const decoded = await computer.decode(tx)
-```
-
-### Types
+### Type
 ```ts
 (tx: BitcoinLib.Transaction) => Promise<{
   exp: string,
@@ -22,65 +12,17 @@ const decoded = await computer.decode(tx)
 }>
 ```
 
+### Syntax
+```js
+await computer.decode(tx)
+```
+
 ### Parameters
 
 #### tx
 
 A [Bitcoin transaction](https://github.com/bitcoin-computer/monorepo/blob/main/packages/nakamotojs-lib/ts_src/transaction.ts) object.
 
-#### opts
-An object with the basic configuration parameters to encode the expression in a transaction.
-
-<div align="center" style="font-size: 14px;">
-  <table>
-    <tr>
-      <th>option</th>
-      <th>description</th>
-    </tr>
-    <tr>
-      <td>exp</td>
-      <td>Javascript expression</td>
-    </tr>
-    <tr>
-      <td>env</td>
-      <td>Environment, maps free variables to revisions</td>
-    </tr>
-    <tr>
-      <td>mod</td>
-      <td>An string for the module specifier</td>
-    </tr>
-    <tr>
-      <td>fund</td>
-      <td>A boolean value to indicate whether the transaction must be funded (defaults to true) </td>
-    </tr>
-    <tr>
-      <td>include</td>
-      <td>An array of strings with specific utxos (transaction id and output number) to include when funding (defaults to [])</td>
-    </tr>
-    <tr>
-      <td>exclude</td>
-      <td>An array of string with specific utxos  (transaction id and output number) to skip when funding (defaults to [])</td>
-    </tr>
-    <tr>
-      <td>sign</td>
-      <td>A boolean value indicating if the transaction needs to be signed with the computer private key (defaults to true)</td>
-    </tr>
-    <tr>
-      <td>sighashType</td>
-      <td>A number that specifies which part of transaction to sign (defaults to 1, sighash_all)</td>
-    </tr>
-    <tr>
-      <td>index</td>
-      <td>If sign is required, this is the index of a single input to be signed (defaults to undefined, i.e., sign all inputs)</td>
-    </tr>
-    <tr>
-      <td>script</td>
-      <td>If sign is required, a custom input script can be provided</td>
-    </tr>
-  </table>
-</div>
-
-<br>
 
 ### Return value
 

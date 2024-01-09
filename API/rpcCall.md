@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # rpcCall
 
 Calls a Bitcoin RPC method with the given parameters.
@@ -11,7 +7,7 @@ Calls a Bitcoin RPC method with the given parameters.
 const result = await computer.rpcCall(method,params)
 ```
 
-### Types
+### Type
 ```ts
 (method: string, params: string) => Promise<any>
 ```

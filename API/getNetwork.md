@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # getNetwork
 
 Returns the network.
@@ -11,7 +7,7 @@ Returns the network.
 const network = computer.getNetwork()
 ```
 
-### Types
+### Type
 ```ts
 () => string
 ```

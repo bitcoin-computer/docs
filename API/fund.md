@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # fund
 
 Funds a Bitcoin transaction.
@@ -11,7 +7,7 @@ Funds a Bitcoin transaction.
 await computer.fund(tx)
 ```
 
-### Types
+### Type
 ```ts
 (tx: BitcoinLib.Transaction, opts?: Fee & FundOptions): Promise<void>
 ```

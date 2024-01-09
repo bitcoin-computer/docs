@@ -1,19 +1,15 @@
----
-order: 100
----
-
 # broadcast
 
 Broadcasts a Bitcoin transaction to the Bitcoin mining network.
 
+### Type
+```ts
+(tx: BitcoinLib.Transaction) => Promise<string>
+```
+
 ### Syntax
 ```js
 const txId = await computer.broadcast(tx)
-```
-
-### Types
-```ts
-(tx: BitcoinLib.Transaction) => Promise<string>
 ```
 
 ### Parameters

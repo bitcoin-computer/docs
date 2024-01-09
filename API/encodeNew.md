@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # encodeNew
 
 Encodes a smart object creation.
@@ -11,7 +7,7 @@ Encodes a smart object creation.
 const { tx, effect } = await computer.encodeNew(params)
 ```
 
-### Types
+### Type
 ```ts
 <T extends new (...args: any) => any>({
   constructor: T,

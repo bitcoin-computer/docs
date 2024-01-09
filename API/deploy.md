@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # deploy
 
 The ``deploy`` function broadcasts a transaction containing an ES6 module. Modules can also import other modules that have been deployed to the blockchain previously (see example below).
@@ -17,7 +13,7 @@ Previously this function was called ``export`` but this name is deprecated since
 const rev = await computer.deploy(exp)
 ```
 
-### Types
+### Type
 ```ts
 (module: string) => Promise<string>
 ```

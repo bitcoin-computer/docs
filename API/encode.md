@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # encode
 
 The functions ``encode`` and ``decode`` provide the core functionality of the Bitcoin Computer: recording Javascript expressions on the blockchain and computing their values. The basic interface is syntactic sugar on top of the basic interface. The advanced interface is a more efficient than the basic interface and it provides access to advanced features.
@@ -19,7 +15,7 @@ Other options can customize the funding and signing process.
 const { effect, tx } = await computer.encode(opts)
 ```
 
-### Types
+### Type
 ```ts
 (opts: {
   exp: string,

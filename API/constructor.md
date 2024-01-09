@@ -1,19 +1,10 @@
----
-order: 100
----
-
 # constructor
 
-An instance of the ``Computer`` class is a smart contract enabled wallet. It has the usual features of a wallet like sending payments or checking the balance of an address. In addition it can create smart objects by encoding these in Bitcoin transactions and broadcasting them to the blockchain.
+Creates an instance of the ``Computer`` class.
 
-### Syntax
-```js
-const computer = new Computer(config)
-```
+### Type
 
-### Types
-
-````js
+````ts
 new (config: {
   chain?: 'LTC' | 'BTC' | 'DOGE',
   network?: 'mainnet' | 'testnet' | 'regtest',
@@ -21,64 +12,32 @@ new (config: {
   path?: string,
   passphrase?: string
   url?: string,
-  satPerByte: number
-  dustRelayFee: number
-} = {}) => Computer
+  satPerByte?: number
+  dustRelayFee?: number
+}) => Computer
 ````
+
+### Syntax
+```js
+new Computer(config)
+```
 
 ### Parameters
 
 #### config
-An object with the basic configuration parameters to create the Computer instance.
-<div align="center" style="font-size: 14px;">
-  <table>
-    <tr>
-      <th>config</th>
-      <th>default value</th>
-      <th>description</th>
-    </tr>
-    <tr>
-      <td>chain</td>
-      <td>"LTC"</td>
-      <td>Target blockchain. Values in 'LTC' or 'BTC'</td>
-    </tr>
-    <tr>
-      <td>network</td>
-      <td>"testnet"</td>
-      <td>Target network. Values in 'testnet', 'regtest' or 'mainnet'</td>
-    </tr>
-    <tr>
-      <td>mnemonic</td>
-      <td>Defaults to a random phrase</td>
-      <td>BIP39 mnemonic phrase</td>
-    </tr>
-    <tr>
-      <td>path</td>
-      <td>"m/44'/0'/0'"</td>
-      <td>BIP32 path</td>
-    </tr>
-    <tr>
-      <td>passphrase</td>
-      <td>""</td>
-      <td>BIP32 passphrase</td>
-    </tr>
-    <tr>
-      <td>url</td>
-      <td>'https://node.bitcoincomputer.io'</td>
-      <td>Url of a Bitcoin Computer Node</td>
-    </tr>
-    <tr>
-      <td>satPerByte</td>
-      <td>2</td>
-      <td>Fee in satoshi per byte</td>
-    </tr>
-    <tr>
-      <td>dustRelayFee</td>
-      <td>Defaults are set to the standard on each blockchain. <br> LTC: 30.000, BTC: 3.000</td>
-      <td>Dust relay fee</td>
-    </tr>
-  </table>
-</div>
+A configuration object
+
+{.compact}
+Key    | Description   | Default Value
+---    | ---           | ---
+chain  | Target blockchain. Values can be 'LTC' or 'BTC' | LTC
+network | Target network. Values in 'testnet', 'regtest' or 'mainnet' | testnet
+mnemonic | BIP39 mnemonic phrase | Random phrase
+path | BIP32 path | m/44'/0'/0'
+passphrase | BIP32 passphrase | The empty string
+url | Url of a Bitcoin Computer Node | https://node.bitcoincomputer.io
+satPerByte | Fee in satoshi per byte | 2
+dustRelayFee | Dust relay fee | 30000 on LTC and 3000 on BTC
 
 ### Return Value
 

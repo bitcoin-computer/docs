@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # sign
 
 Signs a Bitcoin transaction. Options can be passed in that determine which inputs to sign, the sigHash type to use, and which script to use.
@@ -11,7 +7,7 @@ Signs a Bitcoin transaction. Options can be passed in that determine which input
 computer.sign(tx, opts)
 ```
 
-### Types
+### Type
 ```ts
 (
   tx: BitcoinLib.Transaction,

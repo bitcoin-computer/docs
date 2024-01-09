@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # getMnemonic
 
 Returns a string encoding a BIP39 mnemonic sentence.
@@ -11,7 +7,7 @@ Returns a string encoding a BIP39 mnemonic sentence.
 const mnemonic = computer.getMnemonic()
 ```
 
-### Types
+### Type
 ```ts
 () => string
 ```

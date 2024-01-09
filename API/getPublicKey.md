@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # getPublicKey
 
 Returns a string encoding a public key.
@@ -11,7 +7,7 @@ Returns a string encoding a public key.
 const publicKey = computer.getPublicKey()
 ```
 
-### Types
+### Type
 ```ts
 () => string
 ```

@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # sync
 
 Returns the smart object stored at a given location (revision or transaction id).

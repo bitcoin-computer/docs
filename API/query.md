@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # query
 
 Returns the latest revisions of smart objects. Conditions can be passed in to determine the smart objects. When multiple conditions are passed in, the latest revisions of the smart objects that satisfy all conditions are returned.
@@ -12,7 +8,7 @@ Returns the latest revisions of smart objects. Conditions can be passed in to de
 const revsArray = await computer.query(params)
 ```
 
-### Types
+### Type
 ```ts
 (query: {
   publicKey?: string

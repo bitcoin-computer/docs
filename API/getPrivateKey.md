@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # getPrivateKey
 
 Returns a string encoded private key.
@@ -11,7 +7,7 @@ Returns a string encoded private key.
 const privateKey = computer.getPrivateKey()
 ```
 
-### Types
+### Type
 ```ts
 () => string
 ```

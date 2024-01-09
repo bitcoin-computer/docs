@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # getChain
 
 Returns the chain.
@@ -11,7 +7,7 @@ Returns the chain.
 const chain = computer.getChain()
 ```
 
-### Types
+### Type
 ```ts
 () => string
 ```

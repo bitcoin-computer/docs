@@ -1,7 +1,3 @@
----
-order: 100
----
-
 # encodeCall
 
 Encodes a function call on a smart object.
@@ -11,7 +7,7 @@ Encodes a function call on a smart object.
 const { tx, effect } = await computer.encodeCall(params)
 ```
 
-### Types
+### Type
 ```ts
 ({
   target: InstanceType<T> & Location,

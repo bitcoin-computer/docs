@@ -2,11 +2,9 @@
 order: -40
 ---
 
-# API
+# Computer API
 
-The ``Computer`` class can create and update smart objects and query for the location and latest revision of these.
-
-## Overview
+The ``Computer`` class can create smart objects, query for the latest revision of these, and provides the basic functionalities of a Bitcoin wallet. The table below list all of it's methods.
 
 <table>
   <tr>
